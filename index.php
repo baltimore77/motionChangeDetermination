@@ -6,7 +6,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>DRM Paradigm</title>
+    <title>Motion Change Determination</title>
     <script type="text/javascript" src="db/validate.js"></script>
     <script type="text/javascript" src="js/jquery-3.5.1.min.js"></script>
     <script type="text/javascript" src="jsPsych/jspsych.js"></script>
@@ -36,7 +36,6 @@
     <script type="text/javascript" src="exp/fn.js"></script>
     <script type="text/javascript" src="exp/conf.js"></script>
     <script type="text/javascript" src="exp/var.js"></script>
-    <script type="text/javascript" src="exp/fn2.js"></script>
     <script type="text/javascript">
       // declare NDA required variables
       let GUID;

@@ -1,5 +1,5 @@
   //******************************************/
- //   BISTABLE PERCEPTION                    /
+ //   Motion Change Determination            /
 //******************************************/
 
 let workerId = getParamFromURL( 'workerId' );
