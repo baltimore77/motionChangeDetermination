@@ -620,7 +620,7 @@ jsPsych.plugins["rdk-change"] = (function() {
 
 			//End this trial and move on to the next trial
 			jsPsych.finishTrial(trial_data);
-
+			console.log(numberOfFrames);
 		} //End of end_trial
 
 		//Function to record the first response by the subject
@@ -721,6 +721,7 @@ jsPsych.plugins["rdk-change"] = (function() {
 				//Make each 2d array and push it into the 3d array
 				//Change trial additions:
 				var periodBeforeCoherenceChange = true;
+				//if frameRate.length <
 				dotArray3d.push(makeDotArray2d(periodBeforeCoherenceChange));
 			}
 		}
@@ -846,7 +847,7 @@ jsPsych.plugins["rdk-change"] = (function() {
 		//Make the 2d array, which is an array of array of dots
 		//Change trial additions:
 		function makeDotArray2d(periodBeforeCoherenceChange) {
-			var test = frameRate.length
+			//var test = frameRate.length
 			//Declare an array to hold the sets of dot arrays
 			var tempArray = []
 			//Loop for each set of dot array
@@ -1031,7 +1032,7 @@ jsPsych.plugins["rdk-change"] = (function() {
 
 				//Initialize the variables for each parameter
 				initializeCurrentApertureParameters(currentApertureNumber);
-
+				console.log(frameRate.length);
 		        //Clear the canvas by drawing over the current dots
 		        clearDots();
       		}
@@ -1470,6 +1471,8 @@ jsPsych.plugins["rdk-change"] = (function() {
 
 					//If the timer has not been started and it is set, then start the timer
 					if ( (!timerHasStarted) && (trial.trial_duration > 0) ){
+						//Change trial additions:
+						console.log(frameRate.length); //length here is 0, trial just started
 						//If the trial duration is set, then set a timer to count down and call the end_trial function when the time is up
 						//(If the subject did not press a valid keyboard response within the trial duration, then this will end the trial)
 						timeoutID = window.setTimeout(end_trial,trial.trial_duration); //This timeoutID is then used to cancel the timeout should the subject press a valid key
