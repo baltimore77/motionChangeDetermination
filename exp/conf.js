@@ -3,4 +3,3 @@
 //******************************************/
 
 let workerId = getParamFromURL( 'workerId' );
-

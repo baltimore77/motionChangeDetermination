@@ -1,5 +1,5 @@
 
-// main order in which things are pushed to timeline 
+// main order in which things are pushed to timeline
 
 
 let joshTest = {
@@ -10,6 +10,9 @@ let joshTest = {
 };
 
 timeline.push(instructions0);
-timeline.push(joshTest);
+timeline.push(rdk_change);
+// timeline.push(rdkStandard);
+// timeline.push(rdkStandard);
+//timeline.push(joshTest);
 
 // timeline.push(instructions1);
