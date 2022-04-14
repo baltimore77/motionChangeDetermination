@@ -2,6 +2,7 @@
 // starts counting of trials at 1 to display in output file as trial
 let trialIterator = 1;
 
+
 // define all language for experiment
 
 // define all variables in listNumber1 : Anger
@@ -71,10 +72,10 @@ const funeral = 'funeral';
 const grief = 'grief';
 const death = 'death';
 const bottom = 'bottom';
-const brown = 'brown'; 
+const brown = 'brown';
 const white = 'white';
 const dark = 'dark';
-const gray = 'gray'; 
+const gray = 'gray';
 
 let Black = {
     listNumber: 3,
@@ -101,7 +102,7 @@ const slice = 'slice';
 const loaf = 'loaf';
 const  butter = 'butter';
 const  food = 'food';
-const  toast = 'toast'; 
+const  toast = 'toast';
 
 let  Bread = {
     listNumber: 4,
@@ -125,10 +126,10 @@ const drive = 'drive';
 const ford = 'ford';
 const keys = 'keys';
 const highway = 'highway';
-const van = 'van'; 
+const van = 'van';
 const truck = 'truck';
 const bus = 'bus';
-const taxi = 'taxi'; 
+const taxi = 'taxi';
 
 let Car = {
     listNumber: 5,
@@ -152,10 +153,10 @@ const desk = 'desk';
 const sofa = 'sofa';
 const cushion = 'cushion';
 const stool = 'stool';
-const rocking = 'rocking'; 
+const rocking = 'rocking';
 const table = 'table';
 const sit = 'sit';
-const bench = 'bench'; 
+const bench = 'bench';
 
 let Chair = {
     listNumber: 6,
@@ -179,10 +180,10 @@ const subway = 'subway';
 const newYork = "New York";
 const metropolis = 'metropolis';
 const chicago = 'chicago';
-const county = 'county'; 
+const county = 'county';
 const town = 'town';
 const crowded = 'crowded';
-const urban = 'urban'; 
+const urban = 'urban';
 
 let City = {
     listNumber: 7,
@@ -205,10 +206,10 @@ const wet = 'wet';
 const chilly = "chilly";
 const weather = 'weather';
 const air = 'air';
-const arctic = 'arctic'; 
+const arctic = 'arctic';
 const hot = "hot";
 const snow = 'snow';
-const frost = 'frost'; 
+const frost = 'frost';
 
 let Cold = {
     listNumber: 8,
@@ -231,10 +232,10 @@ const lid = 'lid';
 const coffee = 'coffee';
 const goblet = 'goblet';
 const stein = 'stein';
-const plastic = 'plastic'; 
+const plastic = 'plastic';
 const mug = 'mug';
 const saucer = 'saucer';
-const sip = 'sip'; 
+const sip = 'sip';
 
 let Cup = {
     listNumber: 9,
@@ -258,10 +259,10 @@ const hospital = 'hospital';
 const physician = 'physician';
 const patient = 'patient';
 const stethoscope = 'stethoscope';
-const clinic = 'clinic'; 
+const clinic = 'clinic';
 const nurse = 'nurse';
 const sick = 'sick';
-const cure = 'cure'; 
+const cure = 'cure';
 
 let Doctor = {
     listNumber: 10,
@@ -285,10 +286,10 @@ const stripes = 'stripes';
 const wave = 'wave';
 const national = 'national';
 const emblem = 'emblem';
-const freedom = 'freedom'; 
+const freedom = 'freedom';
 const banner = 'banner';
 const american = 'american';
-const pendant = 'pendant'; 
+const pendant = 'pendant';
 
 let Flag = {
     listNumber: 11,
@@ -312,10 +313,10 @@ const soccer = 'soccer';
 const walk = 'walk';
 const arm = 'arm';
 const inch = 'inch';
-const knee = 'knee'; 
+const knee = 'knee';
 const shoe = 'shoe';
 const hand = 'hand';
-const mouth = 'mouth'; 
+const mouth = 'mouth';
 
 let Foot = {
     listNumber: 12,
@@ -339,10 +340,10 @@ const ripe = 'ripe';
 const banana = 'banana';
 const cherry = 'cherry';
 const juice = 'juice';
-const bowl = 'bowl'; 
+const bowl = 'bowl';
 const apple = 'apple';
 const vegetable = 'vegetable';
-const cocktail = 'cocktail'; 
+const cocktail = 'cocktail';
 
 let Fruit = {
     listNumber: 13,
@@ -366,10 +367,10 @@ const pretty = 'pretty';
 const niece = 'niece';
 const beautiful = 'beautiful';
 const date = 'date';
-const daughter = 'daughter'; 
+const daughter = 'daughter';
 const boy = 'boy';
 const dolls = 'dolls';
-const sister = 'sister'; 
+const sister = 'sister';
 
 let Girl = {
     listNumber: 14,
@@ -393,10 +394,10 @@ const jump = 'jump';
 const building = 'building';
 const cliff = 'cliff';
 const over = 'over';
-const dive = 'dive'; 
+const dive = 'dive';
 const low = 'low';
 const clouds = 'clouds';
-const elevate = 'elevate'; 
+const elevate = 'elevate';
 
 let High = {
     listNumber: 15,
@@ -420,10 +421,10 @@ const dictator = 'dictator';
 const throne = 'throne';
 const rule = 'rule';
 const monarch = 'monarch';
-const leader = 'leader'; 
+const leader = 'leader';
 const queen = 'queen';
 const england = 'england';
-const reign = 'reign'; 
+const reign = 'reign';
 
 let King = {
     listNumber: 16,
@@ -447,10 +448,10 @@ const cub = 'cub';
 const mane = 'mane';
 const feline = 'feline';
 const fierce = 'fierce';
-const hunt = 'hunt'; 
+const hunt = 'hunt';
 const tiger = 'tiger';
 const circus = 'circus';
-const pride = 'pride'; 
+const pride = 'pride';
 
 let Lion = {
     listNumber: 17,
@@ -474,10 +475,10 @@ const male = 'male';
 const strong = 'strong';
 const beard = 'beard';
 const handsome = 'handsome';
-const suit = 'suit'; 
+const suit = 'suit';
 const woman = 'woman';
 const husband = 'husband';
-const old = 'old'; 
+const old = 'old';
 
 let Man = {
     listNumber: 18,
@@ -501,10 +502,10 @@ const molehill = 'molehill';
 const plain = 'plain';
 const goat = 'goat';
 const climber = 'climber';
-const steep = 'steep'; 
+const steep = 'steep';
 const hill = 'hill';
 const valley = 'valley';
-const ski = 'ski'; 
+const ski = 'ski';
 
 let Mountain = {
     listNumber: 19,
@@ -529,7 +530,7 @@ const horn = 'horn';
 const instrument = 'instrument';
 const jazz = 'jazz';
 const art = 'art';
-const note = 'note'; 
+const note = 'note';
 const sound = 'sound';
 const rhythm = 'rhythm';
 
@@ -556,7 +557,7 @@ const thimble = 'thimble';
 const thorn = 'thorn';
 const injection = 'injection';
 const cloth = 'cloth';
-const thread = 'thread'; 
+const thread = 'thread';
 const pin = 'pin';
 const knitting = 'knitting';
 
@@ -583,7 +584,7 @@ const scribble = 'scribble';
 const cross = 'cross';
 const marker = 'marker';
 const cap = 'cap';
-const pencil = 'pencil'; 
+const pencil = 'pencil';
 const write = 'write';
 const letter = 'letter';
 
@@ -610,7 +611,7 @@ const flow = 'flow';
 const barge = 'barge';
 const brook = 'brook';
 const bridge = 'bridge';
-const water = 'water'; 
+const water = 'water';
 const stream = 'stream';
 const winding = 'winding';
 
@@ -638,7 +639,7 @@ const riders = 'riders';
 const sand = 'sand';
 const ground = 'ground';
 const smooth = 'smooth';
-const bumpy = 'bumpy'; 
+const bumpy = 'bumpy';
 const gravel = 'gravel';
 
 let Rough = {
@@ -665,7 +666,7 @@ const soles = 'soles';
 const glue = 'glue';
 const resilient = 'resilient';
 const elastic = 'elastic';
-const bounce = 'bounce'; 
+const bounce = 'bounce';
 const stretch = 'stretch';
 
 let Rubber = {
@@ -692,7 +693,7 @@ const vest = 'vest';
 const jersey = 'jersey';
 const linen = 'linen';
 const blouse = 'blouse';
-const sleeves = 'sleeves'; 
+const sleeves = 'sleeves';
 const cuffs = 'cuffs';
 
 let Shirt = {
@@ -719,7 +720,7 @@ const slumber = 'slumber';
 const nap = 'nap';
 const yawn = 'yawn';
 const bed = 'bed';
-const rest = 'rest'; 
+const rest = 'rest';
 const drowsy = 'drowsy';
 
 let Sleep = {
@@ -746,7 +747,7 @@ const hesitant = 'hesitant';
 const quick = 'quick';
 const wait = 'wait';
 const fast = 'fast';
-const lethargic = 'lethargic'; 
+const lethargic = 'lethargic';
 const molasses = 'molasses';
 
 let Slow = {
@@ -773,7 +774,7 @@ const reek = 'reek';
 const fragrance = 'fragrance';
 const salts = 'salts';
 const nose = 'nose';
-const breathe = 'breathe'; 
+const breathe = 'breathe';
 const rose = 'rose';
 
 let Smell = {
@@ -800,7 +801,7 @@ const tobacco = 'tobacco';
 const pipe = 'pipe';
 const flames = 'flames';
 const cigarette = 'cigarette';
-const puff = 'puff'; 
+const puff = 'puff';
 const stain = 'stain';
 
 let Smoke = {
@@ -827,7 +828,7 @@ const feather = 'feather';
 const downy = 'downy';
 const skin = 'skin';
 const hard = 'hard';
-const light = 'light'; 
+const light = 'light';
 const tender = 'tender';
 
 let Soft = {
@@ -854,7 +855,7 @@ const bite = 'bite';
 const animal = 'animal';
 const feelers = 'feelers';
 const web = 'web';
-const insect = 'insect'; 
+const insect = 'insect';
 const small = 'small';
 
 let Spider = {
@@ -881,7 +882,7 @@ const soda = 'soda';
 const heart = 'heart';
 const tart = 'tart';
 const sour = 'sour';
-const candy = 'candy'; 
+const candy = 'candy';
 const pie = 'pie';
 
 let Sweet = {
@@ -908,7 +909,7 @@ const gun = 'gun';
 const crime = 'crime';
 const bandit = 'bandit';
 const steal = 'steal';
-const robber = 'robber'; 
+const robber = 'robber';
 const criminal = 'criminal';
 
 let Thief = {
@@ -935,7 +936,7 @@ const scraps = 'scraps';
 const dump = 'dump';
 const debris = 'debris';
 const garbage = 'garbage';
-const waster = 'waster'; 
+const waster = 'waster';
 const litter = 'litter';
 
 let Trash = {
@@ -962,7 +963,7 @@ const frame = 'frame';
 const breeze = 'breeze';
 const screen = 'screen';
 const door = 'door';
-const glass = 'glass'; 
+const glass = 'glass';
 const shutter = 'shutter';
 
 let Window = {
@@ -1002,13 +1003,13 @@ let congruentHighestAssociate2 = Anger.highestAssociates[1];
 let incongruentPrototype = randomizedLists[0].prototype;
 
 
-// // keep looping through the randmoized list until there is no match between prototypes, leading to a truly incongruent prototype 
+// // keep looping through the randmoized list until there is no match between prototypes, leading to a truly incongruent prototype
 // while (randomizedLists[0].prototype === Anger.highestAssociates[0]) {
 //     randomizedLists.push(randomizedLists[0].shift)
 // }
 // let incongruentHighestAssociate2 = randomizedLists[0].highestAssociates[0];
 
-// // keep looping through the randmoized list until there is no match between prototypes, leading to a truly incongruent prototype 
+// // keep looping through the randmoized list until there is no match between prototypes, leading to a truly incongruent prototype
 // while (randomizedLists[0].prototype === Anger.highestAssociates[1]) {
 //     randomizedLists.push(randomizedLists[0].shift)
 // }
@@ -1028,6 +1029,3 @@ for (let i=0; i<Anger.listA.length; i++) {
 testTrial.push({stimulus: "TONE1"}); // pushes 7th item
 testTrial.push("prototypeDummy"); // pushes 8th item placeholder for prototype
 testTrial.push("placeholder"); // pushes 9th item placeholder for TONE2
-
-
-

@@ -456,7 +456,8 @@ jsPsych.plugins["rdk-change"] = (function() {
 		var coherentDirectionAfterChangeArray;
 
 		// Set up multiple apertures
-		setUpMultipleApertures();
+		var periodBeforeCoherenceChange = true;
+		setUpMultipleApertures(periodBeforeCoherenceChange);
 
 		//Declare aperture parameters for initialization based on shape (used in initializeApertureDimensions function below)
 		var horizontalAxis;
@@ -509,7 +510,8 @@ jsPsych.plugins["rdk-change"] = (function() {
 		var numberOfFrames = 0;
 
 		//This runs the dot motion simulation, updating it according to the frame refresh rate of the screen.
-		animateDotMotion();
+		//Change trial additions:
+		animateDotMotion(periodBeforeCoherenceChange);
 
 
 		//--------RDK variables and function calls end--------
@@ -620,7 +622,6 @@ jsPsych.plugins["rdk-change"] = (function() {
 
 			//End this trial and move on to the next trial
 			jsPsych.finishTrial(trial_data);
-			console.log(numberOfFrames);
 		} //End of end_trial
 
 		//Function to record the first response by the subject
@@ -665,7 +666,7 @@ jsPsych.plugins["rdk-change"] = (function() {
 					}
 					//Else if the element is a number (javascript character codes)
 					else if (typeof trial.correct_choice === 'number'){
-						console.log(response.key == trial.correct_choice);
+//						console.log(response.key == trial.correct_choice);
 						return response.key == trial.correct_choice;
 					}
 				}
@@ -719,9 +720,6 @@ jsPsych.plugins["rdk-change"] = (function() {
 				initializeCurrentApertureParameters();
 
 				//Make each 2d array and push it into the 3d array
-				//Change trial additions:
-				var periodBeforeCoherenceChange = true;
-				//if frameRate.length <
 				dotArray3d.push(makeDotArray2d(periodBeforeCoherenceChange));
 			}
 		}
@@ -754,7 +752,7 @@ jsPsych.plugins["rdk-change"] = (function() {
 		}
 
 		//Function to set the global variables to the current aperture so that the correct dots are updated and drawn
-		function initializeCurrentApertureParameters(){
+		function initializeCurrentApertureParameters(periodBeforeCoherenceChange){
 
 			//Set the global variables to that relevant to the current aperture
 			nDots = nDotsArray[currentApertureNumber];
@@ -815,6 +813,7 @@ jsPsych.plugins["rdk-change"] = (function() {
 
 		//Calculate coherent changed jump size in the x direction
 		function calculateChangedCoherentJumpSizeX(coherentDirection) {
+//			console.log(changeTrialDegreesChanged)
 			var angleInRadians = coherentDirection + changeTrialDegreesChanged * Math.PI / 180;
 			return moveDistance * Math.cos(angleInRadians);
 		}
@@ -847,7 +846,6 @@ jsPsych.plugins["rdk-change"] = (function() {
 		//Make the 2d array, which is an array of array of dots
 		//Change trial additions:
 		function makeDotArray2d(periodBeforeCoherenceChange) {
-			//var test = frameRate.length
 			//Declare an array to hold the sets of dot arrays
 			var tempArray = []
 			//Loop for each set of dot array
@@ -862,6 +860,7 @@ jsPsych.plugins["rdk-change"] = (function() {
 		//Make the dot array
 		//Change trial additions:
 		function makeDotArray(periodBeforeCoherenceChange) {
+			// console.log(periodBeforeCoherenceChange)
 			var tempArray = []
 			for (var i = 0; i < nDots; i++) {
 				//Initialize a dot to be modified and inserted into the array
@@ -870,6 +869,8 @@ jsPsych.plugins["rdk-change"] = (function() {
 					y: 0, //y coordinate
 					vx: 0, //coherent x jumpsize (if any)
 					vy: 0, //coherent y jumpsize (if any)
+					vxChanged: 0, //coherent x jumpsize after direction change
+					vyChanged: 0, //coherent y jumpsize after direction change
 					vx2: 0, //incoherent (random) x jumpsize (if any)
 					vy2: 0, //incoherent (random) y jumpsize (if any)
 					latestXMove: 0, //Stores the latest x move direction for the dot (to be used in reinsertOnOppositeEdge function below)
@@ -886,15 +887,11 @@ jsPsych.plugins["rdk-change"] = (function() {
 					//For coherent dots
 					if (i < nCoherentDots) {
 						//Change trial additions:
-						if (firstFrame) {
-							var changeTimer = performance.now();
-						} else {
-							if (performance.now()-changeTimer < coherenceDuration) {
-								dot = setvxvy(dot); // Set dot.vx and dot.vy
-							}
-							else {
-								dot = setChangedvxvy(dot);
-							}
+						if (periodBeforeCoherenceChange) {
+							dot = setvxvy(dot); // Set dot.vx and dot.vy
+						}
+						else {
+							dot = setChangedvxvy(dot);
 						}
 						dot.updateType = "constant direction";
 					}
@@ -914,15 +911,11 @@ jsPsych.plugins["rdk-change"] = (function() {
 					//For coherent dots
 					if (i < nCoherentDots) {
 						//Change trial additions:
-						if (firstFrame) {
-							var changeTimer = performance.now();
-						} else {
-							if (performance.now()-changeTimer < coherenceDuration) {
-								dot = setvxvy(dot); // Set dot.vx and dot.vy
-							}
-							else {
-								dot = setChangedvxvy(dot);
-							}
+						if (periodBeforeCoherenceChange) {
+							dot = setvxvy(dot); // Set dot.vx and dot.vy
+						}
+						else {
+							dot = setChangedvxvy(dot);
 						}
 						dot.updateType = "constant direction";
 					}
@@ -939,15 +932,14 @@ jsPsych.plugins["rdk-change"] = (function() {
 
 				//For the same && random direction RDK type
 				if (RDK == 3) {
+					//Change trial additions:
+//					console.log('periodBeforeCoherenceChange: ' + periodBeforeCoherenceChange)
 					//For coherent dots
 					if (i < nCoherentDots) {
 						//Change trial additions:
-						if (periodBeforeCoherenceChange) {
-							dot = setvxvy(dot); // Set dot.vx and dot.vy
-						}
-						else {
-							dot = setChangedvxvy(dot);
-						}
+						dot = setvxvy(dot); // Set dot.vx and dot.vy
+						dot = setChangedvxvy(dot); //Set dot.vxChanged and dot.vyChanged
+
 						// dot = setvxvy(dot); // Set dot.vx and dot.vy
 						// dot.updateType = "constant direction";
 						dot.updateType = "constant direction";
@@ -968,15 +960,11 @@ jsPsych.plugins["rdk-change"] = (function() {
 				if (RDK == 4) {
 					//For all dots
 					//Change trial additions:
-					if (firstFrame) {
-						var changeTimer = performance.now();
-					} else {
-						if (performance.now()-changeTimer < coherenceDuration) {
-							dot = setvxvy(dot); // Set dot.vx and dot.vy
-						}
-						else {
-							dot = setChangedvxvy(dot);
-						}
+					if (periodBeforeCoherenceChange) {
+						dot = setvxvy(dot); // Set dot.vx and dot.vy
+					}
+					else {
+						dot = setChangedvxvy(dot);
 					}
 					dot.updateType = "constant direction or opposite direction or random position";
 				} //End of RDK==4
@@ -985,15 +973,11 @@ jsPsych.plugins["rdk-change"] = (function() {
 				if (RDK == 5) {
 					//For all dots
 					//Change trial additions:
-					if (firstFrame) {
-						var changeTimer = performance.now();
-					} else {
-						if (performance.now()-changeTimer < coherenceDuration) {
-							dot = setvxvy(dot); // Set dot.vx and dot.vy
-						}
-						else {
-							dot = setChangedvxvy(dot);
-						}
+					if (periodBeforeCoherenceChange) {
+						dot = setvxvy(dot); // Set dot.vx and dot.vy
+					}
+					else {
+						dot = setChangedvxvy(dot);
 					}
 					dot.updateType = "constant direction or opposite direction or random walk";
 				} //End of RDK==5
@@ -1002,15 +986,11 @@ jsPsych.plugins["rdk-change"] = (function() {
 				if (RDK == 6) {
 					//For all dots
 					//Change trial additions:
-					if (firstFrame) {
-						var changeTimer = performance.now();
-					} else {
-						if (performance.now()-changeTimer < coherenceDuration) {
-							dot = setvxvy(dot); // Set dot.vx and dot.vy
-						}
-						else {
-							dot = setChangedvxvy(dot);
-						}
+					if (periodBeforeCoherenceChange) {
+						dot = setvxvy(dot); // Set dot.vx and dot.vy
+					}
+					else {
+						dot = setChangedvxvy(dot);
 					}
 					//Each dot will have its own alternate direction of motion
 					setvx2vy2(dot); // Set dot.vx2 and dot.vy2
@@ -1023,7 +1003,7 @@ jsPsych.plugins["rdk-change"] = (function() {
 		}
 
 		//Function to update all the dots all the apertures and then draw them
-		function updateAndDraw(){
+		function updateAndDraw(periodBeforeCoherenceChange){
 
         	//Three for loops that do things in sequence: clear, update, and draw dots.
 
@@ -1032,7 +1012,12 @@ jsPsych.plugins["rdk-change"] = (function() {
 
 				//Initialize the variables for each parameter
 				initializeCurrentApertureParameters(currentApertureNumber);
-				console.log(frameRate.length);
+				//change trial additions:
+				//console.log(frameRate.length/(trial.trial_duration/frameRate[frameRate.length-1]));
+				if (frameRate.length/(trial.trial_duration/frameRate[frameRate.length-1]) >= 0.5) {
+					periodBeforeCoherenceChange = false;
+				}
+				// console.log('periodBeforeCoherenceChange: ' + periodBeforeCoherenceChange)
 		        //Clear the canvas by drawing over the current dots
 		        clearDots();
       		}
@@ -1041,21 +1026,23 @@ jsPsych.plugins["rdk-change"] = (function() {
 			for(currentApertureNumber = 0; currentApertureNumber < nApertures; currentApertureNumber++){
 
 				//Initialize the variables for each parameter
-				initializeCurrentApertureParameters(currentApertureNumber);
+				initializeCurrentApertureParameters(currentApertureNumber,periodBeforeCoherenceChange);
 
 				//Update the dots
-				updateDots();
+				updateDots(periodBeforeCoherenceChange);
       		}
 
 			// Draw all the relevant dots on the canvas
 			for(currentApertureNumber = 0; currentApertureNumber < nApertures; currentApertureNumber++){
 
 				//Initialize the variables for each parameter
-				initializeCurrentApertureParameters(currentApertureNumber);
+				initializeCurrentApertureParameters(currentApertureNumber,periodBeforeCoherenceChange);
 
 				//Draw on the canvas
 				draw();
 			}
+//			console.log(periodBeforeCoherenceChange + '  halfway through trial this should change from true to false')
+			return periodBeforeCoherenceChange;
 		}
 
 		//Function that clears the dots on the canvas by drawing over it with the color of the baclground
@@ -1132,8 +1119,8 @@ jsPsych.plugins["rdk-change"] = (function() {
 		}//End of draw
 
 		//Update the dots with their new location
-		function updateDots() {
-
+		function updateDots(periodBeforeCoherenceChange) {
+			// console.log(periodBeforeCoherenceChange)
 			//Cycle through to the next set of dots
 			if (currentSetArray[currentApertureNumber] == nSets - 1) {
 				currentSetArray[currentApertureNumber] = 0;
@@ -1156,7 +1143,7 @@ jsPsych.plugins["rdk-change"] = (function() {
 
 				//Update based on the dot's update type
 				if (dot.updateType == "constant direction") {
-					dot = constantDirectionUpdate(dot);
+					dot = constantDirectionUpdate(dot,periodBeforeCoherenceChange);
 				} else if (dot.updateType == "opposite direction") {
 					dot = oppositeDirectionUpdate(dot);
 				} else if (dot.updateType == "random position") {
@@ -1169,7 +1156,7 @@ jsPsych.plugins["rdk-change"] = (function() {
 
 					//Randomly select if the dot goes in a constant direction or random position, weighted based on the coherence level
 					if (randomValue < coherence) {
-						dot = constantDirectionUpdate(dot);
+						dot = constantDirectionUpdate(dot,periodBeforeCoherenceChange);
 					}  else if(randomValue >= coherence && randomValue < (coherence + oppositeCoherence)){
 						dot = oppositeDirectionUpdate(dot);
 					}  else {
@@ -1178,7 +1165,7 @@ jsPsych.plugins["rdk-change"] = (function() {
 				} else if (dot.updateType == "constant direction or opposite direction or random walk") {
 					//Randomly select if the dot goes in a constant direction or random walk, weighted based on the coherence level
 					if (randomValue < coherence) {
-						dot = constantDirectionUpdate(dot);
+						dot = constantDirectionUpdate(dot,periodBeforeCoherenceChange);
 					} else if(randomValue >= coherence && randomValue < (coherence + oppositeCoherence)){
 						dot = oppositeDirectionUpdate(dot);
 					} else {
@@ -1187,7 +1174,7 @@ jsPsych.plugins["rdk-change"] = (function() {
 				} else if (dot.updateType == "constant direction or opposite direction or random direction") {
 					//Randomly select if the dot goes in a constant direction or random direction, weighted based on the coherence level
 					if (randomValue < coherence) {
-						dot = constantDirectionUpdate(dot);
+						dot = constantDirectionUpdate(dot,periodBeforeCoherenceChange);
 					} else if(randomValue >= coherence && randomValue < (coherence + oppositeCoherence)){
 						dot = oppositeDirectionUpdate(dot);
 					} else {
@@ -1266,8 +1253,8 @@ jsPsych.plugins["rdk-change"] = (function() {
 
 		//Change trial additions:
 		function setChangedvxvy(dot) {
-			dot.vx = coherentChangedJumpSizeX;
-			dot.vy = coherentChangedJumpSizeY;
+			dot.vxChanged = coherentChangedJumpSizeX;
+			dot.vyChanged = coherentChangedJumpSizeY;
 			return dot;
 		}
 
@@ -1282,9 +1269,16 @@ jsPsych.plugins["rdk-change"] = (function() {
 		}
 
 		//Updates the x and y coordinates by moving it in the x and y coherent directions
-		function constantDirectionUpdate(dot) {
-			dot.x += dot.vx;
-			dot.y += dot.vy;
+		//Change trial additions:
+		function constantDirectionUpdate(dot,updateAndDraw) {
+//			console.log(periodBeforeCoherenceChange)
+			if(updateAndDraw) {
+				dot.x += dot.vx;
+				dot.y += dot.vy;
+			} else {
+				dot.x += dot.vxChanged;
+				dot.y += dot.vyChanged;
+			}
 			dot.latestXMove = dot.vx;
 			dot.latestYMove = dot.vy;
 			return dot;
@@ -1450,7 +1444,7 @@ jsPsych.plugins["rdk-change"] = (function() {
 		}
 
 		//Function to make the dots move on the canvas
-		function animateDotMotion() {
+		function animateDotMotion(periodBeforeCoherenceChange) {
 			//frameRequestID saves a long integer that is the ID of this frame request. The ID is then used to terminate the request below.
 			var frameRequestID = window.requestAnimationFrame(animate);
 
@@ -1471,8 +1465,6 @@ jsPsych.plugins["rdk-change"] = (function() {
 
 					//If the timer has not been started and it is set, then start the timer
 					if ( (!timerHasStarted) && (trial.trial_duration > 0) ){
-						//Change trial additions:
-						console.log(frameRate.length); //length here is 0, trial just started
 						//If the trial duration is set, then set a timer to count down and call the end_trial function when the time is up
 						//(If the subject did not press a valid keyboard response within the trial duration, then this will end the trial)
 						timeoutID = window.setTimeout(end_trial,trial.trial_duration); //This timeoutID is then used to cancel the timeout should the subject press a valid key
@@ -1480,7 +1472,7 @@ jsPsych.plugins["rdk-change"] = (function() {
 						timerHasStarted = true;
 					}
 
-					updateAndDraw(); //Update and draw each of the dots in their respective apertures
+					updateAndDraw(periodBeforeCoherenceChange); //Update and draw each of the dots in their respective apertures
 
 					//If this is before the first frame, then start the timestamp
 					if(previousTimestamp === undefined){
