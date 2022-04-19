@@ -789,8 +789,8 @@ jsPsych.plugins["rdk-change"] = (function() {
 			coherentJumpSizeX = calculateCoherentJumpSizeX(coherentDirection);
 			coherentJumpSizeY = calculateCoherentJumpSizeY(coherentDirection);
 			//Change trial additions:
-			coherentChangedJumpSizeX = calculateChangedCoherentJumpSizeX(coherentDirection);
-			coherentChangedJumpSizeY = calculateChangedCoherentJumpSizeY(coherentDirection);
+			coherentChangedJumpSizeX = calculateChangedCoherentJumpSizeX(coherentDirectionAfterChange);
+			coherentChangedJumpSizeY = calculateChangedCoherentJumpSizeY(coherentDirectionAfterChange);
 
 			//Initialize the aperture parameters
 			initializeApertureDimensions();
@@ -808,13 +808,14 @@ jsPsych.plugins["rdk-change"] = (function() {
 		//Calculate coherent jump size in the x direction
 		function calculateCoherentJumpSizeX(coherentDirection) {
 			var angleInRadians = coherentDirection * Math.PI / 180;
+			console.log(angleInRadians)
 			return moveDistance * Math.cos(angleInRadians);
 		}
 
 		//Calculate coherent changed jump size in the x direction
-		function calculateChangedCoherentJumpSizeX(coherentDirection) {
-//			console.log(changeTrialDegreesChanged)
-			var angleInRadians = coherentDirection + changeTrialDegreesChanged * Math.PI / 180;
+		function calculateChangedCoherentJumpSizeX(coherentDirectionAfterChange) {
+			var angleInRadians = coherentDirectionAfterChange * Math.PI / 180;
+			console.log(angleInRadians)
 			return moveDistance * Math.cos(angleInRadians);
 		}
 
@@ -825,9 +826,9 @@ jsPsych.plugins["rdk-change"] = (function() {
 		}
 
 		//Calculate coherent changed jump size in the y direction
-		function calculateChangedCoherentJumpSizeY(coherentDirection) {
-			var angleInRadians = coherentDirection + changeTrialDegreesChanged * Math.PI / 180;
-			return moveDistance * Math.cos(angleInRadians);
+		function calculateChangedCoherentJumpSizeY(coherentDirectionAfterChange) {
+			var angleInRadians = -coherentDirectionAfterChange * Math.PI / 180;
+			return moveDistance * Math.sin(angleInRadians);
 		}
 
 		//Initialize the parameters for the aperture for further calculation

@@ -974,7 +974,7 @@ let Window = {
     highestAssociates: [door, glass],
     lowestAssociate: shutter,
 };
- 
+
 // ... after you have defined all of your lists
 
 let allLists = [Anger, Army, Black, Bread, Car, Chair, City, Cold, Cup, Doctor, Flag, Foot, Fruit, Girl, High, King, Lion, Man, Mountain, Music, Needle, Pen, River, Rough, Rubber, Shirt, Sleep, Slow, Smell, Smoke, Soft, Spider, Sweet, Thief, Trash, Window]; // need to add all other lists to
