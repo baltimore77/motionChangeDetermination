@@ -242,6 +242,18 @@ jsPsych.plugins["rdk-change"] = (function() {
 					pretty_name: "Coherent direction after change",
 					default: 0,
 					description: "What direction do the coherent dots flow after a direction change"
+				},
+				trialType: {
+					type: jsPsych.plugins.parameterType.STRING,
+					pretty_name: "Trial type",
+					default: "no-change",
+					description: "Possible values are 'change' or 'no-change'"
+				},
+				trialSubType: {
+					type: jsPsych.plugins.parameterType.STRING,
+					pretty_name: "Trial sub-type",
+					default: "NA",
+					description: "For no-change trials the sub-type is 'NA'; for change trials it is either 'clockwise' or 'counter-clockwise'"
 				}
 
 	    }
@@ -293,6 +305,8 @@ jsPsych.plugins["rdk-change"] = (function() {
 		trial.coherence_change = assignParameterValue(trial.coherence_change, false);
 		trial.change_trial_degrees_changed = assignParameterValue(trial.change_trial_degrees_changed, 0);
 		trial.coherent_direction_after_change = assignParameterValue(trial.coherent_direction_after_change, 0);
+		trial.trial_type = assignParameterValue(trial.trial_type, "no-change");
+		trial.trial_subtype = assignParameterValue(trial.trial_subtype, "NA");
 
 
 		//For square and circle, set the aperture height == aperture width
@@ -323,6 +337,8 @@ jsPsych.plugins["rdk-change"] = (function() {
 		var coherenceChange = trial.coherence_change; //True False whether current trial is a change trial
 		var changeTrialDegreesChanged = trial.change_trial_degrees_changed; //number of degrees to change coherence in the case of a change trial
 		var coherentDirectionAfterChange = trial.coherent_direction_after_change; //what the new coherent direction is after a change
+		var trialType = trial.trial_type; //change or no-change
+		var trialSubtype = trial.trial_subtype; //NA for no-change; clockwise or counterclockwise for change trials
 
 
 		/* RDK type parameter
@@ -454,6 +470,8 @@ jsPsych.plugins["rdk-change"] = (function() {
 		var coherenceChangeArray;
 		var changeTrialDegreesChangedArray;
 		var coherentDirectionAfterChangeArray;
+		var trialTypeArray;
+		var trialSubtypeArray;
 
 		// Set up multiple apertures
 		var periodBeforeCoherenceChange = true;
@@ -608,7 +626,9 @@ jsPsych.plugins["rdk-change"] = (function() {
 				"coherence_duration": trial.coherence_duration,
 				"coherence_change": trial.coherence_change,
 				"change_trial_degrees_changed": trial.change_trial_degrees_changed,
-				"coherent_direction_after_change": trial.coherent_direction_after_change
+				"coherent_direction_after_change": trial.coherent_direction_after_change,
+				"trial_type": trial.trial_type,
+				"trial_subtype": trial.trial_subtype,
 
 			}
 
@@ -708,6 +728,8 @@ jsPsych.plugins["rdk-change"] = (function() {
 			coherenceChangeArray = setParameter(coherenceChange); //True False whether current trial is a change trial
 			changeTrialDegreesChangedArray = setParameter(changeTrialDegreesChanged); //number of degrees to change coherence in the case of a change trial
 			coherentDirectionAfterChangeArray = setParameter(coherentDirectionAfterChange); //what the new coherent direction is after a change
+			trialTypeArray = setParameter(trialType);
+			trialSubtypeArray = setParameter(trialSubtype);
 
 
 			currentSetArray = setParameter(0); //Always starts at zero
@@ -784,6 +806,8 @@ jsPsych.plugins["rdk-change"] = (function() {
 			coherenceChange = coherenceChangeArray[currentApertureNumber];
 			changeTrialDegreesChanged = changeTrialDegreesChangedArray[currentApertureNumber];
 			coherentDirectionAfterChange = coherentDirectionAfterChangeArray[currentApertureNumber];
+			trialType = trialTypeArray[currentApertureNumber];
+			trialSubtype = trialSubtypeArray[currentApertureNumber];
 
 			//Calculate the x and y jump sizes for coherent dots
 			coherentJumpSizeX = calculateCoherentJumpSizeX(coherentDirection);
@@ -808,14 +832,14 @@ jsPsych.plugins["rdk-change"] = (function() {
 		//Calculate coherent jump size in the x direction
 		function calculateCoherentJumpSizeX(coherentDirection) {
 			var angleInRadians = coherentDirection * Math.PI / 180;
-			console.log(angleInRadians)
+//			console.log(angleInRadians)
 			return moveDistance * Math.cos(angleInRadians);
 		}
 
 		//Calculate coherent changed jump size in the x direction
 		function calculateChangedCoherentJumpSizeX(coherentDirectionAfterChange) {
 			var angleInRadians = coherentDirectionAfterChange * Math.PI / 180;
-			console.log(angleInRadians)
+//			console.log(angleInRadians)
 			return moveDistance * Math.cos(angleInRadians);
 		}
 
@@ -888,12 +912,9 @@ jsPsych.plugins["rdk-change"] = (function() {
 					//For coherent dots
 					if (i < nCoherentDots) {
 						//Change trial additions:
-						if (periodBeforeCoherenceChange) {
-							dot = setvxvy(dot); // Set dot.vx and dot.vy
-						}
-						else {
-							dot = setChangedvxvy(dot);
-						}
+						dot = setvxvy(dot); // Set dot.vx and dot.vy
+						dot = setChangedvxvy(dot); //Set dot.vxChanged and dot.vyChanged
+
 						dot.updateType = "constant direction";
 					}
 			        //For opposite coherent dots
@@ -912,12 +933,9 @@ jsPsych.plugins["rdk-change"] = (function() {
 					//For coherent dots
 					if (i < nCoherentDots) {
 						//Change trial additions:
-						if (periodBeforeCoherenceChange) {
-							dot = setvxvy(dot); // Set dot.vx and dot.vy
-						}
-						else {
-							dot = setChangedvxvy(dot);
-						}
+						dot = setvxvy(dot); // Set dot.vx and dot.vy
+						dot = setChangedvxvy(dot); //Set dot.vxChanged and dot.vyChanged
+
 						dot.updateType = "constant direction";
 					}
         			//For opposite coherent dots
@@ -934,15 +952,12 @@ jsPsych.plugins["rdk-change"] = (function() {
 				//For the same && random direction RDK type
 				if (RDK == 3) {
 					//Change trial additions:
-//					console.log('periodBeforeCoherenceChange: ' + periodBeforeCoherenceChange)
 					//For coherent dots
 					if (i < nCoherentDots) {
 						//Change trial additions:
 						dot = setvxvy(dot); // Set dot.vx and dot.vy
 						dot = setChangedvxvy(dot); //Set dot.vxChanged and dot.vyChanged
 
-						// dot = setvxvy(dot); // Set dot.vx and dot.vy
-						// dot.updateType = "constant direction";
 						dot.updateType = "constant direction";
 					}
         			//For opposite coherent dots
@@ -961,12 +976,9 @@ jsPsych.plugins["rdk-change"] = (function() {
 				if (RDK == 4) {
 					//For all dots
 					//Change trial additions:
-					if (periodBeforeCoherenceChange) {
-						dot = setvxvy(dot); // Set dot.vx and dot.vy
-					}
-					else {
-						dot = setChangedvxvy(dot);
-					}
+					dot = setvxvy(dot); // Set dot.vx and dot.vy
+					dot = setChangedvxvy(dot); //Set dot.vxChanged and dot.vyChanged
+
 					dot.updateType = "constant direction or opposite direction or random position";
 				} //End of RDK==4
 
@@ -974,12 +986,9 @@ jsPsych.plugins["rdk-change"] = (function() {
 				if (RDK == 5) {
 					//For all dots
 					//Change trial additions:
-					if (periodBeforeCoherenceChange) {
-						dot = setvxvy(dot); // Set dot.vx and dot.vy
-					}
-					else {
-						dot = setChangedvxvy(dot);
-					}
+					dot = setvxvy(dot); // Set dot.vx and dot.vy
+					dot = setChangedvxvy(dot); //Set dot.vxChanged and dot.vyChanged
+
 					dot.updateType = "constant direction or opposite direction or random walk";
 				} //End of RDK==5
 
@@ -987,12 +996,9 @@ jsPsych.plugins["rdk-change"] = (function() {
 				if (RDK == 6) {
 					//For all dots
 					//Change trial additions:
-					if (periodBeforeCoherenceChange) {
-						dot = setvxvy(dot); // Set dot.vx and dot.vy
-					}
-					else {
-						dot = setChangedvxvy(dot);
-					}
+					dot = setvxvy(dot); // Set dot.vx and dot.vy
+					dot = setChangedvxvy(dot); //Set dot.vxChanged and dot.vyChanged
+
 					//Each dot will have its own alternate direction of motion
 					setvx2vy2(dot); // Set dot.vx2 and dot.vy2
 					dot.updateType = "constant direction or opposite direction or random direction";

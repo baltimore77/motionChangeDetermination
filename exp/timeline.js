@@ -10,9 +10,6 @@ let test = {
 let instructions0 = {
   type: "html-keyboard-response",
   choices: [32],
-  on_finish: function() {
-    testTrial.pop(); // pops the 9th item
-  },
   stimulus:
     "<p>Hello and thank you for taking part in our experiment!</p>"+
     "<p>In this experiment you will see dots flowing across the screen.</p>"+
@@ -25,14 +22,12 @@ let bkgCol = "white"; //background color
 let dotCol = "black"; //dots color
 let rdkType = 3; //1-6 define different types of built-in rdks available in the plugin
 let apertureType = 1; //whether aperture is circle or ellipse, etc.
-let aperatureDuration = 6000; //total length of rdk display, sum of first half (baseline motion) and second half (change or nochange from baseline)
+let aperatureDuration = 1000; //total length of rdk display, sum of first half (baseline motion) and second half (change or nochange from baseline)
 let aperatureRadiusPixels = 300; //radius of dots array in pixels
 let dotRadiusPixels = 2; //radius of each dot in pixels
 let dotLifespanFrameRefreshes = -1; //-1 is for the duration of the aperture
-let dotSpeedPixelsPerFrame = 1; //how many pixels does the dot move from one frame to the next
+let dotSpeedPixelsPerFrame = 6; //how many pixels does the dot move from one frame to the next
 let dotsQuantity = 30; //number of dots visible on any given frame
-//let coherenceVector = [0,15,30,45,60,75,90,105,120,135,150,165,180,195,210,225,240,255,270,285,300,315,330,345]; //orientations at which coherent dots flow
-//let coherenceChange = [-90,90]; //degrees difference between first orientation flow, and final orientation flow, could be applied clockwise or counterclockwise by adding or subtracting from original coherenceVector
 let coherencePercent = 0.35; //what percent of dots flow in same direction (whereas others flow randomly)
 
 function filledCirc(canvas, radius, color) {
@@ -43,7 +38,7 @@ function filledCirc(canvas, radius, color) {
     ctx.fill();
 }
 
-var rdk_change = {
+var rdkChange_practiceBlock = {
     timeline: [
         {
             type: "html-keyboard-response",
@@ -69,72 +64,89 @@ var rdk_change = {
             choices: [32],
             correct_choice: [32],
             coherent_direction: jsPsych.timelineVariable('coherenceStart'),
-            coherent_direction_after_change: jsPsych.timelineVariable('coherenceStop')
-        },
-        {
-            type: 'canvas-button-response',
-            stimulus: function(c) {
-                filledCirc(c, aperatureRadiusPixels, bkgCol);
-              },
-            canvas_size: [aperatureRadiusPixels, aperatureRadiusPixels],
-            choices: ['Red', 'Green', 'Blue'],
-            prompt: '<p>What color is the circle?</p>',
-            data: {trialType: 'change', angle: jsPsych.timelineVariable('coherenceStop')}
+            coherent_direction_after_change: jsPsych.timelineVariable('coherenceStop'),
+            trialType: jsPsych.timelineVariable('trialType'),
+            trialSubtype: jsPsych.timelineVariable('trialSubtype')
           }
     ],
     timeline_variables: [
-      { coherenceStart: 5, coherenceStop: 95, color: dotCol}, //change clockwise
-      // { coherenceStart: 20, coherenceStop: 110 },
-      // { coherenceStart: 35, coherenceStop: 125 },
-      // { coherenceStart: 50, coherenceStop: 140 },
-      // { coherenceStart: 65, coherenceStop: 155 },
-      // { coherenceStart: 80, coherenceStop: 170 },
-      // { coherenceStart: 95, coherenceStop: 185 },
-      // { coherenceStart: 110, coherenceStop: 200 },
-      // { coherenceStart: 125, coherenceStop: 215 },
-      // { coherenceStart: 140, coherenceStop: 230 },
-      // { coherenceStart: 155, coherenceStop: 245 },
-      // { coherenceStart: 170, coherenceStop: 260 },
-      // { coherenceStart: 185, coherenceStop: 275 },
-      // { coherenceStart: 200, coherenceStop: 290 },
-      // { coherenceStart: 215, coherenceStop: 305 },
-      // { coherenceStart: 230, coherenceStop: 320 },
-      // { coherenceStart: 245, coherenceStop: 335 },
-      // { coherenceStart: 260, coherenceStop: 350 },
-      // { coherenceStart: 275, coherenceStop: 5 },
-      // { coherenceStart: 290, coherenceStop: 20 },
-      // { coherenceStart: 305, coherenceStop: 35 },
-      // { coherenceStart: 320, coherenceStop: 50 },
-      // { coherenceStart: 335, coherenceStop: 65 },
-      // { coherenceStart: 350, coherenceStop: 80 },
-      // { coherenceStart: 5, coherenceStop: 275 }, //change anti-clockwise
-      // { coherenceStart: 20, coherenceStop: 290 },
-      // { coherenceStart: 35, coherenceStop: 305 },
-      // { coherenceStart: 50, coherenceStop: 320 },
-      // { coherenceStart: 65, coherenceStop: 335 },
-      // { coherenceStart: 80, coherenceStop: 350 },
-      // { coherenceStart: 95, coherenceStop: 5 },
-      // { coherenceStart: 110, coherenceStop: 20 },
-      // { coherenceStart: 125, coherenceStop: 35 },
-      // { coherenceStart: 140, coherenceStop: 50 },
-      // { coherenceStart: 155, coherenceStop: 65 },
-      // { coherenceStart: 170, coherenceStop: 80 },
-      // { coherenceStart: 185, coherenceStop: 95 },
-      // { coherenceStart: 200, coherenceStop: 110 },
-      // { coherenceStart: 215, coherenceStop: 125 },
-      // { coherenceStart: 230, coherenceStop: 140 },
-      // { coherenceStart: 245, coherenceStop: 155 },
-      // { coherenceStart: 260, coherenceStop: 170 },
-      // { coherenceStart: 275, coherenceStop: 185 },
-      // { coherenceStart: 290, coherenceStop: 200 },
-      // { coherenceStart: 305, coherenceStop: 215 },
-      // { coherenceStart: 320, coherenceStop: 230 },
-      // { coherenceStart: 335, coherenceStop: 245 },
-      // { coherenceStart: 350, coherenceStop: 260 }
-    ]
+      { coherenceStart: 5, coherenceStop: 95, color: dotCol, trialType: 'change', trialSubtype: 'clockwise' }, //change clockwise
+      { coherenceStart: 20, coherenceStop: 110 , color: dotCol, trialType: 'change', trialSubtype: 'clockwise' },
+      // { coherenceStart: 35, coherenceStop: 125 , color: dotCol, trialType: 'change', trialSubtype: 'clockwise' },
+      // { coherenceStart: 50, coherenceStop: 140 , color: dotCol, trialType: 'change', trialSubtype: 'clockwise' },
+      // { coherenceStart: 65, coherenceStop: 155 , color: dotCol, trialType: 'change', trialSubtype: 'clockwise' },
+      // { coherenceStart: 80, coherenceStop: 170 , color: dotCol, trialType: 'change', trialSubtype: 'clockwise' },
+      // { coherenceStart: 95, coherenceStop: 185 , color: dotCol, trialType: 'change', trialSubtype: 'clockwise' },
+      // { coherenceStart: 110, coherenceStop: 200 , color: dotCol, trialType: 'change', trialSubtype: 'clockwise' },
+      // { coherenceStart: 125, coherenceStop: 215 , color: dotCol, trialType: 'change', trialSubtype: 'clockwise' },
+      // { coherenceStart: 140, coherenceStop: 230 , color: dotCol, trialType: 'change', trialSubtype: 'clockwise' },
+      // { coherenceStart: 155, coherenceStop: 245 , color: dotCol, trialType: 'change', trialSubtype: 'clockwise' },
+      // { coherenceStart: 170, coherenceStop: 260 , color: dotCol, trialType: 'change', trialSubtype: 'clockwise' },
+      // { coherenceStart: 185, coherenceStop: 275 , color: dotCol, trialType: 'change', trialSubtype: 'clockwise' },
+      // { coherenceStart: 200, coherenceStop: 290 , color: dotCol, trialType: 'change', trialSubtype: 'clockwise' },
+      // { coherenceStart: 215, coherenceStop: 305 , color: dotCol, trialType: 'change', trialSubtype: 'clockwise' },
+      { coherenceStart: 230, coherenceStop: 320 , color: dotCol, trialType: 'change', trialSubtype: 'clockwise' },
+      // { coherenceStart: 245, coherenceStop: 335 , color: dotCol, trialType: 'change', trialSubtype: 'clockwise' },
+      // { coherenceStart: 260, coherenceStop: 350 , color: dotCol, trialType: 'change', trialSubtype: 'clockwise' },
+      // { coherenceStart: 275, coherenceStop: 5 , color: dotCol, trialType: 'change', trialSubtype: 'clockwise' },
+      // { coherenceStart: 290, coherenceStop: 20 , color: dotCol, trialType: 'change', trialSubtype: 'clockwise' },
+      // { coherenceStart: 305, coherenceStop: 35 , color: dotCol, trialType: 'change', trialSubtype: 'clockwise' },
+      // { coherenceStart: 320, coherenceStop: 50 , color: dotCol, trialType: 'change', trialSubtype: 'clockwise' },
+      // { coherenceStart: 335, coherenceStop: 65 , color: dotCol, trialType: 'change', trialSubtype: 'clockwise' },
+      // { coherenceStart: 350, coherenceStop: 80 , color: dotCol, trialType: 'change', trialSubtype: 'clockwise' },
+      { coherenceStart: 5, coherenceStop: 275, color: dotCol, trialType: 'change', trialSubtype: 'counter-clockwise' }, //change counter-clockwise
+      { coherenceStart: 20, coherenceStop: 290 , color: dotCol, trialType: 'change', trialSubtype: 'counter-clockwise' },
+      // { coherenceStart: 35, coherenceStop: 305 , color: dotCol, trialType: 'change', trialSubtype: 'counter-clockwise' },
+      // { coherenceStart: 50, coherenceStop: 320 , color: dotCol, trialType: 'change', trialSubtype: 'counter-clockwise' },
+      // { coherenceStart: 65, coherenceStop: 335 , color: dotCol, trialType: 'change', trialSubtype: 'counter-clockwise' },
+      // { coherenceStart: 80, coherenceStop: 350 , color: dotCol, trialType: 'change', trialSubtype: 'counter-clockwise' },
+      // { coherenceStart: 95, coherenceStop: 5 , color: dotCol, trialType: 'change', trialSubtype: 'counter-clockwise' },
+      // { coherenceStart: 110, coherenceStop: 20 , color: dotCol, trialType: 'change', trialSubtype: 'counter-clockwise' },
+      // { coherenceStart: 125, coherenceStop: 35 , color: dotCol, trialType: 'change', trialSubtype: 'counter-clockwise' },
+      { coherenceStart: 140, coherenceStop: 50 , color: dotCol, trialType: 'change', trialSubtype: 'counter-clockwise' },
+      // { coherenceStart: 155, coherenceStop: 65 , color: dotCol, trialType: 'change', trialSubtype: 'counter-clockwise' },
+      // { coherenceStart: 170, coherenceStop: 80 , color: dotCol, trialType: 'change', trialSubtype: 'counter-clockwise' },
+      // { coherenceStart: 185, coherenceStop: 95 , color: dotCol, trialType: 'change', trialSubtype: 'counter-clockwise' },
+      // { coherenceStart: 200, coherenceStop: 110 , color: dotCol, trialType: 'change', trialSubtype: 'counter-clockwise' },
+      // { coherenceStart: 215, coherenceStop: 125 , color: dotCol, trialType: 'change', trialSubtype: 'counter-clockwise' },
+      // { coherenceStart: 230, coherenceStop: 140 , color: dotCol, trialType: 'change', trialSubtype: 'counter-clockwise' },
+      // { coherenceStart: 245, coherenceStop: 155 , color: dotCol, trialType: 'change', trialSubtype: 'counter-clockwise' },
+      // { coherenceStart: 260, coherenceStop: 170 , color: dotCol, trialType: 'change', trialSubtype: 'counter-clockwise' },
+      // { coherenceStart: 275, coherenceStop: 185 , color: dotCol, trialType: 'change', trialSubtype: 'counter-clockwise' },
+      // { coherenceStart: 290, coherenceStop: 200 , color: dotCol, trialType: 'change', trialSubtype: 'counter-clockwise' },
+      // { coherenceStart: 305, coherenceStop: 215 , color: dotCol, trialType: 'change', trialSubtype: 'counter-clockwise' },
+      // { coherenceStart: 320, coherenceStop: 230 , color: dotCol, trialType: 'change', trialSubtype: 'counter-clockwise' },
+      // { coherenceStart: 335, coherenceStop: 245 , color: dotCol, trialType: 'change', trialSubtype: 'counter-clockwise' },
+      // { coherenceStart: 350, coherenceStop: 260, color: dotCol, trialType: 'change', trialSubtype: 'counter-clockwise' },
+      // { coherenceStart: 5, coherenceStop: 5, color: dotCol, trialType: 'no-change', trialSubtype: 'NA' }, //no-change
+      // { coherenceStart: 20, coherenceStop: 20 , color: dotCol, trialType: 'no-change', trialSubtype: 'NA' },
+      // { coherenceStart: 35, coherenceStop: 35 , color: dotCol, trialType: 'no-change', trialSubtype: 'NA' },
+      // { coherenceStart: 50, coherenceStop: 50 , color: dotCol, trialType: 'no-change', trialSubtype: 'NA' },
+      // { coherenceStart: 65, coherenceStop: 65 , color: dotCol, trialType: 'no-change', trialSubtype: 'NA' },
+      // { coherenceStart: 80, coherenceStop: 80 , color: dotCol, trialType: 'no-change', trialSubtype: 'NA' },
+      // { coherenceStart: 95, coherenceStop: 95 , color: dotCol, trialType: 'no-change', trialSubtype: 'NA' },
+      // { coherenceStart: 110, coherenceStop: 110 , color: dotCol, trialType: 'no-change', trialSubtype: 'NA' },
+      // { coherenceStart: 125, coherenceStop: 125 , color: dotCol, trialType: 'no-change', trialSubtype: 'NA' },
+      // { coherenceStart: 140, coherenceStop: 140 , color: dotCol, trialType: 'no-change', trialSubtype: 'NA' },
+      { coherenceStart: 155, coherenceStop: 155 , color: dotCol, trialType: 'no-change', trialSubtype: 'NA' },
+      // { coherenceStart: 170, coherenceStop: 170 , color: dotCol, trialType: 'no-change', trialSubtype: 'NA' },
+      // { coherenceStart: 185, coherenceStop: 185 , color: dotCol, trialType: 'no-change', trialSubtype: 'NA' },
+      // { coherenceStart: 200, coherenceStop: 200 , color: dotCol, trialType: 'no-change', trialSubtype: 'NA' },
+      // { coherenceStart: 215, coherenceStop: 215 , color: dotCol, trialType: 'no-change', trialSubtype: 'NA' },
+      // { coherenceStart: 230, coherenceStop: 230 , color: dotCol, trialType: 'no-change', trialSubtype: 'NA' },
+      // { coherenceStart: 245, coherenceStop: 245 , color: dotCol, trialType: 'no-change', trialSubtype: 'NA' },
+      { coherenceStart: 260, coherenceStop: 260 , color: dotCol, trialType: 'no-change', trialSubtype: 'NA' },
+      // { coherenceStart: 275, coherenceStop: 275 , color: dotCol, trialType: 'no-change', trialSubtype: 'NA' },
+      // { coherenceStart: 290, coherenceStop: 290 , color: dotCol, trialType: 'no-change', trialSubtype: 'NA' },
+      // { coherenceStart: 305, coherenceStop: 305 , color: dotCol, trialType: 'no-change', trialSubtype: 'NA' },
+      // { coherenceStart: 320, coherenceStop: 320 , color: dotCol, trialType: 'no-change', trialSubtype: 'NA' },
+      { coherenceStart: 335, coherenceStop: 335 , color: dotCol, trialType: 'no-change', trialSubtype: 'NA' },
+      { coherenceStart: 350, coherenceStop: 350, color: dotCol, trialType: 'no-change', trialSubtype: 'NA' }
+    ],
+    randomize_order: true
 }
 
-var rdk_nochange = {
+var rdkChange_trialBlock = {
     timeline: [
         {
             type: "html-keyboard-response",
@@ -143,7 +155,7 @@ var rdk_nochange = {
             trial_duration: ITI
         },
         {
-            type: "rdk",
+            type: "rdk-change",
             RDK_type: rdkType,
             aperture_type: apertureType,
             aperture_width: aperatureRadiusPixels,
@@ -159,36 +171,125 @@ var rdk_nochange = {
             border_color: dotCol,
             choices: [32],
             correct_choice: [32],
-            coherent_direction: jsPsych.timelineVariable('coherenceStart')
-        }
+            coherent_direction: jsPsych.timelineVariable('coherenceStart'),
+            coherent_direction_after_change: jsPsych.timelineVariable('coherenceStop'),
+            trialType: jsPsych.timelineVariable('trialType'),
+            trialSubtype: jsPsych.timelineVariable('trialSubtype')
+          }
     ],
     timeline_variables: [
-      { coherenceStart: 5, coherenceStop: 5 },
-      // { coherenceStart: 20, coherenceStop: 20 },
-      // { coherenceStart: 35, coherenceStop: 35 },
-      // { coherenceStart: 50, coherenceStop: 50 },
-      // { coherenceStart: 65, coherenceStop: 65 },
-      // { coherenceStart: 80, coherenceStop: 80 },
-      // { coherenceStart: 95, coherenceStop: 95 },
-      // { coherenceStart: 110, coherenceStop: 110 },
-      // { coherenceStart: 125, coherenceStop: 125 },
-      // { coherenceStart: 140, coherenceStop: 140 },
-      // { coherenceStart: 155, coherenceStop: 155 },
-      // { coherenceStart: 170, coherenceStop: 170 },
-      // { coherenceStart: 185, coherenceStop: 185 },
-      // { coherenceStart: 200, coherenceStop: 200 },
-      // { coherenceStart: 215, coherenceStop: 215 },
-      // { coherenceStart: 230, coherenceStop: 230 },
-      // { coherenceStart: 245, coherenceStop: 245 },
-      // { coherenceStart: 260, coherenceStop: 260 },
-      // { coherenceStart: 275, coherenceStop: 275 },
-      // { coherenceStart: 290, coherenceStop: 290 },
-      // { coherenceStart: 305, coherenceStop: 305 },
-      // { coherenceStart: 320, coherenceStop: 320 },
-      // { coherenceStart: 335, coherenceStop: 335 },
-      // { coherenceStart: 350, coherenceStop: 350 }
-    ]
+      { coherenceStart: 5, coherenceStop: 95, color: dotCol, trialType: 'change', trialSubtype: 'clockwise' }, //change clockwise
+      { coherenceStart: 20, coherenceStop: 110 , color: dotCol, trialType: 'change', trialSubtype: 'clockwise' },
+      { coherenceStart: 35, coherenceStop: 125 , color: dotCol, trialType: 'change', trialSubtype: 'clockwise' },
+      { coherenceStart: 50, coherenceStop: 140 , color: dotCol, trialType: 'change', trialSubtype: 'clockwise' },
+      { coherenceStart: 65, coherenceStop: 155 , color: dotCol, trialType: 'change', trialSubtype: 'clockwise' },
+      { coherenceStart: 80, coherenceStop: 170 , color: dotCol, trialType: 'change', trialSubtype: 'clockwise' },
+      { coherenceStart: 95, coherenceStop: 185 , color: dotCol, trialType: 'change', trialSubtype: 'clockwise' },
+      { coherenceStart: 110, coherenceStop: 200 , color: dotCol, trialType: 'change', trialSubtype: 'clockwise' },
+      { coherenceStart: 125, coherenceStop: 215 , color: dotCol, trialType: 'change', trialSubtype: 'clockwise' },
+      { coherenceStart: 140, coherenceStop: 230 , color: dotCol, trialType: 'change', trialSubtype: 'clockwise' },
+      { coherenceStart: 155, coherenceStop: 245 , color: dotCol, trialType: 'change', trialSubtype: 'clockwise' },
+      { coherenceStart: 170, coherenceStop: 260 , color: dotCol, trialType: 'change', trialSubtype: 'clockwise' },
+      { coherenceStart: 185, coherenceStop: 275 , color: dotCol, trialType: 'change', trialSubtype: 'clockwise' },
+      { coherenceStart: 200, coherenceStop: 290 , color: dotCol, trialType: 'change', trialSubtype: 'clockwise' },
+      { coherenceStart: 215, coherenceStop: 305 , color: dotCol, trialType: 'change', trialSubtype: 'clockwise' },
+      { coherenceStart: 230, coherenceStop: 320 , color: dotCol, trialType: 'change', trialSubtype: 'clockwise' },
+      { coherenceStart: 245, coherenceStop: 335 , color: dotCol, trialType: 'change', trialSubtype: 'clockwise' },
+      { coherenceStart: 260, coherenceStop: 350 , color: dotCol, trialType: 'change', trialSubtype: 'clockwise' },
+      { coherenceStart: 275, coherenceStop: 5 , color: dotCol, trialType: 'change', trialSubtype: 'clockwise' },
+      { coherenceStart: 290, coherenceStop: 20 , color: dotCol, trialType: 'change', trialSubtype: 'clockwise' },
+      { coherenceStart: 305, coherenceStop: 35 , color: dotCol, trialType: 'change', trialSubtype: 'clockwise' },
+      { coherenceStart: 320, coherenceStop: 50 , color: dotCol, trialType: 'change', trialSubtype: 'clockwise' },
+      { coherenceStart: 335, coherenceStop: 65 , color: dotCol, trialType: 'change', trialSubtype: 'clockwise' },
+      { coherenceStart: 350, coherenceStop: 80 , color: dotCol, trialType: 'change', trialSubtype: 'clockwise' },
+      { coherenceStart: 5, coherenceStop: 275, color: dotCol, trialType: 'change', trialSubtype: 'counter-clockwise' }, //change counter-clockwise
+      { coherenceStart: 20, coherenceStop: 290 , color: dotCol, trialType: 'change', trialSubtype: 'counter-clockwise' },
+      { coherenceStart: 35, coherenceStop: 305 , color: dotCol, trialType: 'change', trialSubtype: 'counter-clockwise' },
+      { coherenceStart: 50, coherenceStop: 320 , color: dotCol, trialType: 'change', trialSubtype: 'counter-clockwise' },
+      { coherenceStart: 65, coherenceStop: 335 , color: dotCol, trialType: 'change', trialSubtype: 'counter-clockwise' },
+      { coherenceStart: 80, coherenceStop: 350 , color: dotCol, trialType: 'change', trialSubtype: 'counter-clockwise' },
+      { coherenceStart: 95, coherenceStop: 5 , color: dotCol, trialType: 'change', trialSubtype: 'counter-clockwise' },
+      { coherenceStart: 110, coherenceStop: 20 , color: dotCol, trialType: 'change', trialSubtype: 'counter-clockwise' },
+      { coherenceStart: 125, coherenceStop: 35 , color: dotCol, trialType: 'change', trialSubtype: 'counter-clockwise' },
+      { coherenceStart: 140, coherenceStop: 50 , color: dotCol, trialType: 'change', trialSubtype: 'counter-clockwise' },
+      { coherenceStart: 155, coherenceStop: 65 , color: dotCol, trialType: 'change', trialSubtype: 'counter-clockwise' },
+      { coherenceStart: 170, coherenceStop: 80 , color: dotCol, trialType: 'change', trialSubtype: 'counter-clockwise' },
+      { coherenceStart: 185, coherenceStop: 95 , color: dotCol, trialType: 'change', trialSubtype: 'counter-clockwise' },
+      { coherenceStart: 200, coherenceStop: 110 , color: dotCol, trialType: 'change', trialSubtype: 'counter-clockwise' },
+      { coherenceStart: 215, coherenceStop: 125 , color: dotCol, trialType: 'change', trialSubtype: 'counter-clockwise' },
+      { coherenceStart: 230, coherenceStop: 140 , color: dotCol, trialType: 'change', trialSubtype: 'counter-clockwise' },
+      { coherenceStart: 245, coherenceStop: 155 , color: dotCol, trialType: 'change', trialSubtype: 'counter-clockwise' },
+      { coherenceStart: 260, coherenceStop: 170 , color: dotCol, trialType: 'change', trialSubtype: 'counter-clockwise' },
+      { coherenceStart: 275, coherenceStop: 185 , color: dotCol, trialType: 'change', trialSubtype: 'counter-clockwise' },
+      { coherenceStart: 290, coherenceStop: 200 , color: dotCol, trialType: 'change', trialSubtype: 'counter-clockwise' },
+      { coherenceStart: 305, coherenceStop: 215 , color: dotCol, trialType: 'change', trialSubtype: 'counter-clockwise' },
+      { coherenceStart: 320, coherenceStop: 230 , color: dotCol, trialType: 'change', trialSubtype: 'counter-clockwise' },
+      { coherenceStart: 335, coherenceStop: 245 , color: dotCol, trialType: 'change', trialSubtype: 'counter-clockwise' },
+      { coherenceStart: 350, coherenceStop: 260, color: dotCol, trialType: 'change', trialSubtype: 'counter-clockwise' },
+      { coherenceStart: 5, coherenceStop: 5, color: dotCol, trialType: 'no-change', trialSubtype: 'NA' }, //no-change
+      { coherenceStart: 20, coherenceStop: 20 , color: dotCol, trialType: 'no-change', trialSubtype: 'NA' },
+      { coherenceStart: 35, coherenceStop: 35 , color: dotCol, trialType: 'no-change', trialSubtype: 'NA' },
+      { coherenceStart: 50, coherenceStop: 50 , color: dotCol, trialType: 'no-change', trialSubtype: 'NA' },
+      { coherenceStart: 65, coherenceStop: 65 , color: dotCol, trialType: 'no-change', trialSubtype: 'NA' },
+      { coherenceStart: 80, coherenceStop: 80 , color: dotCol, trialType: 'no-change', trialSubtype: 'NA' },
+      { coherenceStart: 95, coherenceStop: 95 , color: dotCol, trialType: 'no-change', trialSubtype: 'NA' },
+      { coherenceStart: 110, coherenceStop: 110 , color: dotCol, trialType: 'no-change', trialSubtype: 'NA' },
+      { coherenceStart: 125, coherenceStop: 125 , color: dotCol, trialType: 'no-change', trialSubtype: 'NA' },
+      { coherenceStart: 140, coherenceStop: 140 , color: dotCol, trialType: 'no-change', trialSubtype: 'NA' },
+      { coherenceStart: 155, coherenceStop: 155 , color: dotCol, trialType: 'no-change', trialSubtype: 'NA' },
+      { coherenceStart: 170, coherenceStop: 170 , color: dotCol, trialType: 'no-change', trialSubtype: 'NA' },
+      { coherenceStart: 185, coherenceStop: 185 , color: dotCol, trialType: 'no-change', trialSubtype: 'NA' },
+      { coherenceStart: 200, coherenceStop: 200 , color: dotCol, trialType: 'no-change', trialSubtype: 'NA' },
+      { coherenceStart: 215, coherenceStop: 215 , color: dotCol, trialType: 'no-change', trialSubtype: 'NA' },
+      { coherenceStart: 230, coherenceStop: 230 , color: dotCol, trialType: 'no-change', trialSubtype: 'NA' },
+      { coherenceStart: 245, coherenceStop: 245 , color: dotCol, trialType: 'no-change', trialSubtype: 'NA' },
+      { coherenceStart: 260, coherenceStop: 260 , color: dotCol, trialType: 'no-change', trialSubtype: 'NA' },
+      { coherenceStart: 275, coherenceStop: 275 , color: dotCol, trialType: 'no-change', trialSubtype: 'NA' },
+      { coherenceStart: 290, coherenceStop: 290 , color: dotCol, trialType: 'no-change', trialSubtype: 'NA' },
+      { coherenceStart: 305, coherenceStop: 305 , color: dotCol, trialType: 'no-change', trialSubtype: 'NA' },
+      { coherenceStart: 320, coherenceStop: 320 , color: dotCol, trialType: 'no-change', trialSubtype: 'NA' },
+      { coherenceStart: 335, coherenceStop: 335 , color: dotCol, trialType: 'no-change', trialSubtype: 'NA' },
+      { coherenceStart: 350, coherenceStop: 350, color: dotCol, trialType: 'no-change', trialSubtype: 'NA' }
+    ],
+    randomize_order: true
 }
 
+let save_data = {
+  type: "html-keyboard-response",
+  stimulus: "<p>Data saving...</p>"+
+  '<div class="sk-cube-grid">'+
+'<div class="sk-cube sk-cube1"></div>'+
+'<div class="sk-cube sk-cube2"></div>'+
+'<div class="sk-cube sk-cube3"></div>'+
+'<div class="sk-cube sk-cube4"></div>'+
+'<div class="sk-cube sk-cube5"></div>'+
+'<div class="sk-cube sk-cube6"></div>'+
+'<div class="sk-cube sk-cube7"></div>'+
+'<div class="sk-cube sk-cube8"></div>'+
+'<div class="sk-cube sk-cube9"></div>'+
+'</div>'+
+  "<p>Do not close this window until the text dissapears.</p>",
+
+  choices: jsPsych.NO_KEYS,
+  trial_duration: 5000,
+  on_finish: function(){
+    saveData("motionChangeDetermination" + workerId, jsPsych.data.get().csv());
+    document.getElementById("unload").onbeforeunload='';
+    $(document).ready(function(){
+    $("body").addClass("showCursor"); // returns cursor functionality
+});
+  }
+};
+
+let end = {
+  type: "html-keyboard-response",
+  stimulus:   "<p>Thank you!</p>"+
+  "<p>You have successfully completed the experiment and your data has been saved.</p>"+
+  "<p>To leave feedback on this task, please click the following link:</p>"+
+  "<p style='color:white;'><a href="+feedbackLink+">Leave Task Feedback!</a></p>"+
+  // "<p>Please wait for the experimenter to continue.</p>"+
+  "<p><i>You may now close the expriment window at anytime.</i></p>",
+  choices: jsPsych.NO_KEYS,
+};
 
 $.getScript("exp/main.js");

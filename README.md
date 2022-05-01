@@ -21,18 +21,16 @@
 
 7. Clone into htdocs:
 
-        git clone https://github.com/belieflab/pessiglionne.git
+        git clone https://github.com/belieflab/motionChangeDetermination.git
 
 #### Modifty permissions:
 8. Copy this text into your terminal from the htdocs folder (the folder you are already in).
 
         sudo chmod -R 777 pessiglionne/
-        
-#### Start experiment:     
-9. Click this URL: [http://localhost:8080/pessiglionne](http://localhost:8080/pessiglionne)
-      
-      
-      
-### BRAVO! You're a XAMPP master.
-        
 
+#### Start experiment:     
+9. Click this URL: [http://localhost:8080/motionChangeDetermination](http://localhost:8080/motionChangeDetermination)
+
+
+
+### BRAVO! You're a XAMPP master.
