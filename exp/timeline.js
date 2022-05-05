@@ -69,39 +69,17 @@ var rdkChange_practiceBlock = {
             trialSubtype: jsPsych.timelineVariable('trialSubtype')
           },
           {
-            type: "html-button-response",
+            type: "html-keyboard-response",
             stimulus:
               function(){
-                var html= "<svg width='"+standardSize*4+"' height='"+standardSize*4+"'>"+
-                    "<circle cx='"+standardSize*2+"' cy='"+standardSize*2+"' r='"+jsPsych.timelineVariable('stimulusLeft', true)/2+"' fill='"+stimColor+"'></circle>"+
-                      "<circle cx='"+jsPsych.timelineVariable('surroundLeftX0', true)+"' cy='"+jsPsych.timelineVariable('surroundLeftY0', true)+"' r='"+jsPsych.timelineVariable('surroundLeft', true)/2+"' fill='"+jsPsych.timelineVariable('peripheralColor', true)+"'></circle>"+
-                      "<circle cx='"+jsPsych.timelineVariable('surroundLeftX1', true)+"' cy='"+jsPsych.timelineVariable('surroundLeftY1', true)+"' r='"+jsPsych.timelineVariable('surroundLeft', true)/2+"' fill='"+jsPsych.timelineVariable('peripheralColor', true)+"'></circle>"+
-                      "<circle cx='"+jsPsych.timelineVariable('surroundLeftX2', true)+"' cy='"+jsPsych.timelineVariable('surroundLeftY2', true)+"' r='"+jsPsych.timelineVariable('surroundLeft', true)/2+"' fill='"+jsPsych.timelineVariable('peripheralColor', true)+"'></circle>"+
-                      "<circle cx='"+jsPsych.timelineVariable('surroundLeftX3', true)+"' cy='"+jsPsych.timelineVariable('surroundLeftY3', true)+"' r='"+jsPsych.timelineVariable('surroundLeft', true)/2+"' fill='"+jsPsych.timelineVariable('peripheralColor', true)+"'></circle>"+
-                      "<circle cx='"+jsPsych.timelineVariable('surroundLeftX4', true)+"' cy='"+jsPsych.timelineVariable('surroundLeftY4', true)+"' r='"+jsPsych.timelineVariable('surroundLeft', true)/2+"' fill='"+jsPsych.timelineVariable('peripheralColor', true)+"'></circle>"+
-                      "<circle cx='"+jsPsych.timelineVariable('surroundLeftX5', true)+"' cy='"+jsPsych.timelineVariable('surroundLeftY5', true)+"' r='"+jsPsych.timelineVariable('surroundLeft', true)/2+"' fill='"+jsPsych.timelineVariable('peripheralColor', true)+"'></circle>"+
-                      "<circle cx='"+jsPsych.timelineVariable('surroundLeftX6', true)+"' cy='"+jsPsych.timelineVariable('surroundLeftY6', true)+"' r='"+jsPsych.timelineVariable('surroundLeft', true)/2+"' fill='"+jsPsych.timelineVariable('peripheralColor', true)+"'></circle>"+
-                      "<circle cx='"+jsPsych.timelineVariable('surroundLeftX7', true)+"' cy='"+jsPsych.timelineVariable('surroundLeftY7', true)+"' r='"+jsPsych.timelineVariable('surroundLeft', true)/2+"' fill='"+jsPsych.timelineVariable('peripheralColor', true)+"'></circle>"+
-                  "</svg>"+
-                  "<svg width='"+standardSize*4+"' height='"+standardSize*4+"'>"+
-                    "<circle cx='"+standardSize*2+"' cy='"+standardSize*2+"' r='"+jsPsych.timelineVariable('stimulusRight', true)/2+"' fill='"+stimColor+"'></circle>"+
-                      "<circle cx='"+jsPsych.timelineVariable('surroundRightX0', true)+"' cy='"+jsPsych.timelineVariable('surroundRightY0', true)+"' r='"+jsPsych.timelineVariable('surroundRight', true)/2+"' fill='"+jsPsych.timelineVariable('peripheralColor', true)+"'></circle>"+
-                      "<circle cx='"+jsPsych.timelineVariable('surroundRightX1', true)+"' cy='"+jsPsych.timelineVariable('surroundRightY1', true)+"' r='"+jsPsych.timelineVariable('surroundRight', true)/2+"' fill='"+jsPsych.timelineVariable('peripheralColor', true)+"'></circle>"+
-                      "<circle cx='"+jsPsych.timelineVariable('surroundRightX2', true)+"' cy='"+jsPsych.timelineVariable('surroundRightY2', true)+"' r='"+jsPsych.timelineVariable('surroundRight', true)/2+"' fill='"+jsPsych.timelineVariable('peripheralColor', true)+"'></circle>"+
-                      "<circle cx='"+jsPsych.timelineVariable('surroundRightX3', true)+"' cy='"+jsPsych.timelineVariable('surroundRightY3', true)+"' r='"+jsPsych.timelineVariable('surroundRight', true)/2+"' fill='"+jsPsych.timelineVariable('peripheralColor', true)+"'></circle>"+
-                      "<circle cx='"+jsPsych.timelineVariable('surroundRightX4', true)+"' cy='"+jsPsych.timelineVariable('surroundRightY4', true)+"' r='"+jsPsych.timelineVariable('surroundRight', true)/2+"' fill='"+jsPsych.timelineVariable('peripheralColor', true)+"'></circle>"+
-                      "<circle cx='"+jsPsych.timelineVariable('surroundRightX5', true)+"' cy='"+jsPsych.timelineVariable('surroundRightY5', true)+"' r='"+jsPsych.timelineVariable('surroundRight', true)/2+"' fill='"+jsPsych.timelineVariable('peripheralColor', true)+"'></circle>"+
-                      "<circle cx='"+jsPsych.timelineVariable('surroundRightX6', true)+"' cy='"+jsPsych.timelineVariable('surroundRightY6', true)+"' r='"+jsPsych.timelineVariable('surroundRight', true)/2+"' fill='"+jsPsych.timelineVariable('peripheralColor', true)+"'></circle>"+
-                      "<circle cx='"+jsPsych.timelineVariable('surroundRightX7', true)+"' cy='"+jsPsych.timelineVariable('surroundRightY7', true)+"' r='"+jsPsych.timelineVariable('surroundRight', true)/2+"' fill='"+jsPsych.timelineVariable('peripheralColor', true)+"'></circle>"+
-                  "</svg>"
+                var html= "<line x1='500' y1='500' x2='100' y2='20' stroke='red' />"
                 return html;
               },
-            choices: [leftASCII, rightASCII],
+            choices: ["Escape"],
             trial_duration: 2000,
             response_ends_trial: true,
-            data: jsPsych.timelineVariable('data'),
+            //data: jsPsych.timelineVariable('data'),
             post_trial_gap: 200,
-
           }
     ],
     timeline_variables: [
