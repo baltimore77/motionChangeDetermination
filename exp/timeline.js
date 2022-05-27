@@ -72,11 +72,14 @@ var rdkChange_practiceBlock = {
             type: "html-keyboard-response",
             stimulus:
               function(){
-                var html= "<line x1='500' y1='500' x2='100' y2='20' stroke='red' />"
+                var html=
+                  "<svg height=1000 width=1300>"+
+                    "<line x1="+screen.width/2+" y1="+screen.height/2+" x2="+(screen.width/2-aperatureRadiusPixels)+" y2="+(screen.width/2-aperatureRadiusPixels)+" style='stroke:rgb(8, 112, 177);stroke-width:3' />"+
+                  "</svg>"
                 return html;
               },
-            choices: ["Escape"],
-            trial_duration: 2000,
+            choices: "NO_KEYS",
+            trial_duration: 200,
             response_ends_trial: true,
             //data: jsPsych.timelineVariable('data'),
             post_trial_gap: 200,
