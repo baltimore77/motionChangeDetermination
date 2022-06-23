@@ -12,6 +12,8 @@
     <script type="text/javascript" src="jsPsych/jspsych.js"></script>
    <!-- loads in jspsych plugins -->
     <script type="text/javascript" src="jsPsych/plugins/jspsych-html-keyboard-response.js"></script>
+    <script type="text/javascript" src="jsPsych/plugins/jspsych-html-button-response.js"></script>
+    <script type="text/javascript" src="jsPsych/plugins/jspsych-call-function.js"></script>
     <script type="text/javascript" src="jsPsych/plugins/jspsych-image-keyboard-response.js"></script>
     <script type="text/javascript" src="jsPsych/plugins/jspsych-audio-keyboard-response.js"></script>
     <script type="text/javascript" src="jsPsych/plugins/jspsych-rdk-change.js"></script>

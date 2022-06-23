@@ -29,14 +29,7 @@ let dotLifespanFrameRefreshes = -1; //-1 is for the duration of the aperture
 let dotSpeedPixelsPerFrame = 5; //how many pixels does the dot move from one frame to the next
 let dotsQuantity = 30; //number of dots visible on any given frame
 let coherencePercent = 0.35; //what percent of dots flow in same direction (whereas others flow randomly)
-
-function filledCirc(canvas, radius, color) {
-    var ctx = canvas.getContext("2d");
-    ctx.beginPath();
-    ctx.arc(150, 150, radius, 0, 2 * Math.PI);
-    ctx.fillStyle = color;
-    ctx.fill();
-}
+let orientationsArray = [5,20,35,50,65,80,95,110,125,140,155,170,185,200,215,230,245,260,275,290,305,320,335,350];
 
 var rdkChange_practiceBlock = {
     timeline: [
@@ -61,103 +54,141 @@ var rdkChange_practiceBlock = {
             coherence: coherencePercent,
             border: true,
             border_color: dotCol,
-            choices: [32],
-            correct_choice: [32],
+            choices: "NO_KEYS",
+            correct_choice: "NO_KEYS",
             coherent_direction: jsPsych.timelineVariable('coherenceStart'),
             coherent_direction_after_change: jsPsych.timelineVariable('coherenceStop'),
             trialType: jsPsych.timelineVariable('trialType'),
             trialSubtype: jsPsych.timelineVariable('trialSubtype')
           },
+          // {
+          //   type: "html-keyboard-response",
+          //   stimulus:
+          //     function(){
+          //       var html=
+          //         "<svg viewBox="+-aperatureRadiusPixels/2+" "+-aperatureRadiusPixels/2+" "+aperatureRadiusPixels/2+" "+aperatureRadiusPixels/2+" stroke='purple' stroke-width='5' >"+
+          //           "<circle r="+aperatureRadiusPixels/2+" stroke='purple' stroke-width='5' fill='pink' />"+
+          //           "<line x1="+screen.width/2+" y1="+screen.height/2+" x2="+(screen.width/2-aperatureRadiusPixels)+" y2="+(screen.width/2-aperatureRadiusPixels)+" style='stroke:rgb(8, 112, 177);stroke-width:3' />"+
+          //         "</svg>"
+          //       return html;
+          //     },
+          //   choices: "NO_KEYS",
+          //   trial_duration: 200,
+          //   response_ends_trial: true,
+          //   //data: jsPsych.timelineVariable('data'),
+          //   post_trial_gap: 200,
+          // },
           {
-            type: "html-keyboard-response",
-            stimulus:
-              function(){
-                var html=
-                  "<svg height=1000 width=1300>"+
-                    "<line x1="+screen.width/2+" y1="+screen.height/2+" x2="+(screen.width/2-aperatureRadiusPixels)+" y2="+(screen.width/2-aperatureRadiusPixels)+" style='stroke:rgb(8, 112, 177);stroke-width:3' />"+
-                  "</svg>"
-                return html;
-              },
-            choices: "NO_KEYS",
-            trial_duration: 200,
-            response_ends_trial: true,
-            //data: jsPsych.timelineVariable('data'),
-            post_trial_gap: 200,
+            type: "call-function",
+            async: true,
+            func: function(done,data){
+              var html=
+                "<svg viewBox="+-aperatureRadiusPixels/2+" "+-aperatureRadiusPixels/2+" "+aperatureRadiusPixels/2+" "+aperatureRadiusPixels/2+" stroke='purple' stroke-width='5' >"+
+                  "<circle r="+aperatureRadiusPixels/2+" stroke='purple' stroke-width='5' fill='pink' />"+
+                  "<line x1="+screen.width/2+" y1="+screen.height/2+" x2="+(screen.width/2-aperatureRadiusPixels)+" y2="+(screen.width/2-aperatureRadiusPixels)+" style='stroke:rgb(8, 112, 177);stroke-width:3' />"+
+                "</svg>"
+              return html;
+                // // To draw a static line.
+                // context = jsPsych.currentTrial().context;
+                // var pos = 0;
+                // const gradLength = 100;
+                // const my_gradient  = context.lineTo(400, 0);
+                // const bands = 10;
+                // const colors = ["#000", "#FFF"];
+                // const stops = bands * colors.length;
+                // while (pos <= stops) {
+                //     my_gradient.addColorStop(pos / stops, colors[pos % colors.length]);
+                //     pos++;
+                // }
+                // context.filter = 'contrast('+ CL1 +')';
+                // context.fillStyle = my_gradient;
+                // context.fillRect(500,325,gradLength,gradLength);
+                // context.stroke();
+
+                // // generate a delay between 1500 and 3000 milliseconds to simulate
+                // // waiting for an event to finish after an unknown duration,
+                // // then move on with the experiment
+                // var rand_delay = (Math.floor(Math.random() * (3000 - 1500 + 1) + 1500));
+                // jsPsych.pluginAPI.setTimeout(function() {
+                //     // end the trial and save the delay duration to the data
+                //     done(rand_delay.toString()+"ms");
+                // }, rand_delay)
+            }
           }
     ],
     timeline_variables: [
-      { coherenceStart: 5, coherenceStop: 95, color: dotCol, trialType: 'change', trialSubtype: 'clockwise' }, //change clockwise
-      { coherenceStart: 20, coherenceStop: 110 , color: dotCol, trialType: 'change', trialSubtype: 'clockwise' },
-      // { coherenceStart: 35, coherenceStop: 125 , color: dotCol, trialType: 'change', trialSubtype: 'clockwise' },
-      // { coherenceStart: 50, coherenceStop: 140 , color: dotCol, trialType: 'change', trialSubtype: 'clockwise' },
-      // { coherenceStart: 65, coherenceStop: 155 , color: dotCol, trialType: 'change', trialSubtype: 'clockwise' },
-      // { coherenceStart: 80, coherenceStop: 170 , color: dotCol, trialType: 'change', trialSubtype: 'clockwise' },
-      // { coherenceStart: 95, coherenceStop: 185 , color: dotCol, trialType: 'change', trialSubtype: 'clockwise' },
-      // { coherenceStart: 110, coherenceStop: 200 , color: dotCol, trialType: 'change', trialSubtype: 'clockwise' },
-      // { coherenceStart: 125, coherenceStop: 215 , color: dotCol, trialType: 'change', trialSubtype: 'clockwise' },
-      // { coherenceStart: 140, coherenceStop: 230 , color: dotCol, trialType: 'change', trialSubtype: 'clockwise' },
-      // { coherenceStart: 155, coherenceStop: 245 , color: dotCol, trialType: 'change', trialSubtype: 'clockwise' },
-      // { coherenceStart: 170, coherenceStop: 260 , color: dotCol, trialType: 'change', trialSubtype: 'clockwise' },
-      // { coherenceStart: 185, coherenceStop: 275 , color: dotCol, trialType: 'change', trialSubtype: 'clockwise' },
-      // { coherenceStart: 200, coherenceStop: 290 , color: dotCol, trialType: 'change', trialSubtype: 'clockwise' },
-      // { coherenceStart: 215, coherenceStop: 305 , color: dotCol, trialType: 'change', trialSubtype: 'clockwise' },
-      { coherenceStart: 230, coherenceStop: 320 , color: dotCol, trialType: 'change', trialSubtype: 'clockwise' },
-      // { coherenceStart: 245, coherenceStop: 335 , color: dotCol, trialType: 'change', trialSubtype: 'clockwise' },
-      // { coherenceStart: 260, coherenceStop: 350 , color: dotCol, trialType: 'change', trialSubtype: 'clockwise' },
-      // { coherenceStart: 275, coherenceStop: 5 , color: dotCol, trialType: 'change', trialSubtype: 'clockwise' },
-      // { coherenceStart: 290, coherenceStop: 20 , color: dotCol, trialType: 'change', trialSubtype: 'clockwise' },
-      // { coherenceStart: 305, coherenceStop: 35 , color: dotCol, trialType: 'change', trialSubtype: 'clockwise' },
-      // { coherenceStart: 320, coherenceStop: 50 , color: dotCol, trialType: 'change', trialSubtype: 'clockwise' },
-      // { coherenceStart: 335, coherenceStop: 65 , color: dotCol, trialType: 'change', trialSubtype: 'clockwise' },
-      // { coherenceStart: 350, coherenceStop: 80 , color: dotCol, trialType: 'change', trialSubtype: 'clockwise' },
-      { coherenceStart: 5, coherenceStop: 275, color: dotCol, trialType: 'change', trialSubtype: 'counter-clockwise' }, //change counter-clockwise
-      { coherenceStart: 20, coherenceStop: 290 , color: dotCol, trialType: 'change', trialSubtype: 'counter-clockwise' },
-      // { coherenceStart: 35, coherenceStop: 305 , color: dotCol, trialType: 'change', trialSubtype: 'counter-clockwise' },
-      // { coherenceStart: 50, coherenceStop: 320 , color: dotCol, trialType: 'change', trialSubtype: 'counter-clockwise' },
-      // { coherenceStart: 65, coherenceStop: 335 , color: dotCol, trialType: 'change', trialSubtype: 'counter-clockwise' },
-      // { coherenceStart: 80, coherenceStop: 350 , color: dotCol, trialType: 'change', trialSubtype: 'counter-clockwise' },
-      // { coherenceStart: 95, coherenceStop: 5 , color: dotCol, trialType: 'change', trialSubtype: 'counter-clockwise' },
-      // { coherenceStart: 110, coherenceStop: 20 , color: dotCol, trialType: 'change', trialSubtype: 'counter-clockwise' },
-      // { coherenceStart: 125, coherenceStop: 35 , color: dotCol, trialType: 'change', trialSubtype: 'counter-clockwise' },
-      { coherenceStart: 140, coherenceStop: 50 , color: dotCol, trialType: 'change', trialSubtype: 'counter-clockwise' },
-      // { coherenceStart: 155, coherenceStop: 65 , color: dotCol, trialType: 'change', trialSubtype: 'counter-clockwise' },
-      // { coherenceStart: 170, coherenceStop: 80 , color: dotCol, trialType: 'change', trialSubtype: 'counter-clockwise' },
-      // { coherenceStart: 185, coherenceStop: 95 , color: dotCol, trialType: 'change', trialSubtype: 'counter-clockwise' },
-      // { coherenceStart: 200, coherenceStop: 110 , color: dotCol, trialType: 'change', trialSubtype: 'counter-clockwise' },
-      // { coherenceStart: 215, coherenceStop: 125 , color: dotCol, trialType: 'change', trialSubtype: 'counter-clockwise' },
-      // { coherenceStart: 230, coherenceStop: 140 , color: dotCol, trialType: 'change', trialSubtype: 'counter-clockwise' },
-      // { coherenceStart: 245, coherenceStop: 155 , color: dotCol, trialType: 'change', trialSubtype: 'counter-clockwise' },
-      // { coherenceStart: 260, coherenceStop: 170 , color: dotCol, trialType: 'change', trialSubtype: 'counter-clockwise' },
-      // { coherenceStart: 275, coherenceStop: 185 , color: dotCol, trialType: 'change', trialSubtype: 'counter-clockwise' },
-      // { coherenceStart: 290, coherenceStop: 200 , color: dotCol, trialType: 'change', trialSubtype: 'counter-clockwise' },
-      // { coherenceStart: 305, coherenceStop: 215 , color: dotCol, trialType: 'change', trialSubtype: 'counter-clockwise' },
-      // { coherenceStart: 320, coherenceStop: 230 , color: dotCol, trialType: 'change', trialSubtype: 'counter-clockwise' },
-      // { coherenceStart: 335, coherenceStop: 245 , color: dotCol, trialType: 'change', trialSubtype: 'counter-clockwise' },
-      // { coherenceStart: 350, coherenceStop: 260, color: dotCol, trialType: 'change', trialSubtype: 'counter-clockwise' },
-      // { coherenceStart: 5, coherenceStop: 5, color: dotCol, trialType: 'no-change', trialSubtype: 'NA' }, //no-change
-      // { coherenceStart: 20, coherenceStop: 20 , color: dotCol, trialType: 'no-change', trialSubtype: 'NA' },
-      // { coherenceStart: 35, coherenceStop: 35 , color: dotCol, trialType: 'no-change', trialSubtype: 'NA' },
-      // { coherenceStart: 50, coherenceStop: 50 , color: dotCol, trialType: 'no-change', trialSubtype: 'NA' },
-      // { coherenceStart: 65, coherenceStop: 65 , color: dotCol, trialType: 'no-change', trialSubtype: 'NA' },
-      // { coherenceStart: 80, coherenceStop: 80 , color: dotCol, trialType: 'no-change', trialSubtype: 'NA' },
-      // { coherenceStart: 95, coherenceStop: 95 , color: dotCol, trialType: 'no-change', trialSubtype: 'NA' },
-      // { coherenceStart: 110, coherenceStop: 110 , color: dotCol, trialType: 'no-change', trialSubtype: 'NA' },
-      // { coherenceStart: 125, coherenceStop: 125 , color: dotCol, trialType: 'no-change', trialSubtype: 'NA' },
-      // { coherenceStart: 140, coherenceStop: 140 , color: dotCol, trialType: 'no-change', trialSubtype: 'NA' },
-      { coherenceStart: 155, coherenceStop: 155 , color: dotCol, trialType: 'no-change', trialSubtype: 'NA' },
-      // { coherenceStart: 170, coherenceStop: 170 , color: dotCol, trialType: 'no-change', trialSubtype: 'NA' },
-      // { coherenceStart: 185, coherenceStop: 185 , color: dotCol, trialType: 'no-change', trialSubtype: 'NA' },
-      // { coherenceStart: 200, coherenceStop: 200 , color: dotCol, trialType: 'no-change', trialSubtype: 'NA' },
-      // { coherenceStart: 215, coherenceStop: 215 , color: dotCol, trialType: 'no-change', trialSubtype: 'NA' },
-      // { coherenceStart: 230, coherenceStop: 230 , color: dotCol, trialType: 'no-change', trialSubtype: 'NA' },
-      // { coherenceStart: 245, coherenceStop: 245 , color: dotCol, trialType: 'no-change', trialSubtype: 'NA' },
-      { coherenceStart: 260, coherenceStop: 260 , color: dotCol, trialType: 'no-change', trialSubtype: 'NA' },
-      // { coherenceStart: 275, coherenceStop: 275 , color: dotCol, trialType: 'no-change', trialSubtype: 'NA' },
-      // { coherenceStart: 290, coherenceStop: 290 , color: dotCol, trialType: 'no-change', trialSubtype: 'NA' },
-      // { coherenceStart: 305, coherenceStop: 305 , color: dotCol, trialType: 'no-change', trialSubtype: 'NA' },
-      // { coherenceStart: 320, coherenceStop: 320 , color: dotCol, trialType: 'no-change', trialSubtype: 'NA' },
-      { coherenceStart: 335, coherenceStop: 335 , color: dotCol, trialType: 'no-change', trialSubtype: 'NA' },
-      { coherenceStart: 350, coherenceStop: 350, color: dotCol, trialType: 'no-change', trialSubtype: 'NA' }
+      { coherenceStart: 5, coherenceStop: 95, color: dotCol, trialType: 'change', trialSubtype: 'clockwise' , clickBins: orientationsArray }, //change clockwise
+      { coherenceStart: 20, coherenceStop: 110 , color: dotCol, trialType: 'change', trialSubtype: 'clockwise' , clickBins: orientationsArray },
+      // { coherenceStart: 35, coherenceStop: 125 , color: dotCol, trialType: 'change', trialSubtype: 'clockwise' , clickBins: orientationsArray },
+      // { coherenceStart: 50, coherenceStop: 140 , color: dotCol, trialType: 'change', trialSubtype: 'clockwise' , clickBins: orientationsArray },
+      // { coherenceStart: 65, coherenceStop: 155 , color: dotCol, trialType: 'change', trialSubtype: 'clockwise' , clickBins: orientationsArray },
+      // { coherenceStart: 80, coherenceStop: 170 , color: dotCol, trialType: 'change', trialSubtype: 'clockwise' , clickBins: orientationsArray },
+      // { coherenceStart: 95, coherenceStop: 185 , color: dotCol, trialType: 'change', trialSubtype: 'clockwise' , clickBins: orientationsArray },
+      // { coherenceStart: 110, coherenceStop: 200 , color: dotCol, trialType: 'change', trialSubtype: 'clockwise' , clickBins: orientationsArray },
+      // { coherenceStart: 125, coherenceStop: 215 , color: dotCol, trialType: 'change', trialSubtype: 'clockwise' , clickBins: orientationsArray },
+      // { coherenceStart: 140, coherenceStop: 230 , color: dotCol, trialType: 'change', trialSubtype: 'clockwise' , clickBins: orientationsArray },
+      // { coherenceStart: 155, coherenceStop: 245 , color: dotCol, trialType: 'change', trialSubtype: 'clockwise' , clickBins: orientationsArray },
+      // { coherenceStart: 170, coherenceStop: 260 , color: dotCol, trialType: 'change', trialSubtype: 'clockwise' , clickBins: orientationsArray },
+      // { coherenceStart: 185, coherenceStop: 275 , color: dotCol, trialType: 'change', trialSubtype: 'clockwise' , clickBins: orientationsArray },
+      // { coherenceStart: 200, coherenceStop: 290 , color: dotCol, trialType: 'change', trialSubtype: 'clockwise' , clickBins: orientationsArray },
+      // { coherenceStart: 215, coherenceStop: 305 , color: dotCol, trialType: 'change', trialSubtype: 'clockwise' , clickBins: orientationsArray },
+      { coherenceStart: 230, coherenceStop: 320 , color: dotCol, trialType: 'change', trialSubtype: 'clockwise' , clickBins: orientationsArray },
+      // { coherenceStart: 245, coherenceStop: 335 , color: dotCol, trialType: 'change', trialSubtype: 'clockwise' , clickBins: orientationsArray },
+      // { coherenceStart: 260, coherenceStop: 350 , color: dotCol, trialType: 'change', trialSubtype: 'clockwise' , clickBins: orientationsArray },
+      // { coherenceStart: 275, coherenceStop: 5 , color: dotCol, trialType: 'change', trialSubtype: 'clockwise' , clickBins: orientationsArray },
+      // { coherenceStart: 290, coherenceStop: 20 , color: dotCol, trialType: 'change', trialSubtype: 'clockwise' , clickBins: orientationsArray },
+      // { coherenceStart: 305, coherenceStop: 35 , color: dotCol, trialType: 'change', trialSubtype: 'clockwise' , clickBins: orientationsArray },
+      // { coherenceStart: 320, coherenceStop: 50 , color: dotCol, trialType: 'change', trialSubtype: 'clockwise' , clickBins: orientationsArray },
+      // { coherenceStart: 335, coherenceStop: 65 , color: dotCol, trialType: 'change', trialSubtype: 'clockwise' , clickBins: orientationsArray },
+      // { coherenceStart: 350, coherenceStop: 80 , color: dotCol, trialType: 'change', trialSubtype: 'clockwise' , clickBins: orientationsArray },
+      { coherenceStart: 5, coherenceStop: 275, color: dotCol, trialType: 'change', trialSubtype: 'counter-clockwise' , clickBins: orientationsArray }, //change counter-clockwise
+      { coherenceStart: 20, coherenceStop: 290 , color: dotCol, trialType: 'change', trialSubtype: 'counter-clockwise' , clickBins: orientationsArray },
+      // { coherenceStart: 35, coherenceStop: 305 , color: dotCol, trialType: 'change', trialSubtype: 'counter-clockwise' , clickBins: orientationsArray },
+      // { coherenceStart: 50, coherenceStop: 320 , color: dotCol, trialType: 'change', trialSubtype: 'counter-clockwise' , clickBins: orientationsArray },
+      // { coherenceStart: 65, coherenceStop: 335 , color: dotCol, trialType: 'change', trialSubtype: 'counter-clockwise' , clickBins: orientationsArray },
+      // { coherenceStart: 80, coherenceStop: 350 , color: dotCol, trialType: 'change', trialSubtype: 'counter-clockwise' , clickBins: orientationsArray },
+      // { coherenceStart: 95, coherenceStop: 5 , color: dotCol, trialType: 'change', trialSubtype: 'counter-clockwise' , clickBins: orientationsArray },
+      // { coherenceStart: 110, coherenceStop: 20 , color: dotCol, trialType: 'change', trialSubtype: 'counter-clockwise' , clickBins: orientationsArray },
+      // { coherenceStart: 125, coherenceStop: 35 , color: dotCol, trialType: 'change', trialSubtype: 'counter-clockwise' , clickBins: orientationsArray },
+      { coherenceStart: 140, coherenceStop: 50 , color: dotCol, trialType: 'change', trialSubtype: 'counter-clockwise' , clickBins: orientationsArray },
+      // { coherenceStart: 155, coherenceStop: 65 , color: dotCol, trialType: 'change', trialSubtype: 'counter-clockwise' , clickBins: orientationsArray },
+      // { coherenceStart: 170, coherenceStop: 80 , color: dotCol, trialType: 'change', trialSubtype: 'counter-clockwise' , clickBins: orientationsArray },
+      // { coherenceStart: 185, coherenceStop: 95 , color: dotCol, trialType: 'change', trialSubtype: 'counter-clockwise' , clickBins: orientationsArray },
+      // { coherenceStart: 200, coherenceStop: 110 , color: dotCol, trialType: 'change', trialSubtype: 'counter-clockwise' , clickBins: orientationsArray },
+      // { coherenceStart: 215, coherenceStop: 125 , color: dotCol, trialType: 'change', trialSubtype: 'counter-clockwise' , clickBins: orientationsArray },
+      // { coherenceStart: 230, coherenceStop: 140 , color: dotCol, trialType: 'change', trialSubtype: 'counter-clockwise' , clickBins: orientationsArray },
+      // { coherenceStart: 245, coherenceStop: 155 , color: dotCol, trialType: 'change', trialSubtype: 'counter-clockwise' , clickBins: orientationsArray },
+      // { coherenceStart: 260, coherenceStop: 170 , color: dotCol, trialType: 'change', trialSubtype: 'counter-clockwise' , clickBins: orientationsArray },
+      // { coherenceStart: 275, coherenceStop: 185 , color: dotCol, trialType: 'change', trialSubtype: 'counter-clockwise' , clickBins: orientationsArray },
+      // { coherenceStart: 290, coherenceStop: 200 , color: dotCol, trialType: 'change', trialSubtype: 'counter-clockwise' , clickBins: orientationsArray },
+      // { coherenceStart: 305, coherenceStop: 215 , color: dotCol, trialType: 'change', trialSubtype: 'counter-clockwise' , clickBins: orientationsArray },
+      // { coherenceStart: 320, coherenceStop: 230 , color: dotCol, trialType: 'change', trialSubtype: 'counter-clockwise' , clickBins: orientationsArray },
+      // { coherenceStart: 335, coherenceStop: 245 , color: dotCol, trialType: 'change', trialSubtype: 'counter-clockwise' , clickBins: orientationsArray },
+      // { coherenceStart: 350, coherenceStop: 260, color: dotCol, trialType: 'change', trialSubtype: 'counter-clockwise' , clickBins: orientationsArray },
+      // { coherenceStart: 5, coherenceStop: 5, color: dotCol, trialType: 'no-change', trialSubtype: 'NA' , clickBins: orientationsArray }, //no-change
+      // { coherenceStart: 20, coherenceStop: 20 , color: dotCol, trialType: 'no-change', trialSubtype: 'NA' , clickBins: orientationsArray },
+      // { coherenceStart: 35, coherenceStop: 35 , color: dotCol, trialType: 'no-change', trialSubtype: 'NA' , clickBins: orientationsArray },
+      // { coherenceStart: 50, coherenceStop: 50 , color: dotCol, trialType: 'no-change', trialSubtype: 'NA' , clickBins: orientationsArray },
+      // { coherenceStart: 65, coherenceStop: 65 , color: dotCol, trialType: 'no-change', trialSubtype: 'NA' , clickBins: orientationsArray },
+      // { coherenceStart: 80, coherenceStop: 80 , color: dotCol, trialType: 'no-change', trialSubtype: 'NA' , clickBins: orientationsArray },
+      // { coherenceStart: 95, coherenceStop: 95 , color: dotCol, trialType: 'no-change', trialSubtype: 'NA' , clickBins: orientationsArray },
+      // { coherenceStart: 110, coherenceStop: 110 , color: dotCol, trialType: 'no-change', trialSubtype: 'NA' , clickBins: orientationsArray },
+      // { coherenceStart: 125, coherenceStop: 125 , color: dotCol, trialType: 'no-change', trialSubtype: 'NA' , clickBins: orientationsArray },
+      // { coherenceStart: 140, coherenceStop: 140 , color: dotCol, trialType: 'no-change', trialSubtype: 'NA' , clickBins: orientationsArray },
+      { coherenceStart: 155, coherenceStop: 155 , color: dotCol, trialType: 'no-change', trialSubtype: 'NA' , clickBins: orientationsArray },
+      // { coherenceStart: 170, coherenceStop: 170 , color: dotCol, trialType: 'no-change', trialSubtype: 'NA' , clickBins: orientationsArray },
+      // { coherenceStart: 185, coherenceStop: 185 , color: dotCol, trialType: 'no-change', trialSubtype: 'NA' , clickBins: orientationsArray },
+      // { coherenceStart: 200, coherenceStop: 200 , color: dotCol, trialType: 'no-change', trialSubtype: 'NA' , clickBins: orientationsArray },
+      // { coherenceStart: 215, coherenceStop: 215 , color: dotCol, trialType: 'no-change', trialSubtype: 'NA' , clickBins: orientationsArray },
+      // { coherenceStart: 230, coherenceStop: 230 , color: dotCol, trialType: 'no-change', trialSubtype: 'NA' , clickBins: orientationsArray },
+      // { coherenceStart: 245, coherenceStop: 245 , color: dotCol, trialType: 'no-change', trialSubtype: 'NA' , clickBins: orientationsArray },
+      { coherenceStart: 260, coherenceStop: 260 , color: dotCol, trialType: 'no-change', trialSubtype: 'NA' , clickBins: orientationsArray },
+      // { coherenceStart: 275, coherenceStop: 275 , color: dotCol, trialType: 'no-change', trialSubtype: 'NA' , clickBins: orientationsArray },
+      // { coherenceStart: 290, coherenceStop: 290 , color: dotCol, trialType: 'no-change', trialSubtype: 'NA' , clickBins: orientationsArray },
+      // { coherenceStart: 305, coherenceStop: 305 , color: dotCol, trialType: 'no-change', trialSubtype: 'NA' , clickBins: orientationsArray },
+      // { coherenceStart: 320, coherenceStop: 320 , color: dotCol, trialType: 'no-change', trialSubtype: 'NA' , clickBins: orientationsArray },
+      { coherenceStart: 335, coherenceStop: 335 , color: dotCol, trialType: 'no-change', trialSubtype: 'NA' , clickBins: orientationsArray },
+      { coherenceStart: 350, coherenceStop: 350, color: dotCol, trialType: 'no-change', trialSubtype: 'NA' , clickBins: orientationsArray }
     ],
     randomize_order: true
 }
@@ -194,78 +225,78 @@ var rdkChange_trialBlock = {
           }
     ],
     timeline_variables: [
-      { coherenceStart: 5, coherenceStop: 95, color: dotCol, trialType: 'change', trialSubtype: 'clockwise' }, //change clockwise
-      { coherenceStart: 20, coherenceStop: 110 , color: dotCol, trialType: 'change', trialSubtype: 'clockwise' },
-      { coherenceStart: 35, coherenceStop: 125 , color: dotCol, trialType: 'change', trialSubtype: 'clockwise' },
-      { coherenceStart: 50, coherenceStop: 140 , color: dotCol, trialType: 'change', trialSubtype: 'clockwise' },
-      { coherenceStart: 65, coherenceStop: 155 , color: dotCol, trialType: 'change', trialSubtype: 'clockwise' },
-      { coherenceStart: 80, coherenceStop: 170 , color: dotCol, trialType: 'change', trialSubtype: 'clockwise' },
-      { coherenceStart: 95, coherenceStop: 185 , color: dotCol, trialType: 'change', trialSubtype: 'clockwise' },
-      { coherenceStart: 110, coherenceStop: 200 , color: dotCol, trialType: 'change', trialSubtype: 'clockwise' },
-      { coherenceStart: 125, coherenceStop: 215 , color: dotCol, trialType: 'change', trialSubtype: 'clockwise' },
-      { coherenceStart: 140, coherenceStop: 230 , color: dotCol, trialType: 'change', trialSubtype: 'clockwise' },
-      { coherenceStart: 155, coherenceStop: 245 , color: dotCol, trialType: 'change', trialSubtype: 'clockwise' },
-      { coherenceStart: 170, coherenceStop: 260 , color: dotCol, trialType: 'change', trialSubtype: 'clockwise' },
-      { coherenceStart: 185, coherenceStop: 275 , color: dotCol, trialType: 'change', trialSubtype: 'clockwise' },
-      { coherenceStart: 200, coherenceStop: 290 , color: dotCol, trialType: 'change', trialSubtype: 'clockwise' },
-      { coherenceStart: 215, coherenceStop: 305 , color: dotCol, trialType: 'change', trialSubtype: 'clockwise' },
-      { coherenceStart: 230, coherenceStop: 320 , color: dotCol, trialType: 'change', trialSubtype: 'clockwise' },
-      { coherenceStart: 245, coherenceStop: 335 , color: dotCol, trialType: 'change', trialSubtype: 'clockwise' },
-      { coherenceStart: 260, coherenceStop: 350 , color: dotCol, trialType: 'change', trialSubtype: 'clockwise' },
-      { coherenceStart: 275, coherenceStop: 5 , color: dotCol, trialType: 'change', trialSubtype: 'clockwise' },
-      { coherenceStart: 290, coherenceStop: 20 , color: dotCol, trialType: 'change', trialSubtype: 'clockwise' },
-      { coherenceStart: 305, coherenceStop: 35 , color: dotCol, trialType: 'change', trialSubtype: 'clockwise' },
-      { coherenceStart: 320, coherenceStop: 50 , color: dotCol, trialType: 'change', trialSubtype: 'clockwise' },
-      { coherenceStart: 335, coherenceStop: 65 , color: dotCol, trialType: 'change', trialSubtype: 'clockwise' },
-      { coherenceStart: 350, coherenceStop: 80 , color: dotCol, trialType: 'change', trialSubtype: 'clockwise' },
-      { coherenceStart: 5, coherenceStop: 275, color: dotCol, trialType: 'change', trialSubtype: 'counter-clockwise' }, //change counter-clockwise
-      { coherenceStart: 20, coherenceStop: 290 , color: dotCol, trialType: 'change', trialSubtype: 'counter-clockwise' },
-      { coherenceStart: 35, coherenceStop: 305 , color: dotCol, trialType: 'change', trialSubtype: 'counter-clockwise' },
-      { coherenceStart: 50, coherenceStop: 320 , color: dotCol, trialType: 'change', trialSubtype: 'counter-clockwise' },
-      { coherenceStart: 65, coherenceStop: 335 , color: dotCol, trialType: 'change', trialSubtype: 'counter-clockwise' },
-      { coherenceStart: 80, coherenceStop: 350 , color: dotCol, trialType: 'change', trialSubtype: 'counter-clockwise' },
-      { coherenceStart: 95, coherenceStop: 5 , color: dotCol, trialType: 'change', trialSubtype: 'counter-clockwise' },
-      { coherenceStart: 110, coherenceStop: 20 , color: dotCol, trialType: 'change', trialSubtype: 'counter-clockwise' },
-      { coherenceStart: 125, coherenceStop: 35 , color: dotCol, trialType: 'change', trialSubtype: 'counter-clockwise' },
-      { coherenceStart: 140, coherenceStop: 50 , color: dotCol, trialType: 'change', trialSubtype: 'counter-clockwise' },
-      { coherenceStart: 155, coherenceStop: 65 , color: dotCol, trialType: 'change', trialSubtype: 'counter-clockwise' },
-      { coherenceStart: 170, coherenceStop: 80 , color: dotCol, trialType: 'change', trialSubtype: 'counter-clockwise' },
-      { coherenceStart: 185, coherenceStop: 95 , color: dotCol, trialType: 'change', trialSubtype: 'counter-clockwise' },
-      { coherenceStart: 200, coherenceStop: 110 , color: dotCol, trialType: 'change', trialSubtype: 'counter-clockwise' },
-      { coherenceStart: 215, coherenceStop: 125 , color: dotCol, trialType: 'change', trialSubtype: 'counter-clockwise' },
-      { coherenceStart: 230, coherenceStop: 140 , color: dotCol, trialType: 'change', trialSubtype: 'counter-clockwise' },
-      { coherenceStart: 245, coherenceStop: 155 , color: dotCol, trialType: 'change', trialSubtype: 'counter-clockwise' },
-      { coherenceStart: 260, coherenceStop: 170 , color: dotCol, trialType: 'change', trialSubtype: 'counter-clockwise' },
-      { coherenceStart: 275, coherenceStop: 185 , color: dotCol, trialType: 'change', trialSubtype: 'counter-clockwise' },
-      { coherenceStart: 290, coherenceStop: 200 , color: dotCol, trialType: 'change', trialSubtype: 'counter-clockwise' },
-      { coherenceStart: 305, coherenceStop: 215 , color: dotCol, trialType: 'change', trialSubtype: 'counter-clockwise' },
-      { coherenceStart: 320, coherenceStop: 230 , color: dotCol, trialType: 'change', trialSubtype: 'counter-clockwise' },
-      { coherenceStart: 335, coherenceStop: 245 , color: dotCol, trialType: 'change', trialSubtype: 'counter-clockwise' },
-      { coherenceStart: 350, coherenceStop: 260, color: dotCol, trialType: 'change', trialSubtype: 'counter-clockwise' },
-      { coherenceStart: 5, coherenceStop: 5, color: dotCol, trialType: 'no-change', trialSubtype: 'NA' }, //no-change
-      { coherenceStart: 20, coherenceStop: 20 , color: dotCol, trialType: 'no-change', trialSubtype: 'NA' },
-      { coherenceStart: 35, coherenceStop: 35 , color: dotCol, trialType: 'no-change', trialSubtype: 'NA' },
-      { coherenceStart: 50, coherenceStop: 50 , color: dotCol, trialType: 'no-change', trialSubtype: 'NA' },
-      { coherenceStart: 65, coherenceStop: 65 , color: dotCol, trialType: 'no-change', trialSubtype: 'NA' },
-      { coherenceStart: 80, coherenceStop: 80 , color: dotCol, trialType: 'no-change', trialSubtype: 'NA' },
-      { coherenceStart: 95, coherenceStop: 95 , color: dotCol, trialType: 'no-change', trialSubtype: 'NA' },
-      { coherenceStart: 110, coherenceStop: 110 , color: dotCol, trialType: 'no-change', trialSubtype: 'NA' },
-      { coherenceStart: 125, coherenceStop: 125 , color: dotCol, trialType: 'no-change', trialSubtype: 'NA' },
-      { coherenceStart: 140, coherenceStop: 140 , color: dotCol, trialType: 'no-change', trialSubtype: 'NA' },
-      { coherenceStart: 155, coherenceStop: 155 , color: dotCol, trialType: 'no-change', trialSubtype: 'NA' },
-      { coherenceStart: 170, coherenceStop: 170 , color: dotCol, trialType: 'no-change', trialSubtype: 'NA' },
-      { coherenceStart: 185, coherenceStop: 185 , color: dotCol, trialType: 'no-change', trialSubtype: 'NA' },
-      { coherenceStart: 200, coherenceStop: 200 , color: dotCol, trialType: 'no-change', trialSubtype: 'NA' },
-      { coherenceStart: 215, coherenceStop: 215 , color: dotCol, trialType: 'no-change', trialSubtype: 'NA' },
-      { coherenceStart: 230, coherenceStop: 230 , color: dotCol, trialType: 'no-change', trialSubtype: 'NA' },
-      { coherenceStart: 245, coherenceStop: 245 , color: dotCol, trialType: 'no-change', trialSubtype: 'NA' },
-      { coherenceStart: 260, coherenceStop: 260 , color: dotCol, trialType: 'no-change', trialSubtype: 'NA' },
-      { coherenceStart: 275, coherenceStop: 275 , color: dotCol, trialType: 'no-change', trialSubtype: 'NA' },
-      { coherenceStart: 290, coherenceStop: 290 , color: dotCol, trialType: 'no-change', trialSubtype: 'NA' },
-      { coherenceStart: 305, coherenceStop: 305 , color: dotCol, trialType: 'no-change', trialSubtype: 'NA' },
-      { coherenceStart: 320, coherenceStop: 320 , color: dotCol, trialType: 'no-change', trialSubtype: 'NA' },
-      { coherenceStart: 335, coherenceStop: 335 , color: dotCol, trialType: 'no-change', trialSubtype: 'NA' },
-      { coherenceStart: 350, coherenceStop: 350, color: dotCol, trialType: 'no-change', trialSubtype: 'NA' }
+      { coherenceStart: 5, coherenceStop: 95, color: dotCol, trialType: 'change', trialSubtype: 'clockwise' , clickBins: orientationsArray }, //change clockwise
+      { coherenceStart: 20, coherenceStop: 110 , color: dotCol, trialType: 'change', trialSubtype: 'clockwise' , clickBins: orientationsArray },
+      { coherenceStart: 35, coherenceStop: 125 , color: dotCol, trialType: 'change', trialSubtype: 'clockwise' , clickBins: orientationsArray },
+      { coherenceStart: 50, coherenceStop: 140 , color: dotCol, trialType: 'change', trialSubtype: 'clockwise' , clickBins: orientationsArray },
+      { coherenceStart: 65, coherenceStop: 155 , color: dotCol, trialType: 'change', trialSubtype: 'clockwise' , clickBins: orientationsArray },
+      { coherenceStart: 80, coherenceStop: 170 , color: dotCol, trialType: 'change', trialSubtype: 'clockwise' , clickBins: orientationsArray },
+      { coherenceStart: 95, coherenceStop: 185 , color: dotCol, trialType: 'change', trialSubtype: 'clockwise' , clickBins: orientationsArray },
+      { coherenceStart: 110, coherenceStop: 200 , color: dotCol, trialType: 'change', trialSubtype: 'clockwise' , clickBins: orientationsArray },
+      { coherenceStart: 125, coherenceStop: 215 , color: dotCol, trialType: 'change', trialSubtype: 'clockwise' , clickBins: orientationsArray },
+      { coherenceStart: 140, coherenceStop: 230 , color: dotCol, trialType: 'change', trialSubtype: 'clockwise' , clickBins: orientationsArray },
+      { coherenceStart: 155, coherenceStop: 245 , color: dotCol, trialType: 'change', trialSubtype: 'clockwise' , clickBins: orientationsArray },
+      { coherenceStart: 170, coherenceStop: 260 , color: dotCol, trialType: 'change', trialSubtype: 'clockwise' , clickBins: orientationsArray },
+      { coherenceStart: 185, coherenceStop: 275 , color: dotCol, trialType: 'change', trialSubtype: 'clockwise' , clickBins: orientationsArray },
+      { coherenceStart: 200, coherenceStop: 290 , color: dotCol, trialType: 'change', trialSubtype: 'clockwise' , clickBins: orientationsArray },
+      { coherenceStart: 215, coherenceStop: 305 , color: dotCol, trialType: 'change', trialSubtype: 'clockwise' , clickBins: orientationsArray },
+      { coherenceStart: 230, coherenceStop: 320 , color: dotCol, trialType: 'change', trialSubtype: 'clockwise' , clickBins: orientationsArray },
+      { coherenceStart: 245, coherenceStop: 335 , color: dotCol, trialType: 'change', trialSubtype: 'clockwise' , clickBins: orientationsArray },
+      { coherenceStart: 260, coherenceStop: 350 , color: dotCol, trialType: 'change', trialSubtype: 'clockwise' , clickBins: orientationsArray },
+      { coherenceStart: 275, coherenceStop: 5 , color: dotCol, trialType: 'change', trialSubtype: 'clockwise' , clickBins: orientationsArray },
+      { coherenceStart: 290, coherenceStop: 20 , color: dotCol, trialType: 'change', trialSubtype: 'clockwise' , clickBins: orientationsArray },
+      { coherenceStart: 305, coherenceStop: 35 , color: dotCol, trialType: 'change', trialSubtype: 'clockwise' , clickBins: orientationsArray },
+      { coherenceStart: 320, coherenceStop: 50 , color: dotCol, trialType: 'change', trialSubtype: 'clockwise' , clickBins: orientationsArray },
+      { coherenceStart: 335, coherenceStop: 65 , color: dotCol, trialType: 'change', trialSubtype: 'clockwise' , clickBins: orientationsArray },
+      { coherenceStart: 350, coherenceStop: 80 , color: dotCol, trialType: 'change', trialSubtype: 'clockwise' , clickBins: orientationsArray },
+      { coherenceStart: 5, coherenceStop: 275, color: dotCol, trialType: 'change', trialSubtype: 'counter-clockwise' , clickBins: orientationsArray }, //change counter-clockwise
+      { coherenceStart: 20, coherenceStop: 290 , color: dotCol, trialType: 'change', trialSubtype: 'counter-clockwise' , clickBins: orientationsArray },
+      { coherenceStart: 35, coherenceStop: 305 , color: dotCol, trialType: 'change', trialSubtype: 'counter-clockwise' , clickBins: orientationsArray },
+      { coherenceStart: 50, coherenceStop: 320 , color: dotCol, trialType: 'change', trialSubtype: 'counter-clockwise' , clickBins: orientationsArray },
+      { coherenceStart: 65, coherenceStop: 335 , color: dotCol, trialType: 'change', trialSubtype: 'counter-clockwise' , clickBins: orientationsArray },
+      { coherenceStart: 80, coherenceStop: 350 , color: dotCol, trialType: 'change', trialSubtype: 'counter-clockwise' , clickBins: orientationsArray },
+      { coherenceStart: 95, coherenceStop: 5 , color: dotCol, trialType: 'change', trialSubtype: 'counter-clockwise' , clickBins: orientationsArray },
+      { coherenceStart: 110, coherenceStop: 20 , color: dotCol, trialType: 'change', trialSubtype: 'counter-clockwise' , clickBins: orientationsArray },
+      { coherenceStart: 125, coherenceStop: 35 , color: dotCol, trialType: 'change', trialSubtype: 'counter-clockwise' , clickBins: orientationsArray },
+      { coherenceStart: 140, coherenceStop: 50 , color: dotCol, trialType: 'change', trialSubtype: 'counter-clockwise' , clickBins: orientationsArray },
+      { coherenceStart: 155, coherenceStop: 65 , color: dotCol, trialType: 'change', trialSubtype: 'counter-clockwise' , clickBins: orientationsArray },
+      { coherenceStart: 170, coherenceStop: 80 , color: dotCol, trialType: 'change', trialSubtype: 'counter-clockwise' , clickBins: orientationsArray },
+      { coherenceStart: 185, coherenceStop: 95 , color: dotCol, trialType: 'change', trialSubtype: 'counter-clockwise' , clickBins: orientationsArray },
+      { coherenceStart: 200, coherenceStop: 110 , color: dotCol, trialType: 'change', trialSubtype: 'counter-clockwise' , clickBins: orientationsArray },
+      { coherenceStart: 215, coherenceStop: 125 , color: dotCol, trialType: 'change', trialSubtype: 'counter-clockwise' , clickBins: orientationsArray },
+      { coherenceStart: 230, coherenceStop: 140 , color: dotCol, trialType: 'change', trialSubtype: 'counter-clockwise' , clickBins: orientationsArray },
+      { coherenceStart: 245, coherenceStop: 155 , color: dotCol, trialType: 'change', trialSubtype: 'counter-clockwise' , clickBins: orientationsArray },
+      { coherenceStart: 260, coherenceStop: 170 , color: dotCol, trialType: 'change', trialSubtype: 'counter-clockwise' , clickBins: orientationsArray },
+      { coherenceStart: 275, coherenceStop: 185 , color: dotCol, trialType: 'change', trialSubtype: 'counter-clockwise' , clickBins: orientationsArray },
+      { coherenceStart: 290, coherenceStop: 200 , color: dotCol, trialType: 'change', trialSubtype: 'counter-clockwise' , clickBins: orientationsArray },
+      { coherenceStart: 305, coherenceStop: 215 , color: dotCol, trialType: 'change', trialSubtype: 'counter-clockwise' , clickBins: orientationsArray },
+      { coherenceStart: 320, coherenceStop: 230 , color: dotCol, trialType: 'change', trialSubtype: 'counter-clockwise' , clickBins: orientationsArray },
+      { coherenceStart: 335, coherenceStop: 245 , color: dotCol, trialType: 'change', trialSubtype: 'counter-clockwise' , clickBins: orientationsArray },
+      { coherenceStart: 350, coherenceStop: 260, color: dotCol, trialType: 'change', trialSubtype: 'counter-clockwise' , clickBins: orientationsArray },
+      { coherenceStart: 5, coherenceStop: 5, color: dotCol, trialType: 'no-change', trialSubtype: 'NA' , clickBins: orientationsArray }, //no-change
+      { coherenceStart: 20, coherenceStop: 20 , color: dotCol, trialType: 'no-change', trialSubtype: 'NA' , clickBins: orientationsArray },
+      { coherenceStart: 35, coherenceStop: 35 , color: dotCol, trialType: 'no-change', trialSubtype: 'NA' , clickBins: orientationsArray },
+      { coherenceStart: 50, coherenceStop: 50 , color: dotCol, trialType: 'no-change', trialSubtype: 'NA' , clickBins: orientationsArray },
+      { coherenceStart: 65, coherenceStop: 65 , color: dotCol, trialType: 'no-change', trialSubtype: 'NA' , clickBins: orientationsArray },
+      { coherenceStart: 80, coherenceStop: 80 , color: dotCol, trialType: 'no-change', trialSubtype: 'NA' , clickBins: orientationsArray },
+      { coherenceStart: 95, coherenceStop: 95 , color: dotCol, trialType: 'no-change', trialSubtype: 'NA' , clickBins: orientationsArray },
+      { coherenceStart: 110, coherenceStop: 110 , color: dotCol, trialType: 'no-change', trialSubtype: 'NA' , clickBins: orientationsArray },
+      { coherenceStart: 125, coherenceStop: 125 , color: dotCol, trialType: 'no-change', trialSubtype: 'NA' , clickBins: orientationsArray },
+      { coherenceStart: 140, coherenceStop: 140 , color: dotCol, trialType: 'no-change', trialSubtype: 'NA' , clickBins: orientationsArray },
+      { coherenceStart: 155, coherenceStop: 155 , color: dotCol, trialType: 'no-change', trialSubtype: 'NA' , clickBins: orientationsArray },
+      { coherenceStart: 170, coherenceStop: 170 , color: dotCol, trialType: 'no-change', trialSubtype: 'NA' , clickBins: orientationsArray },
+      { coherenceStart: 185, coherenceStop: 185 , color: dotCol, trialType: 'no-change', trialSubtype: 'NA' , clickBins: orientationsArray },
+      { coherenceStart: 200, coherenceStop: 200 , color: dotCol, trialType: 'no-change', trialSubtype: 'NA' , clickBins: orientationsArray },
+      { coherenceStart: 215, coherenceStop: 215 , color: dotCol, trialType: 'no-change', trialSubtype: 'NA' , clickBins: orientationsArray },
+      { coherenceStart: 230, coherenceStop: 230 , color: dotCol, trialType: 'no-change', trialSubtype: 'NA' , clickBins: orientationsArray },
+      { coherenceStart: 245, coherenceStop: 245 , color: dotCol, trialType: 'no-change', trialSubtype: 'NA' , clickBins: orientationsArray },
+      { coherenceStart: 260, coherenceStop: 260 , color: dotCol, trialType: 'no-change', trialSubtype: 'NA' , clickBins: orientationsArray },
+      { coherenceStart: 275, coherenceStop: 275 , color: dotCol, trialType: 'no-change', trialSubtype: 'NA' , clickBins: orientationsArray },
+      { coherenceStart: 290, coherenceStop: 290 , color: dotCol, trialType: 'no-change', trialSubtype: 'NA' , clickBins: orientationsArray },
+      { coherenceStart: 305, coherenceStop: 305 , color: dotCol, trialType: 'no-change', trialSubtype: 'NA' , clickBins: orientationsArray },
+      { coherenceStart: 320, coherenceStop: 320 , color: dotCol, trialType: 'no-change', trialSubtype: 'NA' , clickBins: orientationsArray },
+      { coherenceStart: 335, coherenceStop: 335 , color: dotCol, trialType: 'no-change', trialSubtype: 'NA' , clickBins: orientationsArray },
+      { coherenceStart: 350, coherenceStop: 350, color: dotCol, trialType: 'no-change', trialSubtype: 'NA' , clickBins: orientationsArray }
     ],
     randomize_order: true
 }
