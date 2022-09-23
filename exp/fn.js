@@ -3,7 +3,7 @@
   jsPsych.init({
     timeline: timeline,
     // default_iti: delayList[0],
-     show_progress_bar: true,
+//     show_progress_bar: true,
    });
 }
 

@@ -17,6 +17,7 @@
     <script type="text/javascript" src="jsPsych/plugins/jspsych-image-keyboard-response.js"></script>
     <script type="text/javascript" src="jsPsych/plugins/jspsych-audio-keyboard-response.js"></script>
     <script type="text/javascript" src="jsPsych/plugins/jspsych-rdk-change.js"></script>
+    <script type="text/javascript" src="jsPsych/plugins/jspsych-angle-response.js"></script>
 
     <link href="jsPsych/css/jspsych.css" rel="stylesheet" type="text/css"></link>
     <link rel="stylesheet" type="text/css" href="css/style.css">

@@ -25,7 +25,7 @@
     <form action="<?php echo SIGNUP_VIEW ?>/post/intakeadd.php" method="post">
     <p style="color:black"><b>Subject ID:</b></p>
     <input required id="subjectid" type="text" name="subjectid" minlength="5" maxlength="5">
-    
+
     <!-- GUID -->
     <p style="color:black"><b>GUID:</b></p>
     <input required id="guid" type="text" name="guid" minlength="12" maxlength="12">
@@ -62,25 +62,25 @@
         <!-- <span class="checkmark"></span> -->
 
     <p style="color:black"><b>Before proceeding to the task, please confirm the following are true:</b></p>
-    <label class="container">Screen brightness is up to 100% &nbsp&nbsp&nbsp&nbsp  
+    <label class="container">Screen brightness is up to 100% &nbsp&nbsp&nbsp&nbsp
     <input type="checkbox" name="brightness" id="brightness" value="1"/>
     </label>
     <!-- <br>
-    <label class="container">Headphones plugged in? &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp      
+    <label class="container">Headphones plugged in? &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
     <input type="checkbox" name="headphones" id="headphones" value="1"/>
     </label>
     <br>
-    <label class="container">Headphone volume is set to 50% &nbsp&nbsp&nbsp  
+    <label class="container">Headphone volume is set to 50% &nbsp&nbsp&nbsp
     <input type="checkbox" name="volume" id="volume" value="1"/>
   </label> -->
   </form>
-  <!-- <label class="container">Headphones plugged in? &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp               
-    <input type="checkbox"> 
+  <!-- <label class="container">Headphones plugged in? &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+    <input type="checkbox">
     <br>
   </label>
 
-  <label class="container">Headphones volume at 50%? &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp          
-    <input type="checkbox"> 
+  <label class="container">Headphones volume at 50%? &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+    <input type="checkbox">
     <br>
   </label>
 </form>
@@ -96,7 +96,8 @@
 
 <div id="load" style="display: none">
 <h3>All validation rules were passed successfully. Click to load the experiment.</h3>
-<button id="nextButton" class="noCursor" onclick="startExperiment()">LOAD</button>
+<button id="nextButton" onclick="startExperiment()">LOAD</button>
+<!-- <button id="nextButton" class="noCursor" onclick="startExperiment()">LOAD</button> -->
 <!-- <p id="nextButton" style="display: none" >please make sure you are in a quiet place. When you are ready to begin, click 'START'</p> -->
 <br>
 </div>
@@ -106,7 +107,7 @@
       // $.getScript("exp/main.js");
   }); </script>
 <script>
-$("button.noCursor").click(function(){
-$("body").addClass("hideCursor");
-}); 
+// $("button.showCursor").click(function(){
+// $("body").addClass("showCursor");
+});
 </script>

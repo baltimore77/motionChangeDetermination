@@ -1,11 +1,11 @@
 // leave this here!
 let timeline = [];
 
-let test = {
-  type: "html-keyboard-response",
-  stimulus: jsPsych.timelineVariable('stimulus'),
-  choices: [32]
-};
+// let test = {
+//   type: "html-keyboard-response",
+//   stimulus: jsPsych.timelineVariable('stimulus'),
+//   choices: [32]
+// };
 
 let instructions0 = {
   type: "html-keyboard-response",
@@ -37,6 +37,7 @@ var rdkChange_practiceBlock = {
             type: "html-keyboard-response",
             stimulus: '',
             choices: "NO_KEYS",
+            correct_choice: "NONE",
             trial_duration: ITI
         },
         {
@@ -55,11 +56,16 @@ var rdkChange_practiceBlock = {
             border: true,
             border_color: dotCol,
             choices: "NO_KEYS",
-            correct_choice: "NO_KEYS",
+//            correct_choice: "NO_KEYS",
+            correct_choice: "NONE",
             coherent_direction: jsPsych.timelineVariable('coherenceStart'),
             coherent_direction_after_change: jsPsych.timelineVariable('coherenceStop'),
             trialType: jsPsych.timelineVariable('trialType'),
             trialSubtype: jsPsych.timelineVariable('trialSubtype')
+          },
+          {
+            type: "angle-response",
+            target_angle: jsPsych.timelineVariable('coherenceStop'),
           },
           // {
           //   type: "html-keyboard-response",
@@ -78,43 +84,6 @@ var rdkChange_practiceBlock = {
           //   //data: jsPsych.timelineVariable('data'),
           //   post_trial_gap: 200,
           // },
-          {
-            type: "call-function",
-            async: true,
-            func: function(done,data){
-              var html=
-                "<svg viewBox="+-aperatureRadiusPixels/2+" "+-aperatureRadiusPixels/2+" "+aperatureRadiusPixels/2+" "+aperatureRadiusPixels/2+" stroke='purple' stroke-width='5' >"+
-                  "<circle r="+aperatureRadiusPixels/2+" stroke='purple' stroke-width='5' fill='pink' />"+
-                  "<line x1="+screen.width/2+" y1="+screen.height/2+" x2="+(screen.width/2-aperatureRadiusPixels)+" y2="+(screen.width/2-aperatureRadiusPixels)+" style='stroke:rgb(8, 112, 177);stroke-width:3' />"+
-                "</svg>"
-              return html;
-                // // To draw a static line.
-                // context = jsPsych.currentTrial().context;
-                // var pos = 0;
-                // const gradLength = 100;
-                // const my_gradient  = context.lineTo(400, 0);
-                // const bands = 10;
-                // const colors = ["#000", "#FFF"];
-                // const stops = bands * colors.length;
-                // while (pos <= stops) {
-                //     my_gradient.addColorStop(pos / stops, colors[pos % colors.length]);
-                //     pos++;
-                // }
-                // context.filter = 'contrast('+ CL1 +')';
-                // context.fillStyle = my_gradient;
-                // context.fillRect(500,325,gradLength,gradLength);
-                // context.stroke();
-
-                // // generate a delay between 1500 and 3000 milliseconds to simulate
-                // // waiting for an event to finish after an unknown duration,
-                // // then move on with the experiment
-                // var rand_delay = (Math.floor(Math.random() * (3000 - 1500 + 1) + 1500));
-                // jsPsych.pluginAPI.setTimeout(function() {
-                //     // end the trial and save the delay duration to the data
-                //     done(rand_delay.toString()+"ms");
-                // }, rand_delay)
-            }
-          }
     ],
     timeline_variables: [
       { coherenceStart: 5, coherenceStop: 95, color: dotCol, trialType: 'change', trialSubtype: 'clockwise' , clickBins: orientationsArray }, //change clockwise
