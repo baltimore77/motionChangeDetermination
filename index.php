@@ -11,13 +11,14 @@
     <script type="text/javascript" src="js/jquery-3.5.1.min.js"></script>
     <script type="text/javascript" src="jsPsych/jspsych.js"></script>
    <!-- loads in jspsych plugins -->
+    <script src="jspsych-rdk-change.js"></script>
+    <script src="jspsych-angle-response.js"></script>
+    <script type="text/javascript" src="jsPsych/plugins/jspsych-instructions.js"></script>
     <script type="text/javascript" src="jsPsych/plugins/jspsych-html-keyboard-response.js"></script>
     <script type="text/javascript" src="jsPsych/plugins/jspsych-html-button-response.js"></script>
     <script type="text/javascript" src="jsPsych/plugins/jspsych-call-function.js"></script>
     <script type="text/javascript" src="jsPsych/plugins/jspsych-image-keyboard-response.js"></script>
     <script type="text/javascript" src="jsPsych/plugins/jspsych-audio-keyboard-response.js"></script>
-    <script type="text/javascript" src="jsPsych/plugins/jspsych-rdk-change.js"></script>
-    <script type="text/javascript" src="jsPsych/plugins/jspsych-angle-response.js"></script>
 
     <link href="jsPsych/css/jspsych.css" rel="stylesheet" type="text/css"></link>
     <link rel="stylesheet" type="text/css" href="css/style.css">
