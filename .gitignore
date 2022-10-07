@@ -1,0 +1,4 @@
+stim/._*
+data/*
+!data/.gitkeep
+.DS_Store
