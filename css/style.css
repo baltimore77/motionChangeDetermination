@@ -6,8 +6,8 @@
 }
 
 body {
-  background-color: white;
-  font-family: Helvetica, Arial, sans-serif;   
+  background-color: lightgray;
+  font-family: Helvetica, Arial, sans-serif;
 }
 
  p {
@@ -15,7 +15,7 @@ body {
 }
 
 .attrition, .buttonHolder, .consent, .error, .instructions,  .task {
-  display: none; 
+  display: none;
 }
 
 .likingScale {
@@ -47,19 +47,19 @@ body {
  #consentPreamble {
    text-align: center;
  }
- 
+
 #consentInstructions {
   margin: 0 auto;
   text-align: justify;
 }
-    
+
 .feedback {
   display: none;
   font-size: 50px;
   color: #FF0000;
-  top: 0; 
+  top: 0;
   right: 0;
-  bottom: 0; 
+  bottom: 0;
   left: 0;
   position:absolute;
   text-align:center;
@@ -89,7 +89,7 @@ body {
   line-height: 270px;
   margin: auto;
   max-width: 660px;
-  position: relative; 
+  position: relative;
   text-align:center;
 }
 
@@ -147,7 +147,7 @@ p.bold {
   height: 40px;
   position: relative;
   text-align: center;
-  
+
   -webkit-animation: sk-rotate 2.0s infinite linear;
   animation: sk-rotate 2.0s infinite linear;
 }
@@ -160,7 +160,7 @@ p.bold {
   top: 0;
   background-color: #333;
   border-radius: 100%;
-  
+
   -webkit-animation: sk-bounce 2.0s infinite ease-in-out;
   animation: sk-bounce 2.0s infinite ease-in-out;
 }
@@ -181,10 +181,10 @@ p.bold {
 }
 
 @keyframes sk-bounce {
-  0%, 100% { 
+  0%, 100% {
     transform: scale(0.0);
     -webkit-transform: scale(0.0);
-  } 50% { 
+  } 50% {
     transform: scale(1.0);
     -webkit-transform: scale(1.0);
   }
@@ -202,7 +202,7 @@ p.bold {
   background-color: white;
   float: left;
   -webkit-animation: sk-cubeGridScaleDelay 1.3s infinite ease-in-out;
-          animation: sk-cubeGridScaleDelay 1.3s infinite ease-in-out; 
+          animation: sk-cubeGridScaleDelay 1.3s infinite ease-in-out;
 }
 .sk-cube-grid .sk-cube1 {
   -webkit-animation-delay: 0.2s;
@@ -238,7 +238,7 @@ p.bold {
             transform: scale3D(1, 1, 1);
   } 35% {
     -webkit-transform: scale3D(0, 0, 1);
-            transform: scale3D(0, 0, 1); 
+            transform: scale3D(0, 0, 1);
   }
 }
 
@@ -249,7 +249,7 @@ p.bold {
   } 35% {
     -webkit-transform: scale3D(0, 0, 1);
             transform: scale3D(0, 0, 1);
-  } 
+  }
 }
 
 /* hide cursor */

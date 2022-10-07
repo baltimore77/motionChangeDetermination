@@ -215,10 +215,16 @@ jsPsych.plugins["rdk-change"] = (function() {
 		    border_color: {
 		      type: jsPsych.plugins.parameterType.STRING,
 		      pretty_name: "Border Color",
-		      default: 1,
+		      default: "black",
 		      description: "The color of the border"
 		    },
 				//Change trial additions:
+				aperture_color: {
+					type: jsPsych.plugins.parameterType.STRING,
+					pretty_name: "Aperture Color",
+					default: "black",
+					description: "The color of the aperture's background"
+				},
 				coherence_duration: {
 					type: jsPsych.plugins.parameterType.INT,
 					pretty_name: "Coherence duration",
@@ -302,6 +308,7 @@ jsPsych.plugins["rdk-change"] = (function() {
 		trial.border_color = assignParameterValue(trial.border_color, "black");
 
 		//Change trial additions:
+		trial.aperture_color = assignParameterValue(trial.aperture_color, "black");
 		trial.coherence_duration = assignParameterValue(trial.coherence_duration, 500);
 		trial.coherence_change = assignParameterValue(trial.coherence_change, false);
 		trial.change_trial_degrees_changed = assignParameterValue(trial.change_trial_degrees_changed, 0);
@@ -334,6 +341,7 @@ jsPsych.plugins["rdk-change"] = (function() {
 		var apertureCenterY = trial.aperture_center_y; // The y-coordinate of center of the aperture on the screen, in pixels
 
 		//Change trial additions:
+		var apertureColor = trial.aperture_color; //what color is the background of the aperture
 		var coherenceDuration = trial.coherence_duration; //How long the dots flow coherently prior to a change in direction in the event of a change trial
 		var coherenceChange = trial.coherence_change; //True False whether current trial is a change trial
 		var changeTrialDegreesChanged = trial.change_trial_degrees_changed; //number of degrees to change coherence in the case of a change trial
@@ -629,6 +637,7 @@ jsPsych.plugins["rdk-change"] = (function() {
 				"canvas_width": canvasWidth,
 				"canvas_height": canvasHeight,
 				//Change trial additions:
+				"aperture_color": trial.aperture_color,
 				"coherence_duration": trial.coherence_duration,
 				"coherence_change": trial.coherence_change,
 				"change_trial_degrees_changed": trial.change_trial_degrees_changed,
@@ -730,6 +739,7 @@ jsPsych.plugins["rdk-change"] = (function() {
 			borderThicknessArray = setParameter(borderThickness);
 			borderColorArray = setParameter(borderColor);
 			//Change trial additions:
+			apertureColorArray = setParameter(apertureColor);
 			coherenceDurationArray = setParameter(coherenceDuration);
 			coherenceChangeArray = setParameter(coherenceChange); //True False whether current trial is a change trial
 			changeTrialDegreesChangedArray = setParameter(changeTrialDegreesChanged); //number of degrees to change coherence in the case of a change trial
@@ -808,6 +818,7 @@ jsPsych.plugins["rdk-change"] = (function() {
 			borderThickness = borderThicknessArray[currentApertureNumber];
 			borderColor = borderColorArray[currentApertureNumber];
 			//Change trial additions:
+			apertureColor = apertureColorArray[currentApertureNumber];
 			coherenceDuration = coherenceDurationArray[currentApertureNumber];
 			coherenceChange = coherenceChangeArray[currentApertureNumber];
 			changeTrialDegreesChanged = changeTrialDegreesChangedArray[currentApertureNumber];

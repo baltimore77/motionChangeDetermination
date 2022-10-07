@@ -25,8 +25,10 @@ const rdk_trial = {
     type: "rdk-change",
     correct_choice: "NONE",
     border: true,
-    border_thickness: 2,
-    background_color: "white",
+    border_thickness: 1,
+    border_color: "black",
+    background_color: "lightgray",
+    aperture_color: "black",
     aperture_width: apertureWidth,
     aperture_height: apertureHeight,
     dot_color: "black",
@@ -38,10 +40,6 @@ const rdk_trial = {
     number_of_dots: 45,
     trial_duration: jsPsych.timelineVariable("duration"),
     on_start: (trial) => {
-        // $(document).ready(function () {
-        //     $("body").addClass("hideCursor"); // returns cursor functionality
-        // });
-
         const angle1 = Math.floor(Math.random() * 360);
         var angle2 = angle1;
         if (jsPsych.timelineVariable("change", true)) {
@@ -77,11 +75,6 @@ const response_trial = {
     coherence: jsPsych.timelineVariable("coherence"),
     change: jsPsych.timelineVariable("change"),
     duration: jsPsych.timelineVariable("duration"),
-    on_start: () => {
-        // $(document).ready(function () {
-        //     $("body").addClass("showCursor"); // returns cursor functionality
-        // });
-    },
     starting_angle: () => {
         return jsPsych.data.get().last(1).values()[0].coherent_direction;
     },
