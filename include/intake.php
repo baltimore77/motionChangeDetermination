@@ -109,5 +109,5 @@
 <script>
 // $("button.showCursor").click(function(){
 // $("body").addClass("showCursor");
-// });
+});
 </script>

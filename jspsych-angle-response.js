@@ -15,7 +15,7 @@ jsPsych.plugins["angle-response"] = (function () {
     parameters: {
       diameter: {
         type: jsPsych.plugins.parameterType.INT,
-        default: 300,
+        default: 200,
       },
       prompt: {
         type: jsPsych.plugins.parameterType.STRING,
@@ -41,10 +41,29 @@ jsPsych.plugins["angle-response"] = (function () {
         type: jsPsych.plugins.parameterType.STRING,
         default: "#ff0000",
       },
+      starting_angle: {
+        type: jsPsych.plugins.parameterType.FLOAT,
+      },
       target_angle: {
         type: jsPsych.plugins.parameterType.FLOAT,
       },
+      block: {
+        type: jsPsych.plugins.parameterType.STRING,
+        default: '',
+      },
       feedback_duration: {
+        type: jsPsych.plugins.parameterType.INT,
+        default: 500,
+      },
+      coherence: {
+        type: jsPsych.plugins.parameterType.FLOAT,
+        default: 0.5,
+      },
+      coherence_change: {
+        type: jsPsych.plugins.parameterType.BOOL,
+        default: false,
+      },
+      coherence_duration: {
         type: jsPsych.plugins.parameterType.INT,
         default: 500,
       },
@@ -82,10 +101,10 @@ jsPsych.plugins["angle-response"] = (function () {
       }
       #angle-response-center-dot {
         position: absolute;
-        top: calc(50% - ${trial.diameter/100}px);
-        left: calc(50% - ${trial.diameter/100}px);
-        width: ${trial.diameter/40}px;
-        height: ${trial.diameter/40}px;
+        top: calc(50% - 8px);
+        left: calc(50% - 8px);
+        width: 16px;
+        height: 16px;
         border-radius: 50%;
         background-color: ${trial.center_dot_color};
         cursor: pointer;
@@ -94,8 +113,8 @@ jsPsych.plugins["angle-response"] = (function () {
         position: absolute;
         left: calc(100% - 2px);
         top: -2px;
-        width: ${trial.diameter/75}px;
-        height: ${trial.diameter/75}px;
+        width: 6px;
+        height: 6px;
         border-radius: 50%;
         background-color: inherit;
       }
@@ -135,11 +154,16 @@ jsPsych.plugins["angle-response"] = (function () {
       feedback.style.transform = `rotate(${-trial.target_angle}deg)`;
       feedback.style.visibility = "visible";
 
-      jsPsych.pluginAPI.setTimeout(end_trial, trial.feedback_duration);
+
+      if (is_dot_clicked){
+          jsPsych.pluginAPI.setTimeout(end_trial, trial.feedback_duration);
+      }
+
     };
 
     const showLine = (e) => {
       e.stopPropagation();
+      is_dot_clicked = true;
       line.style.visibility = "visible";
 
       document.querySelector("#angle-response-center-dot").removeEventListener('click', showLine);
@@ -147,26 +171,32 @@ jsPsych.plugins["angle-response"] = (function () {
       document.addEventListener('click', handleResponse);
     };
 
-    const handleResponse = (e) => {
+    const handleResponse = async (e) => {
       document.removeEventListener('mousemove', handleMouseMove);
+      document.removeEventListener('click', handleResponse);
       // return response in degrees, with right = 0, top = 90, left = 180, bottom = 270
-      angle = (180 * calcAngle(e.clientX, e.clientY)) / Math.PI;
+      angle = Math.round((180 * calcAngle(e.clientX, e.clientY)) / Math.PI);
       if (angle < 0) {
         response = 360 + angle;
       } else {
         response = angle;
       }
       rt = Math.round(performance.now() - start_time);
-      showFeedback();
+      if (trial.block == 'practice') { showFeedback(); }
+      else { if (is_dot_clicked){ jsPsych.pluginAPI.setTimeout(end_trial, trial.feedback_duration); } }
     };
 
-    document
-      .querySelector("#angle-response-center-dot")
-      .addEventListener("click", showLine);
+    let is_dot_clicked = false;
+    const startResponseWindow = () => {
+      document
+        .querySelector("#angle-response-center-dot")
+        .addEventListener("click", showLine);
+    };
+
+    startResponseWindow();
 
     const handleMouseMove = (e) => {
       const angle = calcAngle(e.clientX, e.clientY);
-
       line.style.transform = `rotate(${-angle}rad)`;
     }
 
@@ -179,13 +209,30 @@ jsPsych.plugins["angle-response"] = (function () {
       if (error > 180) {
         error = -(360 - (response - trial.target_angle));
       }
+      if (error < -180) {
+        error = (360 + (response - trial.target_angle));
+      }
+
+      let change = trial.target_angle - trial.starting_angle;
+      if (change > 180) {
+        change = (360 - (trial.target_angle - trial.starting_angle));
+      }
+      if (change < -180) {
+        change = (360 + (trial.target_angle - trial.starting_angle));
+      }
 
       // gather the data to store for the trial
       const trial_data = {
-        rt: rt,
+        block: trial.block,
+        coherence: trial.coherence,
+        coherence_change: trial.change,
+        coherence_duration: trial.duration,
+        coherent_direction_start: trial.starting_angle,
+        coherent_direction_change: change,
+        coherent_direction_finish: trial.target_angle,
         response: response,
-        target: trial.target_angle,
         error: error,
+        rt: rt,
       };
 
       // clear the display
