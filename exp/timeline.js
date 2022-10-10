@@ -85,7 +85,7 @@ const response_trial = {
     },
     on_finish: function (data) {
         saveData(
-            "data",
+            "mcd_" + workerId,
             jsPsych.data.get().filter({ trial_type: "angle-response" }).csv()
         );
     },
@@ -158,7 +158,7 @@ const rdk_procedure = {
     timeline: [rdk_trial, response_trial],
     timeline_variables: rdk_trials,
     randomize_order: true,
-    repetitions: 12,
+    repetitions: 1,
 };
 
 let save_data = {
@@ -181,10 +181,7 @@ let save_data = {
     choices: jsPsych.NO_KEYS,
     trial_duration: 5000,
     on_finish: function () {
-        saveData(
-            "motionChangeDetermination" + workerId,
-            jsPsych.data.get().csv()
-        );
+        saveData("mcd_" + workerId, jsPsych.data.get().csv());
         document.getElementById("unload").onbeforeunload = "";
         $(document).ready(function () {
             $("body").addClass("showCursor"); // returns cursor functionality
@@ -198,10 +195,10 @@ let end = {
     stimulus:
         "<p>Thank you!</p>" +
         "<p>You have successfully completed the experiment and your data has been saved.</p>" +
-        "<p>To leave feedback on this task, please click the following link:</p>" +
-        "<p style='color:white;'><a href=" +
-        feedbackLink +
-        ">Leave Task Feedback!</a></p>" +
+        // "<p>To leave feedback on this task, please click the following link:</p>" +
+        // "<p style='color:white;'><a href=" +
+        // feedbackLink +
+        // ">Leave Task Feedback!</a></p>" +
         // "<p>Please wait for the experimenter to continue.</p>"+
         "<p><i>You may now close the expriment window at anytime.</i></p>",
     choices: jsPsych.NO_KEYS,

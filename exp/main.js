@@ -1,6 +1,4 @@
-
 // main order in which things are pushed to timeline
-
 
 // let joshTest = {
 //     timeline: [test],
@@ -13,6 +11,8 @@ timeline.push(instructions0);
 timeline.push(rdk_procedure_practice);
 timeline.push(instructions1);
 timeline.push(rdk_procedure);
+timeline.push(save_data);
+timeline.push(end);
 // timeline.push(rdkStandard);
 //timeline.push(joshTest);
 
