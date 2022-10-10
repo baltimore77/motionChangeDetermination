@@ -11,7 +11,7 @@
 /* write to data/.csv */
 function saveData(name, data){
   let xhr = new XMLHttpRequest();
-  xhr.open('POST', 'data.php'); // 'index.php' contains the php script described above
+  xhr.open('POST', 'db/data.php'); // 'index.php' contains the php script described above
   xhr.setRequestHeader('Content-Type', 'application/json');
   xhr.send(JSON.stringify({filename: name, filedata: data}));
 }
