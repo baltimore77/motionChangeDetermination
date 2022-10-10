@@ -158,7 +158,7 @@ const rdk_procedure = {
     timeline: [rdk_trial, response_trial],
     timeline_variables: rdk_trials,
     randomize_order: true,
-    repetitions: 1,
+    repetitions: 12,
 };
 
 let save_data = {
