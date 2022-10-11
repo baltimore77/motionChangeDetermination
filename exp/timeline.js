@@ -109,9 +109,10 @@ const instructions0 = {
     show_clickable_nav: true,
     pages: [
         "Hello and thank you for taking part in our experiment!",
-        "In this task, you will see a bunch of dots flow across a portion of the screen. Many of the dots move together in the same direction,<br /><br />while the remaining dots move randomly. Your task is to indicate which way most of the dots appear to be moving.<br />",
+        "In this task, you will see a bunch of dots flow across a portion of the screen.<br /><br />Many of the dots move together in the same direction, while the remaining dots move randomly.<br /><br />Your task is to indicate which way most of the dots appear to be moving.<br />",
         "You will use your mouse to indicate the direction towards which you think the dots are flowing.<br />",
-        "After the dots disappear, you will see an empty circle with a red dot at the center.<br /><br />First click on the central red dot, then use your mouse to adjust the red line until it matches the direction the dots were flowing.<br />",
+        "After the dots disappear, you will see an empty circle with a red dot at the center.<br /><br />First click on the central red dot, then " + "<p style='color:red';>use your mouse to adjust the red line until it matches the direction the dots were flowing.</p />" + "Once you have moved the line so it matches the direction of motion, click the mouse to make your response.<br />",
+        "During the practice portion, after you click to indicate the direction the dots were moving " + "<p style='color:green';>we will draw a green line to indicate the correct response.</p />" + "<br />",
         "On some trials the dots will suddenly change direction at some point during the trial.<br /><br />Your task is to determine which direction they are flowing at the <strong>end</strong> of the trial.<br />",
         "The following is practice:",
     ],
