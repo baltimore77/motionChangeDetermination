@@ -83,12 +83,12 @@ const response_trial = {
         return jsPsych.data.get().last(1).values()[0]
             .coherent_direction_after_change;
     },
-    on_finish: function (data) {
-        saveData(
-            "mcd_" + workerId,
-            jsPsych.data.get().filter({ trial_type: "angle-response" }).csv()
-        );
-    },
+    // on_finish: function (data) {
+    //     saveData(
+    //         "mcd_" + workerId,
+    //         jsPsych.data.get().filter({ trial_type: "angle-response" }).csv()
+    //     );
+    // },
 };
 
 const instructions0 = {
@@ -181,7 +181,7 @@ let save_data = {
     choices: jsPsych.NO_KEYS,
     trial_duration: 5000,
     on_finish: function () {
-        saveData("mcd_" + workerId, jsPsych.data.get().csv());
+        saveData("mcd_" + workerId, jsPsych.data.get().filter({ trial_type: "angle-response" }).csv());
         document.getElementById("unload").onbeforeunload = "";
         $(document).ready(function () {
             $("body").addClass("showCursor"); // returns cursor functionality
