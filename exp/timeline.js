@@ -83,6 +83,19 @@ const response_trial = {
         return jsPsych.data.get().last(1).values()[0]
             .coherent_direction_after_change;
     },
+    data: jsPsych.timelineVariable("data"),
+    on_finish: function(data) {
+        'use strict';
+        data.subjectkey = GUID;
+        data.src_subject_id = subjectID;
+        data.site = siteNumber;
+        data.interview_date = today;
+        data.interview_age = ageAtAssessment;
+        data.sex = sexAtBirth;
+        data.handedness = handedness;
+        data.index = trialIterator;
+        trialIterator++;
+    },
     // on_finish: function (data) {
     //     saveData(
     //         "mcd_" + workerId,
