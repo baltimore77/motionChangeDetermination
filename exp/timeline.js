@@ -109,10 +109,10 @@ const instructions0 = {
     show_clickable_nav: true,
     pages: [
         "Hello and thank you for taking part in our experiment!",
-        "In this experiment you will see dots flowing across the screen.<br /><br />You will use your mouse to indicate the direction towards which you think the dots are flowing.<br />",
-        "Dots will briefly appear. Try to guess which direction most of the dots are flowing.<br /><br />After they disappear use your mouse to adjust the red line until it matches the direction the dots were flowing.<br />",
-        "On some trials the dots will suddenly change direction halfway through the trial. <br /><br />Your task is to determine which direction they are flowing at the <strong>end</strong> of the trial.<br />",
-        "Remember, if you notice the dots change direction, please indicate the direction they change to, <strong>not</strong> their original direction.",
+        "In this task, you will see a bunch of dots flow across a portion of the screen. Many of the dots move together in the same direction,<br /><br />while the remaining dots move randomly. Your task is to indicate which way most of the dots appear to be moving.<br />",
+        "You will use your mouse to indicate the direction towards which you think the dots are flowing.<br />",
+        "After the dots disappear, you will see an empty circle with a red dot at the center.<br /><br />First click on the central red dot, then use your mouse to adjust the red line until it matches the direction the dots were flowing.<br />",
+        "On some trials the dots will suddenly change direction at some point during the trial.<br /><br />Your task is to determine which direction they are flowing at the <strong>end</strong> of the trial.<br />",
         "The following is practice:",
     ],
 };
@@ -140,10 +140,7 @@ const instructions1 = {
     type: "instructions",
     show_clickable_nav: true,
     pages: [
-        "That completes the practice.",
-        "The main task will begin momentarily, and will last around six or seven minutes.",
-        "During the task you will not receive feedback on how accurately you are responding.",
-        "Please try to click as accurately as possible the direction you believe the dots were flowing.",
+        "That completes the practice.<br /><br />The main task will begin momentarily, and should take up to ten minutes.<br /><br />During the task you will not receive feedback on how accurately you are responding.<br /><br />Please try to indicate as accurately as possible the direction you believe the dots were flowing at the <strong>end</strong> of the trial.<br />",
         "Click 'Next' when you are ready to begin.",
     ],
 };
