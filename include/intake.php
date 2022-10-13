@@ -58,7 +58,7 @@
         <label for="right">Right</label>
         <input type="radio" name="handedness" id="rightHanded" value="rightHanded">
 
-        
+
 
         <!-- <span class="checkmark"></span> -->
 

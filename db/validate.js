@@ -87,11 +87,11 @@ function validateHandedness() {
     }
 }
 
-function validateBrightness() {
-    if (document.getElementById("brightness").checked === false) {
-        alert("Please confirm your screen brightness is 100%");
-    }
-}
+// function validateBrightness() {
+//     if (document.getElementById("brightness").checked === false) {
+//         alert("Please confirm your screen brightness is 100%");
+//     }
+// }
 
 // function validateHeadphones() {
 //     if (document.getElementById("headphones").checked === false) {
@@ -201,16 +201,16 @@ function submitIntake() {
             antihandedness = "right";
         }
 
-        if (
-            document.getElementById("brightness").checked ===
-            false /*|| document.getElementById("headphones").checked === false || document.getElementById("volume").checked === false*/
-        ) {
-            // do nothing
-        } else {
-            // alert("your subjectid is " + subjectID);
-            // workerId = parseInt(subjectID);
-            validateIntake();
-        }
+        // if (
+        //     document.getElementById("brightness").checked ===
+        //     false /*|| document.getElementById("headphones").checked === false || document.getElementById("volume").checked === false*/
+        // ) {
+        //     // do nothing
+        // } else {
+        // alert("your subjectid is " + subjectID);
+        // workerId = parseInt(subjectID);
+        validateIntake();
+        // }
     } else {
         alert(
             "Your screen resolution is too low to view the experiment correctly.\nYour experimenter can help you increase your screen resolution.\nThank you!"
