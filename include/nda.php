@@ -8,18 +8,19 @@
   <form>
     <!-- <label for="handedness"><b>Are you right or left handed?</b></label> -->
     <p style="color:black"><b>Which is your dominant hand?</b></p>
+    <label for="left">Left</label>
+        <input type="radio" name="handedness" id="leftHanded" value="leftHanded">
         <label for="right">Right</label>
         <input type="radio" name="handedness" id="rightHanded" value="rightHanded">
 
-        <label for="left">Left</label>
-        <input type="radio" name="handedness" id="leftHanded" value="leftHanded">
+
 
         <!-- <span class="checkmark"></span> -->
 
-    <p style="color:black"><b>Before proceeding to the task, please confirm the following are true:</b></p>
+    <!-- <p style="color:black"><b>Before proceeding to the task, please confirm the following are true:</b></p>
     <label class="container">Screen brightness is up to 100% &nbsp&nbsp&nbsp&nbsp  
     <input type="checkbox" name="brightness" id="brightness" value="1"/>
-    </label>
+    </label> -->
     <br>
     <!-- <br>
     <label class="container">Browser window is in full screen &nbsp&nbsp&nbsp&nbsp&nbsp
