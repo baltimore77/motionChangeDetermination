@@ -48,7 +48,7 @@
   </label>
 </form>
 <br> -->
-<button id="submitButton" class="btn btn-primary btn-lg loadMain" onclick="validateHandedness(), validateBrightness(), /*validateFullscreen(),*/ /*validateHeadphones(), validateVolume(),*/ submitIntake()" type="button">SUBMIT</button>
+<button id="submitButton" class="btn btn-primary btn-lg loadMain" onclick="validateHandedness(), /*validateBrightness(), validateFullscreen(), /*validateHeadphones(), validateVolume(),*/ submitIntake()" type="button">SUBMIT</button>
 </div>
 <div id="validation" style="display: none">
     <br>
