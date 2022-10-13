@@ -84,10 +84,11 @@ const response_trial = {
             .coherent_direction_after_change;
     },
     data: jsPsych.timelineVariable("data"),
-    on_finish: function(data) {
-        'use strict';
+    on_finish: function (data) {
+        "use strict";
         data.subjectkey = GUID;
-        data.src_subject_id = subjectID;
+        // data.src_subject_id = subjectID;
+        data.src_subject_id = workerId;
         data.site = siteNumber;
         data.interview_date = today;
         data.interview_age = ageAtAssessment;
@@ -109,11 +110,13 @@ const instructions0 = {
     show_clickable_nav: true,
     pages: [
         "Hello and thank you for taking part in our experiment!",
-        "In this task, you will see a bunch of dots flow across a portion of the screen.<br /><br />Many of the dots move together in the same direction, while the remaining dots move randomly.<br /><br />Your task is to indicate which way most of the dots appear to be moving.<br />",
-        "You will use your mouse to indicate the direction towards which you think the dots are flowing.<br />",
-        "After the dots disappear, you will see an empty circle with a red dot at the center.<br /><br />First click on the central red dot, then " + "<p style='color:red';>use your mouse to adjust the red line until it matches the direction the dots were flowing.</p />" + "Once you have moved the line so it matches the direction of motion, click the mouse to make your response.<br />",
-        "During the practice portion, after you click to indicate the direction the dots were moving " + "<p style='color:green';>we will draw a green line to indicate the correct response.</p />" + "<br />",
-        "On some trials the dots will suddenly change direction at some point during the trial.<br /><br />Your task is to determine which direction they are flowing at the <strong>end</strong> of the trial.<br />",
+        "In this task, you will see a bunch of <i>dots</i> flow across a portion of the screen.<br /><br />Many of the dots <i>move together in the same direction</i>, while the remaining dots <i>move randomly</i>.<br /><br /><strong>Your task is to indicate which direction <u>most of the dots</u> appear to be moving</strong>.<br />",
+        "You will use your <b>mouse or trackpad</b> to indicate <i>the direction towards which you think the dots are flowing.<i/><br />",
+        "On each trial, after the dots disappear, you will see an empty circle with a <span style='color:red'>red dot</span> at the center.<br /><br />First click on the <span style='color:red'>red dot</span>, then use your mouse or trackpad to adjust the <span style='color:red'>red line</span><br />until it matches the <i>direction the dots were flowing</i>.</p />" +
+            "Once you have moved the <span style='color:red'>red line</span> so it matches the <i>direction of motion</i>, click the mouse or trackpad to make your response.<br />",
+        "During the practice, after you click to indicate the direction the dots were moving, " +
+            "<p>we will draw a <span style='color:green'>green line</span> to indicate the correct response.</p>",
+        "On some trials, the dots will <i>suddenly change direction</i> at some point during the trial.<br /><br /><strong>Your task is to determine which direction they are flowing at the <u>end</u> of the trial<strong>.<br />",
         "The following is practice:",
     ],
 };
@@ -141,8 +144,8 @@ const instructions1 = {
     type: "instructions",
     show_clickable_nav: true,
     pages: [
-        "That completes the practice.<br /><br />The main task will begin momentarily, and should take up to ten minutes.<br /><br />During the task you will not receive feedback on how accurately you are responding.<br /><br />Please try to indicate as accurately as possible the direction you believe the dots were flowing at the <strong>end</strong> of the trial.<br />",
-        "Click 'Next' when you are ready to begin.",
+        "That completes the practice.<br /><br />The main task will begin momentarily and should take up to <i>ten minutes</i>.<br /><br />After each of your responses, you will no longer see the the <span style='color:green'>green line</span> to give feedback on how accurately you are responding.<br /><br /><strong>Please try to indicate as accurately as possible the direction you believe the dots were flowing at the <u>end</iu> of the trial</strong>.<br />",
+        "Click 'Next' when you are ready to begin the main task.",
     ],
 };
 
@@ -192,7 +195,10 @@ let save_data = {
     choices: jsPsych.NO_KEYS,
     trial_duration: 5000,
     on_finish: function () {
-        saveData("mcd_" + workerId, jsPsych.data.get().filter({ trial_type: "angle-response" }).csv());
+        saveData(
+            "mcd_" + workerId,
+            jsPsych.data.get().filter({ trial_type: "angle-response" }).csv()
+        );
         document.getElementById("unload").onbeforeunload = "";
         $(document).ready(function () {
             $("body").addClass("showCursor"); // returns cursor functionality
