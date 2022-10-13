@@ -110,7 +110,7 @@ const instructions0 = {
     show_clickable_nav: true,
     pages: [
         "Hello and thank you for taking part in our experiment!",
-        "In this task, you will see a bunch of <i>dots</i> flow across a portion of the screen.<br /><br />Many of the dots <i>move together in the same direction</i>, while the remaining dots <i>move randomly</i>.<br /><br /><strong>Your task is to indicate which direction <u>most of the dots</u> appear to be moving</strong>.<br />",
+        "In this task, you will see a bunch of <i>dots</i> flow across a portion of the screen.<br /><br />Most of the dots <i>move together in the same direction</i>, while the remaining dots <i>move randomly</i>.<br /><br /><strong>Your task is to indicate which direction <u>most of the dots</u> appear to be moving</strong>.<br />",
         "You will use your <b>mouse or trackpad</b> to indicate <i>the direction towards which you think the dots are flowing.<i/><br />",
         "On each trial, after the dots disappear, you will see an empty circle with a <span style='color:red'>red dot</span> at the center.<br /><br />First click on the <span style='color:red'>red dot</span>, then use your mouse or trackpad to adjust the <span style='color:red'>red line</span><br />until it matches the <i>direction the dots were flowing</i>.</p />" +
             "Once you have moved the <span style='color:red'>red line</span> so it matches the <i>direction of motion</i>, click the mouse or trackpad to make your response.<br />",
