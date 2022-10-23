@@ -42,7 +42,7 @@ const rdk_trial = {
     trial_duration: jsPsych.timelineVariable("duration"),
     on_start: (trial) => {
         // var curr_progress_bar_value = jsPsych.getProgressBarCompleted();
-        jsPsych.setProgressBar(jsPsych.getProgressBarCompleted());
+        // jsPsych.setProgressBar(jsPsych.getProgressBarCompleted());
         const angle1 = Math.floor(Math.random() * 360);
         var angle2 = angle1;
         if (jsPsych.timelineVariable("change", true)) {
@@ -69,10 +69,10 @@ const rdk_trial = {
             coherent_direction_after_change: angle2,
         };
     },
-    on_finish: function() {
-        // set progress bar to 0 at the start of experiment
-        jsPsych.setProgressBar(jsPsych.getProgressBarCompleted());
-    }
+    // on_finish: function() {
+    //     set progress bar to 0 at the start of experiment
+    //     jsPsych.setProgressBar(jsPsych.getProgressBarCompleted());
+    // }
   };
 
 const response_trial = {
@@ -125,6 +125,7 @@ const instructions0 = {
         "On some trials, the dots will <i>suddenly change direction</i> at some point during the trial.<br /><br /><strong>Your task is to determine which direction they are flowing at the <u>end</u> of the trial<strong>.<br />",
         "The following is practice:",
     ],
+    message_progress_bar: '',
     on_start: function() {
         // set progress bar to 0 at the start of experiment
         jsPsych.setProgressBar(0);
@@ -151,6 +152,7 @@ const rdk_procedure_practice = {
     timeline: [rdk_trial, response_trial],
     timeline_variables: practice_trials,
     randomize_order: true,
+    message_progress_bar: '',
     on_finish: function() {
         // at the end of each trial, update the progress bar
         // based on the current value and the proportion to update for each trial
@@ -166,6 +168,10 @@ const instructions1 = {
         "That completes the practice.<br /><br />The main task will begin momentarily and should take up to <i>ten minutes</i>.<br /><br />After each of your responses, you will no longer see the the <span style='color:green'>green line</span> to give feedback on how accurately you are responding.<br /><br /><strong>Please try to indicate as accurately as possible the direction you believe the dots were flowing at the <u>end</iu> of the trial</strong>.<br />",
         "Click 'Next' when you are ready to begin the main task.",
     ],
+    on_start: function() {
+        // set progress bar to 0 at the start of experiment
+        jsPsych.setProgressBar(0);
+    }
 };
 
 const rdk_trials = [
@@ -187,11 +193,20 @@ const rdk_trials = [
     { block: "experiment", coherence: 0.35, change: false, duration: 1000 },
 ];
 
+sizePBar = rdk_trials.length
+var numRepetitions = 12
+
 const rdk_procedure = {
     timeline: [rdk_trial, response_trial],
     timeline_variables: rdk_trials,
     randomize_order: true,
-    repetitions: 12,
+    repetitions: numRepetitions,
+    on_finish: function() {
+        // at the end of each trial, update the progress bar
+        // based on the current value and the proportion to update for each trial
+        var curr_progress_bar_value = jsPsych.getProgressBarCompleted();
+        jsPsych.setProgressBar(curr_progress_bar_value + (1/(numRepetitions*sizePBar)));
+    }
 };
 
 let save_data = {

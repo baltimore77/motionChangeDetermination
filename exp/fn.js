@@ -4,7 +4,7 @@ function startExperiment() {
         timeline: timeline,
         show_progress_bar: true,
         auto_update_progress_bar: false,
-        // default_iti: delayList[0],
+        message_progress_bar: '',
     });
 }
 
