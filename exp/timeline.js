@@ -41,6 +41,8 @@ const rdk_trial = {
     number_of_dots: 45,
     trial_duration: jsPsych.timelineVariable("duration"),
     on_start: (trial) => {
+        // var curr_progress_bar_value = jsPsych.getProgressBarCompleted();
+        jsPsych.setProgressBar(jsPsych.getProgressBarCompleted());
         const angle1 = Math.floor(Math.random() * 360);
         var angle2 = angle1;
         if (jsPsych.timelineVariable("change", true)) {
@@ -67,7 +69,11 @@ const rdk_trial = {
             coherent_direction_after_change: angle2,
         };
     },
-};
+    on_finish: function() {
+        // set progress bar to 0 at the start of experiment
+        jsPsych.setProgressBar(jsPsych.getProgressBarCompleted());
+    }
+  };
 
 const response_trial = {
     type: "angle-response",
@@ -119,6 +125,10 @@ const instructions0 = {
         "On some trials, the dots will <i>suddenly change direction</i> at some point during the trial.<br /><br /><strong>Your task is to determine which direction they are flowing at the <u>end</u> of the trial<strong>.<br />",
         "The following is practice:",
     ],
+    on_start: function() {
+        // set progress bar to 0 at the start of experiment
+        jsPsych.setProgressBar(0);
+    }
 };
 
 const practice_trials = [
@@ -134,10 +144,19 @@ const practice_trials = [
     { block: "practice", coherence: 0.35, change: false, duration: 1000 },
 ];
 
+var sizePBar = practice_trials.length
+console.log(sizePBar)
+
 const rdk_procedure_practice = {
     timeline: [rdk_trial, response_trial],
     timeline_variables: practice_trials,
     randomize_order: true,
+    on_finish: function() {
+        // at the end of each trial, update the progress bar
+        // based on the current value and the proportion to update for each trial
+        var curr_progress_bar_value = jsPsych.getProgressBarCompleted();
+        jsPsych.setProgressBar(curr_progress_bar_value + (1/sizePBar));
+    }
 };
 
 const instructions1 = {
