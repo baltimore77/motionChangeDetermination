@@ -20,6 +20,7 @@ other half: 1000ms
 
 24 catch trials
 */
+const offsetForCountdownTimer = 48;
 
 const rdk_trial = {
     type: "rdk-change",
@@ -31,7 +32,7 @@ const rdk_trial = {
     aperture_color: "black",
     aperture_width: apertureWidth,
     aperture_height: apertureHeight,
-    aperture_center_y: screen.height / 2,
+    aperture_center_y: (screen.height-offsetForCountdownTimer) / 2,
     dot_color: "black",
     move_distance: 5,
     coherence: jsPsych.timelineVariable("coherence"),
@@ -41,8 +42,6 @@ const rdk_trial = {
     number_of_dots: 45,
     trial_duration: jsPsych.timelineVariable("duration"),
     on_start: (trial) => {
-        // var curr_progress_bar_value = jsPsych.getProgressBarCompleted();
-        // jsPsych.setProgressBar(jsPsych.getProgressBarCompleted());
         const angle1 = Math.floor(Math.random() * 360);
         var angle2 = angle1;
         if (jsPsych.timelineVariable("change", true)) {
@@ -69,10 +68,6 @@ const rdk_trial = {
             coherent_direction_after_change: angle2,
         };
     },
-    // on_finish: function() {
-    //     set progress bar to 0 at the start of experiment
-    //     jsPsych.setProgressBar(jsPsych.getProgressBarCompleted());
-    // }
   };
 
 const response_trial = {
@@ -82,6 +77,7 @@ const response_trial = {
     coherence: jsPsych.timelineVariable("coherence"),
     change: jsPsych.timelineVariable("change"),
     duration: jsPsych.timelineVariable("duration"),
+    post_trial_gap: jsPsych.timelineVariable("iti"),
     starting_angle: () => {
         return jsPsych.data.get().last(1).values()[0].coherent_direction;
     },
@@ -116,14 +112,152 @@ const instructions0 = {
     show_clickable_nav: true,
     pages: [
         "Hello and thank you for taking part in our experiment!",
-        "In this task, you will see a bunch of <i>dots</i> flow across a portion of the screen.<br /><br />Most of the dots <i>move together in the same direction</i>, while the remaining dots <i>move randomly</i>.<br /><br /><strong>Your task is to indicate which direction <u>most of the dots</u> appear to be moving</strong>.<br />",
-        "You will use your <b>mouse or trackpad</b> to indicate <i>the direction towards which you think the dots are flowing.<i/><br />",
-        "On each trial, after the dots disappear, you will see an empty circle with a <span style='color:red'>red dot</span> at the center.<br /><br />First click on the <span style='color:red'>red dot</span>, then use your mouse or trackpad to adjust the <span style='color:red'>red line</span><br />until it matches the <i>direction the dots were flowing</i>.</p />" +
-            "Once you have moved the <span style='color:red'>red line</span> so it matches the <i>direction of motion</i>, click the mouse or trackpad to make your response.<br />",
-        "During the practice, after you click to indicate the direction the dots were moving, " +
-            "<p>we will draw a <span style='color:green'>green line</span> to indicate the correct response.</p>",
-        "On some trials, the dots will <i>suddenly change direction</i> at some point during the trial.<br /><br /><strong>Your task is to determine which direction they are flowing at the <u>end</u> of the trial<strong>.<br />",
-        "The following is practice:",
+        "In this task, you will see a bunch of dots flow across a portion of the screen.<br /><br /><i>Sometimes all the dots flow in the same direction</i>:",
+    ],
+    message_progress_bar: '',
+    on_start: function() {
+        // set progress bar to 0 at the start of experiment
+        jsPsych.setProgressBar(0);
+    }
+};
+
+const demo0_variables = [
+    { block: "demo0", coherence: 1, change: false, duration: 5000 },
+];
+
+const demo0 = {
+    timeline: [rdk_trial],
+    timeline_variables: demo0_variables,
+    message_progress_bar: '',
+    on_start: function() {
+        // set progress bar to 0 at the start of experiment
+        jsPsych.setProgressBar(0);
+    }
+};
+
+const instructions0b = {
+    type: "instructions",
+    show_clickable_nav: true,
+    pages: [
+        "More often, only some of the dots will move in the same direction, while <i>the remaining dots move in many different directions</i>:",
+    ],
+    message_progress_bar: '',
+    on_start: function() {
+        // set progress bar to 0 at the start of experiment
+        jsPsych.setProgressBar(0);
+    }
+};
+
+const demo0b_variables = [
+    { block: "demo0", coherence: 0.35, change: false, duration: 5000 },
+];
+
+const demo0b = {
+    timeline: [rdk_trial],
+    timeline_variables: demo0b_variables,
+    message_progress_bar: '',
+    on_start: function() {
+        // set progress bar to 0 at the start of experiment
+        jsPsych.setProgressBar(0);
+    }
+};
+
+const instructions0c = {
+    type: "instructions",
+    show_clickable_nav: true,
+    pages: [
+        "On some trials, the dots will start moving in one direction, but then <i>suddenly change direction</i> at some point during the trial:",
+    ],
+    message_progress_bar: '',
+    on_start: function() {
+        // set progress bar to 0 at the start of experiment
+        jsPsych.setProgressBar(0);
+    }
+};
+
+const demo0c_variables = [
+    { block: "demo0c", coherence: 1, change: true, duration: 2000 },
+];
+
+const demo0c = {
+    timeline: [rdk_trial],
+    timeline_variables: demo0c_variables,
+    message_progress_bar: '',
+    on_start: function() {
+        // set progress bar to 0 at the start of experiment
+        jsPsych.setProgressBar(0);
+    }
+};
+
+const instructions0d = {
+    type: "instructions",
+    show_clickable_nav: true,
+    pages: [
+        "<strong>Your task is to indicate which direction <i>most of the dots</i> appear to be moving at the <u>end of the trial</u>.<br /><br />" +
+            "To do that, use your mouse or trackpad to indicate <i>the direction towards which you think the dots were flowing.<i/></strong>",
+        "On each trial, after the dots disappear, you will see a <span style='color:red'>red dot</span> at the center of the screen.<br /><br />When you click on the dot a <span style='color:red'>red line</span> will appear allowing you to indicate the direction of dot flow.",
+        "Use your mouse to:<br />" +
+            "1. click on the central <span style='color:red'>red dot</span>, then use your mouse or trackpad to<br />" +
+            "2. adjust the <span style='color:red'>red line</span>, and finally<br />" +
+            "3. click your mouse or trackpad a second time when you are satisfied that the <span style='color:red'>red line</span> matches the direction of flow:",
+    ],
+    message_progress_bar: '',
+    on_start: function() {
+        // set progress bar to 0 at the start of experiment
+        jsPsych.setProgressBar(0);
+    }
+};
+
+const demo0d_variables = [
+    { block: "demo0d", coherence: 1, change: true, duration: 1000 },
+];
+
+const demo0d = {
+    timeline: [rdk_trial, response_trial],
+    timeline_variables: demo0d_variables,
+    message_progress_bar: '',
+    on_start: function() {
+        // set progress bar to 0 at the start of experiment
+        jsPsych.setProgressBar(0);
+    }
+};
+
+const instructions0e = {
+    type: "instructions",
+    show_clickable_nav: true,
+    pages: [
+        "During the practice, after you click to indicate the direction the dots were moving," +
+            "<p>we will draw a <span style='color:lime'>green line</span> to indicate what the correct response should have been (the direction the dots were actually flowing).</p>",
+        "Here are some examples showing the <span style='color:lime'>green line</span>:",
+    ],
+    message_progress_bar: '',
+    on_start: function() {
+        // set progress bar to 0 at the start of experiment
+        jsPsych.setProgressBar(0);
+    }
+};
+
+const demo0e_variables = [
+    { block: "practice", coherence: 0.35, change: true, duration: 1000 },
+    { block: "practice", coherence: 0.35, change: false, duration: 500 },
+    { block: "practice", coherence: 0.35, change: true, duration: 1000 },
+];
+
+const demo0e = {
+    timeline: [rdk_trial, response_trial],
+    timeline_variables: demo0e_variables,
+    message_progress_bar: '',
+    on_start: function() {
+        // set progress bar to 0 at the start of experiment
+        jsPsych.setProgressBar(0);
+    }
+};
+
+const instructions0f = {
+    type: "instructions",
+    show_clickable_nav: true,
+    pages: [
+        "Very good. During the task, please respond as <i>precisely<i/> as possible!<br />The following is practice:",
     ],
     message_progress_bar: '',
     on_start: function() {
@@ -157,7 +291,7 @@ const rdk_procedure_practice = {
         // at the end of each trial, update the progress bar
         // based on the current value and the proportion to update for each trial
         var curr_progress_bar_value = jsPsych.getProgressBarCompleted();
-        jsPsych.setProgressBar(curr_progress_bar_value + (1/sizePBar));
+        jsPsych.setProgressBar(curr_progress_bar_value + (1/sizePBar)-1);
     }
 };
 
@@ -165,7 +299,7 @@ const instructions1 = {
     type: "instructions",
     show_clickable_nav: true,
     pages: [
-        "That completes the practice.<br /><br />The main task will begin momentarily and should take up to <i>ten minutes</i>.<br /><br />After each of your responses, you will no longer see the the <span style='color:green'>green line</span> to give feedback on how accurately you are responding.<br /><br /><strong>Please try to indicate as accurately as possible the direction you believe the dots were flowing at the <u>end</iu> of the trial</strong>.<br />",
+        "That completes the practice.<br /><br />The main task will begin momentarily and should take up to <i>ten minutes</i> to complete.<br /><br />Please try to complete it in a single session.<br /><br />During the real task, you will no longer see the the <span style='color:lime'>green line</span> to give feedback on how accurately you are responding.<br /><br /><strong>Please try to indicate as precisely as possible the direction you believe the dots were flowing at the <u>end</iu> of the trial</strong>.<br />",
         "Click 'Next' when you are ready to begin the main task.",
     ],
     on_start: function() {
@@ -205,7 +339,7 @@ const rdk_procedure = {
         // at the end of each trial, update the progress bar
         // based on the current value and the proportion to update for each trial
         var curr_progress_bar_value = jsPsych.getProgressBarCompleted();
-        jsPsych.setProgressBar(curr_progress_bar_value + (1/(numRepetitions*sizePBar)));
+        jsPsych.setProgressBar(curr_progress_bar_value + (1/(numRepetitions*sizePBar))-1);
     }
 };
 
