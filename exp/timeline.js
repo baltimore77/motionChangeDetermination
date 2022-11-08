@@ -97,7 +97,6 @@ const response_trial = {
         data.sex = sexAtBirth;
         data.handedness = handedness;
         data.index = trialIterator;
-        trialIterator++;
     },
     // on_finish: function (data) {
     //     saveData(
@@ -122,7 +121,7 @@ const instructions0 = {
 };
 
 const demo0_variables = [
-    { block: "demo0", coherence: 1, change: false, duration: 5000 },
+    { block: "demo0", coherence: 1, change: false, duration: 3000, iti: 0 },
 ];
 
 const demo0 = {
@@ -139,7 +138,7 @@ const instructions0b = {
     type: "instructions",
     show_clickable_nav: true,
     pages: [
-        "More often, only some of the dots will move in the same direction, while <i>the remaining dots move in many different directions</i>:",
+        "More often, many of the dots will move in the same direction, while <i>the remaining dots move in many different directions</i>:",
     ],
     message_progress_bar: '',
     on_start: function() {
@@ -149,7 +148,7 @@ const instructions0b = {
 };
 
 const demo0b_variables = [
-    { block: "demo0", coherence: 0.35, change: false, duration: 5000 },
+    { block: "demo0", coherence: 0.35, change: false, duration: 3000, iti: 0 },
 ];
 
 const demo0b = {
@@ -176,7 +175,7 @@ const instructions0c = {
 };
 
 const demo0c_variables = [
-    { block: "demo0c", coherence: 1, change: true, duration: 2000 },
+    { block: "demo0c", coherence: 1, change: true, duration: 2000, iti: 0 },
 ];
 
 const demo0c = {
@@ -209,7 +208,7 @@ const instructions0d = {
 };
 
 const demo0d_variables = [
-    { block: "demo0d", coherence: 1, change: true, duration: 1000 },
+    { block: "demo0d", coherence: 1, change: true, duration: 1000, iti: 0 },
 ];
 
 const demo0d = {
@@ -238,9 +237,9 @@ const instructions0e = {
 };
 
 const demo0e_variables = [
-    { block: "practice", coherence: 0.35, change: true, duration: 1000 },
-    { block: "practice", coherence: 0.35, change: false, duration: 500 },
-    { block: "practice", coherence: 0.35, change: true, duration: 1000 },
+    { block: "practice", coherence: 1, change: true, duration: 1000, iti: 500 },
+    { block: "practice", coherence: 0.35, change: false, duration: 500, iti: 500 },
+    { block: "practice", coherence: 0.35, change: true, duration: 1000, iti: 500 },
 ];
 
 const demo0e = {
@@ -257,7 +256,7 @@ const instructions0f = {
     type: "instructions",
     show_clickable_nav: true,
     pages: [
-        "Very good. During the task, please respond as <i>precisely<i/> as possible!<br />The following is practice:",
+        "Very good. During the task, please respond as <i>precisely</i> as possible!<br />The following is practice:",
     ],
     message_progress_bar: '',
     on_start: function() {
@@ -267,16 +266,16 @@ const instructions0f = {
 };
 
 const practice_trials = [
-    { block: "practice", coherence: 1, change: false, duration: 1000 },
-    { block: "practice", coherence: 1, change: false, duration: 500 },
-    { block: "practice", coherence: 0.35, change: true, duration: 1000 },
-    { block: "practice", coherence: 0.35, change: true, duration: 1000 },
-    { block: "practice", coherence: 0.35, change: true, duration: 1000 },
-    { block: "practice", coherence: 0.35, change: true, duration: 1000 },
-    { block: "practice", coherence: 0.35, change: false, duration: 500 },
-    { block: "practice", coherence: 0.35, change: false, duration: 500 },
-    { block: "practice", coherence: 0.35, change: false, duration: 1000 },
-    { block: "practice", coherence: 0.35, change: false, duration: 1000 },
+    { block: "practice", coherence: 1, change: false, duration: 1000, iti: 500 },
+    { block: "practice", coherence: 1, change: false, duration: 500, iti: 500 },
+    { block: "practice", coherence: 0.35, change: true, duration: 1000, iti: 500 },
+    { block: "practice", coherence: 0.35, change: true, duration: 1000, iti: 500 },
+    { block: "practice", coherence: 0.35, change: true, duration: 1000, iti: 500 },
+    { block: "practice", coherence: 0.35, change: true, duration: 1000, iti: 500 },
+    { block: "practice", coherence: 0.35, change: false, duration: 500, iti: 500 },
+    { block: "practice", coherence: 0.35, change: false, duration: 500, iti: 500 },
+    { block: "practice", coherence: 0.35, change: false, duration: 1000, iti: 500 },
+    { block: "practice", coherence: 0.35, change: false, duration: 1000, iti: 500 },
 ];
 
 var sizePBar = practice_trials.length
@@ -291,7 +290,7 @@ const rdk_procedure_practice = {
         // at the end of each trial, update the progress bar
         // based on the current value and the proportion to update for each trial
         var curr_progress_bar_value = jsPsych.getProgressBarCompleted();
-        jsPsych.setProgressBar(curr_progress_bar_value + (1/sizePBar)-1);
+        jsPsych.setProgressBar(curr_progress_bar_value + (1/sizePBar));
     }
 };
 
@@ -309,22 +308,22 @@ const instructions1 = {
 };
 
 const rdk_trials = [
-    { block: "experiment", coherence: 1, change: true, duration: 500 },
-    { block: "experiment", coherence: 1, change: true, duration: 500 },
-    { block: "experiment", coherence: 1, change: false, duration: 500 },
-    { block: "experiment", coherence: 1, change: false, duration: 1000 },
-    { block: "experiment", coherence: 0.35, change: true, duration: 500 },
-    { block: "experiment", coherence: 0.35, change: true, duration: 500 },
-    { block: "experiment", coherence: 0.35, change: false, duration: 500 },
-    { block: "experiment", coherence: 0.35, change: false, duration: 1000 },
-    { block: "experiment", coherence: 0.35, change: true, duration: 500 },
-    { block: "experiment", coherence: 0.35, change: true, duration: 500 },
-    { block: "experiment", coherence: 0.35, change: false, duration: 500 },
-    { block: "experiment", coherence: 0.35, change: false, duration: 1000 },
-    { block: "experiment", coherence: 0.35, change: true, duration: 500 },
-    { block: "experiment", coherence: 0.35, change: true, duration: 500 },
-    { block: "experiment", coherence: 0.35, change: false, duration: 500 },
-    { block: "experiment", coherence: 0.35, change: false, duration: 1000 },
+    { block: "experiment", coherence: 1, change: true, duration: 500, iti: 500 },
+    { block: "experiment", coherence: 1, change: true, duration: 500, iti: 500 },
+    { block: "experiment", coherence: 1, change: false, duration: 500, iti: 500 },
+    { block: "experiment", coherence: 1, change: false, duration: 1000, iti: 500 },
+    { block: "experiment", coherence: 0.35, change: true, duration: 500, iti: 500 },
+    { block: "experiment", coherence: 0.35, change: true, duration: 500, iti: 500 },
+    { block: "experiment", coherence: 0.35, change: false, duration: 500, iti: 500 },
+    { block: "experiment", coherence: 0.35, change: false, duration: 1000, iti: 500 },
+    { block: "experiment", coherence: 0.35, change: true, duration: 500, iti: 500 },
+    { block: "experiment", coherence: 0.35, change: true, duration: 500, iti: 500 },
+    { block: "experiment", coherence: 0.35, change: false, duration: 500, iti: 500 },
+    { block: "experiment", coherence: 0.35, change: false, duration: 1000, iti: 500 },
+    { block: "experiment", coherence: 0.35, change: true, duration: 500, iti: 500 },
+    { block: "experiment", coherence: 0.35, change: true, duration: 500, iti: 500 },
+    { block: "experiment", coherence: 0.35, change: false, duration: 500, iti: 500 },
+    { block: "experiment", coherence: 0.35, change: false, duration: 1000, iti: 500 },
 ];
 
 sizePBar = rdk_trials.length
@@ -335,11 +334,11 @@ const rdk_procedure = {
     timeline_variables: rdk_trials,
     randomize_order: true,
     repetitions: numRepetitions,
-    on_finish: function() {
+    on_data_update: function() {
         // at the end of each trial, update the progress bar
         // based on the current value and the proportion to update for each trial
         var curr_progress_bar_value = jsPsych.getProgressBarCompleted();
-        jsPsych.setProgressBar(curr_progress_bar_value + (1/(numRepetitions*sizePBar))-1);
+        jsPsych.setProgressBar(curr_progress_bar_value + (1/(numRepetitions*sizePBar)));
     }
 };
 
