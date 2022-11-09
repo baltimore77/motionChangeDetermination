@@ -334,7 +334,7 @@ const rdk_procedure = {
     timeline_variables: rdk_trials,
     randomize_order: true,
     repetitions: numRepetitions,
-    on_data_update: function() {
+    on_finish: function() {
         // at the end of each trial, update the progress bar
         // based on the current value and the proportion to update for each trial
         var curr_progress_bar_value = jsPsych.getProgressBarCompleted();
