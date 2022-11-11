@@ -177,9 +177,9 @@ const instructions0d = {
             "To do that, use your mouse or trackpad to indicate <i>the direction towards which you think the dots were flowing.<i/></strong>",
         "On each trial, after the dots disappear, you will see a <span style='color:red'>red dot</span> at the center of the screen.<br /><br />When you click on the dot a <span style='color:red'>red line</span> will appear allowing you to indicate the direction of dot flow.",
         "Use your mouse to:<br />" +
-            "1. click on the central <span style='color:red'>red dot</span>, then use your mouse or trackpad to<br />" +
-            "2. adjust the <span style='color:red'>red line</span>, and finally<br />" +
-            "3. click your mouse or trackpad a second time when you are satisfied that the <span style='color:red'>red line</span> matches the direction of flow:",
+            "1. <strong>click</strong> on the central <span style='color:red'>red dot</span>, then use your mouse or trackpad to<br />" +
+            "2. <strong>adjust</strong> the <span style='color:red'>red line</span>, and finally<br />" +
+            "3. <strong>click</strong> your mouse or trackpad a second time when you are satisfied that the <span style='color:red'>red line</span> matches the direction of flow:",
     ],
     message_progress_bar: '',
 };
