@@ -97,6 +97,10 @@ const response_trial = {
         data.sex = sexAtBirth;
         data.handedness = handedness;
         data.index = trialIterator;
+        // at the end of each trial, update the progress bar
+        // based on the current value and the proportion to update for each trial
+        var curr_progress_bar_value = jsPsych.getProgressBarCompleted();
+        jsPsych.setProgressBar(curr_progress_bar_value + (1/jsPsych.timelineVariable("sizePBar")));
     },
     // on_finish: function (data) {
     //     saveData(
@@ -106,6 +110,7 @@ const response_trial = {
     // },
 };
 
+
 const instructions0 = {
     type: "instructions",
     show_clickable_nav: true,
@@ -114,24 +119,16 @@ const instructions0 = {
         "In this task, you will see a bunch of dots flow across a portion of the screen.<br /><br /><i>Sometimes all the dots flow in the same direction</i>:",
     ],
     message_progress_bar: '',
-    on_start: function() {
-        // set progress bar to 0 at the start of experiment
-        jsPsych.setProgressBar(0);
-    }
 };
 
 const demo0_variables = [
-    { block: "demo0", coherence: 1, change: false, duration: 3000, iti: 0 },
+    { block: "demo0", coherence: 1, change: false, duration: 3000, iti: 0, sizePBar: 7 },
 ];
 
 const demo0 = {
     timeline: [rdk_trial],
     timeline_variables: demo0_variables,
     message_progress_bar: '',
-    on_start: function() {
-        // set progress bar to 0 at the start of experiment
-        jsPsych.setProgressBar(0);
-    }
 };
 
 const instructions0b = {
@@ -141,24 +138,16 @@ const instructions0b = {
         "More often, many of the dots will move in the same direction, while <i>the remaining dots move in many different directions</i>:",
     ],
     message_progress_bar: '',
-    on_start: function() {
-        // set progress bar to 0 at the start of experiment
-        jsPsych.setProgressBar(0);
-    }
 };
 
 const demo0b_variables = [
-    { block: "demo0", coherence: 0.35, change: false, duration: 3000, iti: 0 },
+    { block: "demo0", coherence: 0.35, change: false, duration: 3000, iti: 0, sizePBar: 7 },
 ];
 
 const demo0b = {
     timeline: [rdk_trial],
     timeline_variables: demo0b_variables,
     message_progress_bar: '',
-    on_start: function() {
-        // set progress bar to 0 at the start of experiment
-        jsPsych.setProgressBar(0);
-    }
 };
 
 const instructions0c = {
@@ -168,24 +157,16 @@ const instructions0c = {
         "On some trials, the dots will start moving in one direction, but then <i>suddenly change direction</i> at some point during the trial:",
     ],
     message_progress_bar: '',
-    on_start: function() {
-        // set progress bar to 0 at the start of experiment
-        jsPsych.setProgressBar(0);
-    }
 };
 
 const demo0c_variables = [
-    { block: "demo0c", coherence: 1, change: true, duration: 2000, iti: 0 },
+    { block: "demo0c", coherence: 1, change: true, duration: 2000, iti: 0, sizePBar: 7 },
 ];
 
 const demo0c = {
     timeline: [rdk_trial],
     timeline_variables: demo0c_variables,
     message_progress_bar: '',
-    on_start: function() {
-        // set progress bar to 0 at the start of experiment
-        jsPsych.setProgressBar(0);
-    }
 };
 
 const instructions0d = {
@@ -201,24 +182,16 @@ const instructions0d = {
             "3. click your mouse or trackpad a second time when you are satisfied that the <span style='color:red'>red line</span> matches the direction of flow:",
     ],
     message_progress_bar: '',
-    on_start: function() {
-        // set progress bar to 0 at the start of experiment
-        jsPsych.setProgressBar(0);
-    }
 };
 
 const demo0d_variables = [
-    { block: "demo0d", coherence: 1, change: true, duration: 1000, iti: 0 },
+    { block: "demo0d", coherence: 1, change: true, duration: 1000, iti: 0, sizePBar: 7 },
 ];
 
 const demo0d = {
     timeline: [rdk_trial, response_trial],
     timeline_variables: demo0d_variables,
     message_progress_bar: '',
-    on_start: function() {
-        // set progress bar to 0 at the start of experiment
-        jsPsych.setProgressBar(0);
-    }
 };
 
 const instructions0e = {
@@ -237,19 +210,19 @@ const instructions0e = {
 };
 
 const demo0e_variables = [
-    { block: "practice", coherence: 1, change: true, duration: 1000, iti: 500 },
-    { block: "practice", coherence: 0.35, change: false, duration: 500, iti: 500 },
-    { block: "practice", coherence: 0.35, change: true, duration: 1000, iti: 500 },
+    { block: "practice", coherence: 1, change: true, duration: 1000, iti: 500, sizePBar: 3 },
+    { block: "practice", coherence: 0.35, change: false, duration: 500, iti: 500, sizePBar: 3 },
+    { block: "practice", coherence: 0.35, change: true, duration: 1000, iti: 500, sizePBar: 3 },
 ];
 
 const demo0e = {
     timeline: [rdk_trial, response_trial],
     timeline_variables: demo0e_variables,
     message_progress_bar: '',
-    on_start: function() {
-        // set progress bar to 0 at the start of experiment
-        jsPsych.setProgressBar(0);
-    }
+    // on_start: function() {
+    //     // set progress bar to 0 at the start of experiment
+    //     jsPsych.setProgressBar(0);
+    // }
 };
 
 const instructions0f = {
@@ -265,33 +238,26 @@ const instructions0f = {
     }
 };
 
-const practice_trials = [
-    { block: "practice", coherence: 1, change: false, duration: 1000, iti: 500 },
-    { block: "practice", coherence: 1, change: false, duration: 500, iti: 500 },
-    { block: "practice", coherence: 0.35, change: true, duration: 1000, iti: 500 },
-    { block: "practice", coherence: 0.35, change: true, duration: 1000, iti: 500 },
-    { block: "practice", coherence: 0.35, change: true, duration: 1000, iti: 500 },
-    { block: "practice", coherence: 0.35, change: true, duration: 1000, iti: 500 },
-    { block: "practice", coherence: 0.35, change: false, duration: 500, iti: 500 },
-    { block: "practice", coherence: 0.35, change: false, duration: 500, iti: 500 },
-    { block: "practice", coherence: 0.35, change: false, duration: 1000, iti: 500 },
-    { block: "practice", coherence: 0.35, change: false, duration: 1000, iti: 500 },
-];
+const sizePBar_practice = 10 //10 individual trials within the practice_trials array
 
-var sizePBar = practice_trials.length
-console.log(sizePBar)
+const practice_trials = [
+    { block: "practice", coherence: 1, change: false, duration: 500, iti: 500, sizePBar: sizePBar_practice },
+    { block: "practice", coherence: 1, change: false, duration: 1000, iti: 500, sizePBar: sizePBar_practice },
+    { block: "practice", coherence: 0.35, change: true, duration: 1000, iti: 500, sizePBar: sizePBar_practice },
+    { block: "practice", coherence: 0.35, change: true, duration: 1000, iti: 500, sizePBar: sizePBar_practice },
+    { block: "practice", coherence: 0.35, change: true, duration: 1000, iti: 500, sizePBar: sizePBar_practice },
+    { block: "practice", coherence: 0.35, change: true, duration: 1000, iti: 500, sizePBar: sizePBar_practice },
+    { block: "practice", coherence: 0.35, change: false, duration: 500, iti: 500, sizePBar: sizePBar_practice },
+    { block: "practice", coherence: 0.35, change: false, duration: 500, iti: 500, sizePBar: sizePBar_practice },
+    { block: "practice", coherence: 0.35, change: false, duration: 1000, iti: 500, sizePBar: sizePBar_practice },
+    { block: "practice", coherence: 0.35, change: false, duration: 1000, iti: 500, sizePBar: sizePBar_practice },
+];
 
 const rdk_procedure_practice = {
     timeline: [rdk_trial, response_trial],
     timeline_variables: practice_trials,
     randomize_order: true,
     message_progress_bar: '',
-    on_finish: function() {
-        // at the end of each trial, update the progress bar
-        // based on the current value and the proportion to update for each trial
-        var curr_progress_bar_value = jsPsych.getProgressBarCompleted();
-        jsPsych.setProgressBar(curr_progress_bar_value + (1/sizePBar));
-    }
 };
 
 const instructions1 = {
@@ -307,39 +273,33 @@ const instructions1 = {
     }
 };
 
-const rdk_trials = [
-    { block: "experiment", coherence: 1, change: true, duration: 500, iti: 500 },
-    { block: "experiment", coherence: 1, change: true, duration: 500, iti: 500 },
-    { block: "experiment", coherence: 1, change: false, duration: 500, iti: 500 },
-    { block: "experiment", coherence: 1, change: false, duration: 1000, iti: 500 },
-    { block: "experiment", coherence: 0.35, change: true, duration: 500, iti: 500 },
-    { block: "experiment", coherence: 0.35, change: true, duration: 500, iti: 500 },
-    { block: "experiment", coherence: 0.35, change: false, duration: 500, iti: 500 },
-    { block: "experiment", coherence: 0.35, change: false, duration: 1000, iti: 500 },
-    { block: "experiment", coherence: 0.35, change: true, duration: 500, iti: 500 },
-    { block: "experiment", coherence: 0.35, change: true, duration: 500, iti: 500 },
-    { block: "experiment", coherence: 0.35, change: false, duration: 500, iti: 500 },
-    { block: "experiment", coherence: 0.35, change: false, duration: 1000, iti: 500 },
-    { block: "experiment", coherence: 0.35, change: true, duration: 500, iti: 500 },
-    { block: "experiment", coherence: 0.35, change: true, duration: 500, iti: 500 },
-    { block: "experiment", coherence: 0.35, change: false, duration: 500, iti: 500 },
-    { block: "experiment", coherence: 0.35, change: false, duration: 1000, iti: 500 },
-];
+const numRepetitions = 12 //12 blocks of the rdk_trials array
+const sizePBar_experiment = 16 //16 individual trials within the rdk_trials array
 
-sizePBar = rdk_trials.length
-var numRepetitions = 12
+const rdk_trials = [
+    { block: "experiment", coherence: 1, change: true, duration: 500, iti: 500, sizePBar: sizePBar_experiment*numRepetitions },
+    { block: "experiment", coherence: 1, change: true, duration: 500, iti: 500, sizePBar: sizePBar_experiment*numRepetitions },
+    { block: "experiment", coherence: 1, change: false, duration: 500, iti: 500, sizePBar: sizePBar_experiment*numRepetitions },
+    { block: "experiment", coherence: 1, change: false, duration: 1000, iti: 500, sizePBar: sizePBar_experiment*numRepetitions },
+    { block: "experiment", coherence: 0.35, change: true, duration: 500, iti: 500, sizePBar: sizePBar_experiment*numRepetitions },
+    { block: "experiment", coherence: 0.35, change: true, duration: 500, iti: 500, sizePBar: sizePBar_experiment*numRepetitions },
+    { block: "experiment", coherence: 0.35, change: false, duration: 500, iti: 500, sizePBar: sizePBar_experiment*numRepetitions },
+    { block: "experiment", coherence: 0.35, change: false, duration: 1000, iti: 500, sizePBar: sizePBar_experiment*numRepetitions },
+    { block: "experiment", coherence: 0.35, change: true, duration: 500, iti: 500, sizePBar: sizePBar_experiment*numRepetitions },
+    { block: "experiment", coherence: 0.35, change: true, duration: 500, iti: 500, sizePBar: sizePBar_experiment*numRepetitions },
+    { block: "experiment", coherence: 0.35, change: false, duration: 500, iti: 500, sizePBar: sizePBar_experiment*numRepetitions },
+    { block: "experiment", coherence: 0.35, change: false, duration: 1000, iti: 500, sizePBar: sizePBar_experiment*numRepetitions },
+    { block: "experiment", coherence: 0.35, change: true, duration: 500, iti: 500, sizePBar: sizePBar_experiment*numRepetitions },
+    { block: "experiment", coherence: 0.35, change: true, duration: 500, iti: 500, sizePBar: sizePBar_experiment*numRepetitions },
+    { block: "experiment", coherence: 0.35, change: false, duration: 500, iti: 500, sizePBar: sizePBar_experiment*numRepetitions },
+    { block: "experiment", coherence: 0.35, change: false, duration: 1000, iti: 500, sizePBar: sizePBar_experiment*numRepetitions },
+];
 
 const rdk_procedure = {
     timeline: [rdk_trial, response_trial],
     timeline_variables: rdk_trials,
     randomize_order: true,
     repetitions: numRepetitions,
-    on_finish: function() {
-        // at the end of each trial, update the progress bar
-        // based on the current value and the proportion to update for each trial
-        var curr_progress_bar_value = jsPsych.getProgressBarCompleted();
-        jsPsych.setProgressBar(curr_progress_bar_value + (1/(numRepetitions*sizePBar)));
-    }
 };
 
 let save_data = {
