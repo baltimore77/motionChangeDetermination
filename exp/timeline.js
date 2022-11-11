@@ -119,16 +119,24 @@ const instructions0 = {
         "In this task, you will see a bunch of dots flow across a portion of the screen.<br /><br /><i>Sometimes all the dots flow in the same direction</i>:",
     ],
     message_progress_bar: '',
+    on_start: function() {
+        // set progress bar to 0 at the start of experiment
+        jsPsych.setProgressBar(1);
+    }
 };
 
 const demo0_variables = [
-    { block: "demo0", coherence: 1, change: false, duration: 3000, iti: 0, sizePBar: 7 },
+    { block: "demo0", coherence: 1, change: false, duration: 3000, iti: 0, sizePBar: 0 },
 ];
 
 const demo0 = {
     timeline: [rdk_trial],
     timeline_variables: demo0_variables,
     message_progress_bar: '',
+    on_start: function() {
+        // set progress bar to 0 at the start of experiment
+        jsPsych.setProgressBar(1);
+    }
 };
 
 const instructions0b = {
@@ -138,16 +146,24 @@ const instructions0b = {
         "More often, many of the dots will move in the same direction, while <i>the remaining dots move in many different directions</i>:",
     ],
     message_progress_bar: '',
+    on_start: function() {
+        // set progress bar to 0 at the start of experiment
+        jsPsych.setProgressBar(1);
+    }
 };
 
 const demo0b_variables = [
-    { block: "demo0", coherence: 0.35, change: false, duration: 3000, iti: 0, sizePBar: 7 },
+    { block: "demo0", coherence: 0.35, change: false, duration: 3000, iti: 0, sizePBar: 0 },
 ];
 
 const demo0b = {
     timeline: [rdk_trial],
     timeline_variables: demo0b_variables,
     message_progress_bar: '',
+    on_start: function() {
+        // set progress bar to 0 at the start of experiment
+        jsPsych.setProgressBar(1);
+    }
 };
 
 const instructions0c = {
@@ -157,16 +173,24 @@ const instructions0c = {
         "On some trials, the dots will start moving in one direction, but then <i>suddenly change direction</i> at some point during the trial:",
     ],
     message_progress_bar: '',
+    on_start: function() {
+        // set progress bar to 0 at the start of experiment
+        jsPsych.setProgressBar(1);
+    }
 };
 
 const demo0c_variables = [
-    { block: "demo0c", coherence: 1, change: true, duration: 2000, iti: 0, sizePBar: 7 },
+    { block: "demo0c", coherence: 1, change: true, duration: 2000, iti: 0, sizePBar: 0 },
 ];
 
 const demo0c = {
     timeline: [rdk_trial],
     timeline_variables: demo0c_variables,
     message_progress_bar: '',
+    on_start: function() {
+        // set progress bar to 0 at the start of experiment
+        jsPsych.setProgressBar(1);
+    }
 };
 
 const instructions0d = {
@@ -182,16 +206,24 @@ const instructions0d = {
             "3. <strong>click</strong> your mouse or trackpad a second time when you are satisfied that the <span style='color:red'>red line</span> matches the direction of flow:",
     ],
     message_progress_bar: '',
+    on_start: function() {
+        // set progress bar to 0 at the start of experiment
+        jsPsych.setProgressBar(1);
+    }
 };
 
 const demo0d_variables = [
-    { block: "demo0d", coherence: 1, change: true, duration: 1000, iti: 0, sizePBar: 7 },
+    { block: "demo0d", coherence: 1, change: true, duration: 1000, iti: 0, sizePBar: 0 },
 ];
 
 const demo0d = {
     timeline: [rdk_trial, response_trial],
     timeline_variables: demo0d_variables,
     message_progress_bar: '',
+    on_start: function() {
+        // set progress bar to 0 at the start of experiment
+        jsPsych.setProgressBar(1);
+    }
 };
 
 const instructions0e = {
@@ -205,24 +237,24 @@ const instructions0e = {
     message_progress_bar: '',
     on_start: function() {
         // set progress bar to 0 at the start of experiment
-        jsPsych.setProgressBar(0);
+        jsPsych.setProgressBar(1);
     }
 };
 
 const demo0e_variables = [
-    { block: "practice", coherence: 1, change: true, duration: 1000, iti: 500, sizePBar: 3 },
-    { block: "practice", coherence: 0.35, change: false, duration: 500, iti: 500, sizePBar: 3 },
-    { block: "practice", coherence: 0.35, change: true, duration: 1000, iti: 500, sizePBar: 3 },
+    { block: "practice", coherence: 1, change: true, duration: 1000, iti: 500, sizePBar: 0 },
+    { block: "practice", coherence: 0.35, change: false, duration: 500, iti: 500, sizePBar: 0 },
+    { block: "practice", coherence: 0.35, change: true, duration: 1000, iti: 500, sizePBar: 0 },
 ];
 
 const demo0e = {
     timeline: [rdk_trial, response_trial],
     timeline_variables: demo0e_variables,
     message_progress_bar: '',
-    // on_start: function() {
-    //     // set progress bar to 0 at the start of experiment
-    //     jsPsych.setProgressBar(0);
-    // }
+    on_start: function() {
+        // set progress bar to 0 at the start of experiment
+        jsPsych.setProgressBar(1);
+    }
 };
 
 const instructions0f = {
@@ -234,7 +266,7 @@ const instructions0f = {
     message_progress_bar: '',
     on_start: function() {
         // set progress bar to 0 at the start of experiment
-        jsPsych.setProgressBar(0);
+        jsPsych.setProgressBar(1);
     }
 };
 
