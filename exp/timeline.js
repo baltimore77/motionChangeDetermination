@@ -20,20 +20,20 @@ other half: 1000ms
 
 24 catch trials
 */
-const offsetForCountdownTimer = 48;
+const offsetForCountdownTimer = 40; //48
 
 const rdk_trial = {
     type: "rdk-change",
     correct_choice: "NONE",
     border: true,
-    border_thickness: 1,
-    border_color: "black",
-    background_color: "white",
+    border_thickness: 1000,
+    border_color: "gray",
+    background_color: "black",
     aperture_color: "black",
     aperture_width: apertureWidth,
     aperture_height: apertureHeight,
     aperture_center_y: (screen.height-offsetForCountdownTimer) / 2,
-    dot_color: "black",
+    dot_color: "white",
     move_distance: 5,
     coherence: jsPsych.timelineVariable("coherence"),
     coherence_duration: coherenceDuration,
@@ -72,6 +72,7 @@ const rdk_trial = {
 
 const response_trial = {
     type: "angle-response",
+    border_color: "gray",
     diameter: apertureWidth,
     block: jsPsych.timelineVariable("block"),
     coherence: jsPsych.timelineVariable("coherence"),

@@ -13,6 +13,10 @@ jsPsych.plugins["angle-response"] = (function () {
     name: "angle-response",
     description: "",
     parameters: {
+      screen_background: {
+        type: jsPsych.plugins.parameterType.STRING,
+        default: "gray",
+      },
       diameter: {
         type: jsPsych.plugins.parameterType.INT,
         default: 200,
@@ -76,11 +80,16 @@ jsPsych.plugins["angle-response"] = (function () {
 
     let html = `
       <style>
+      p {
+        color: gray,
+        background-color: gray;
+      }
       #angle-response-border {
         width: ${trial.diameter}px;
         height: ${trial.diameter}px;
         border-radius: 50%;
         border: 2px solid ${trial.border_color};
+        background-color: black;
         position: relative;
       }
       .angle-response-line {

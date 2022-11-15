@@ -427,7 +427,7 @@ jsPsych.plugins["rdk-change"] = (function() {
 		canvas.style.padding = 0;
 		// use absolute positioning in top left corner to get rid of scroll bars
 		canvas.style.position = 'absolute';
-		canvas.style.top = 50;
+		canvas.style.top = 40; //50
 		canvas.style.left = 0;
 
 		//Get the context of the canvas so that it can be painted on.
@@ -435,7 +435,7 @@ jsPsych.plugins["rdk-change"] = (function() {
 
 		//Declare variables for width and height, and also set the canvas width and height to the window width and height
 		var canvasWidth = canvas.width = window.innerWidth;
-		var canvasHeight = canvas.height = window.innerHeight-100;
+		var canvasHeight = canvas.height = window.innerHeight-80; //-100
 
 		//Set the canvas background color
 		canvas.style.backgroundColor = backgroundColor;
