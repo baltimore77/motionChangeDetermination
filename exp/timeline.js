@@ -20,7 +20,7 @@ other half: 1000ms
 
 24 catch trials
 */
-const offsetForCountdownTimer = 40; //48
+const offsetForCountdownTimer = 36; //48
 
 const rdk_trial = {
     type: "rdk-change",
@@ -32,7 +32,7 @@ const rdk_trial = {
     aperture_color: "black",
     aperture_width: apertureWidth,
     aperture_height: apertureHeight,
-    aperture_center_y: (screen.height-offsetForCountdownTimer) / 2,
+    aperture_center_y: -7 + screen.height / 2, //-7 accounts for the screen height taken up by addition of the coutdown timer
     dot_color: "white",
     move_distance: 5,
     coherence: jsPsych.timelineVariable("coherence"),
