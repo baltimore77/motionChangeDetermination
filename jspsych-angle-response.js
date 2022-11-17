@@ -75,8 +75,6 @@ jsPsych.plugins["angle-response"] = (function () {
     let response = null;
 
     let html = `
-      <body style="background-color:#1c87c9;">
-      </body style>
       <style>
       body {
         background-color: gray;

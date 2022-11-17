@@ -121,8 +121,8 @@ const instructions0 = {
     ],
     message_progress_bar: '',
     on_start: function() {
-        // set progress bar to 0 at the start of experiment
-        jsPsych.setProgressBar(1);
+      document.body.style.backgroundColor = "gray"
+      jsPsych.setProgressBar(1);
     }
 };
 
