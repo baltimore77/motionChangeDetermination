@@ -6,6 +6,7 @@ const apertureWidth = 300;
 const apertureHeight = apertureWidth;
 const coherenceDuration = 500;
 const changeDegrees = 90;
+const forceFullScreen = true;
 
 /*
 

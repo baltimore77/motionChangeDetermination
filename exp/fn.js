@@ -5,6 +5,16 @@ function startExperiment() {
         show_progress_bar: true,
         auto_update_progress_bar: false,
         message_progress_bar: '',
+        on_interaction_data_update: function (data) {
+          console.log(JSON.stringify(data));
+          if (forceFullScreen) {
+            if (JSON.stringify(data).includes('fullscreenexit')) {
+              // if (confirm("Oops, you may have switched tabs, clicked outside of the browser, or exited full screen mode. When you are ready, click Okay to resume the task in full screen mode.")) {
+                openFullscreen();
+              // }
+            }
+          }
+        },
     });
 }
 
