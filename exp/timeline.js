@@ -90,7 +90,7 @@ const response_trial = {
     data: jsPsych.timelineVariable("data"),
     on_finish: function (data) {
         "use strict";
-        data.subjectkey = GUID;
+        data.subjectkey = guid;
         data.src_subject_id = subjectID;
         // data.src_subject_id = workerId;
         data.site = siteNumber;
@@ -100,6 +100,7 @@ const response_trial = {
         data.handedness = handedness;
         data.phenotype = groupStatus;
         data.index = trialIterator;
+        data.groupStatus = groupStatus;
         // at the end of each trial, update the progress bar
         // based on the current value and the proportion to update for each trial
         var curr_progress_bar_value = jsPsych.getProgressBarCompleted();

@@ -161,7 +161,7 @@ jsPsych.plugins["rdk-change"] = (function() {
 		    aperture_center_x: {
 		      type: jsPsych.plugins.parameterType.INT,
 		      pretty_name: "Aperture center X",
-		      default: window.innerWidth/2,
+		      default: screen.width/2,
 		      description: "The x-coordinate of the center of the aperture"
 		    },
 		    aperture_center_y: {
@@ -434,7 +434,7 @@ jsPsych.plugins["rdk-change"] = (function() {
 		var ctx = canvas.getContext("2d");
 
 		//Declare variables for width and height, and also set the canvas width and height to the window width and height
-		var canvasWidth = canvas.width = window.innerWidth;
+		var canvasWidth = canvas.width = window.outerWidth;
 		var canvasHeight = canvas.height = window.innerHeight-36;
 
 		//Set the canvas background color

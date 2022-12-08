@@ -45,22 +45,24 @@
     <script type="text/javascript" src="exp/var.js"></script>
     <script type="text/javascript">
       // declare NDA required variables
-      let GUID;
+      let guid;
       let subjectID;
       let sexAtBirth;
       let siteNumber;
       let ageAtAssessment;
+      let groupStatus;
       let feedbackLink;
 
       if (db_connection === false) {
-        GUID = "";
+        guid = "";
         subjectID = "";
         sexAtBirth = "";
         siteNumber = "";
         ageAtAssessment = "";
+        groupStatus = "";
         feedbackLink = "";
       } else if (db_connection === true) {
-        GUID = "<?php echo $subjectKey?>";
+        guid = "<?php echo $subjectKey?>";
         subjectID = "<?php echo $consortId?>";
         sexAtBirth = "<?php echo $sexAtBirth?>";
         siteNumber = "<?php echo $institutionAlias?>";

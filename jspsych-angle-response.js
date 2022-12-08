@@ -226,6 +226,7 @@ jsPsych.plugins["angle-response"] = (function () {
 
       // gather the data to store for the trial
       const trial_data = {
+//        guid: trial.guid,
         block: trial.block,
         coherence: trial.coherence,
         coherence_change: trial.change,

@@ -5,7 +5,8 @@ if (file_exists($_SERVER["DOCUMENT_ROOT"] . '/config.php')) {
   // echo$_SERVER["DOCUMENT_ROOT"] . '/config.php';
   $studyId = $_GET["studyId"];
   $candidateId = $_GET["candidateId"];
-
+  $guid = $_GET["guid"];
+  $groupStatus = $_GET["groupStatus"];
   $subjectKey = $_GET["subjectkey"];
   $consortId = $_GET["src_subject_id"];
   $sexAtBirth = $_GET["sex"];
@@ -23,4 +24,5 @@ if (file_exists($_SERVER["DOCUMENT_ROOT"] . '/config.php')) {
     $guid = '';
     $candidateId = '';
     $studyId = '';
+    $groupStatus = '';
   }

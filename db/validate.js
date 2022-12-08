@@ -162,7 +162,7 @@ function validateSite() {
 
 function validateGUID() {
     if (document.getElementById("guid").value !== "") {
-        GUID = guid.value;
+        guid = guid.value;
     } else {
         alert("Please enter the GUID provided to you by the researcher.");
     }
