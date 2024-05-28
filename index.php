@@ -27,16 +27,17 @@
   </head>
   <body id='unload' onbeforeunload="return areYouSure()">
     <?php
-      if ($db_connection_status == true) {
+      if (isset($_GET["src_subject_id"])) {
         include_once "include/nda.php";
         // echo'<br>';
         // echo'connected';
-      } else if ($db_connection_status == false) {
-       // include_once "include/intake.php";
-        include_once "include/nda.php";
+      } else if (isset($_GET["workerId"])) {
+        include_once "include/consent.php";
         // echo'<br>';
         // echo'not connected';
-      };
+      } else {
+        include_once "include/intake.php";
+      }
     ?>
   </body>
   <footer>
@@ -45,31 +46,24 @@
     <script type="text/javascript" src="exp/var.js"></script>
     <script type="text/javascript">
       // declare NDA required variables
-      let guid;
+      let GUID;
       let subjectID;
       let sexAtBirth;
       let siteNumber;
       let ageAtAssessment;
       let groupStatus;
+      let visit;
       let feedbackLink;
 
-      if (db_connection === false) {
-        guid = "";
-        subjectID = "";
-        sexAtBirth = "";
-        siteNumber = "";
-        ageAtAssessment = "";
-        groupStatus = "";
-        feedbackLink = "";
-      } else if (db_connection === true) {
-        guid = "<?php echo $subjectKey?>";
+      
+        GUID = "<?php echo $subjectKey?>";
         subjectID = "<?php echo $consortId?>";
         sexAtBirth = "<?php echo $sexAtBirth?>";
         siteNumber = "<?php echo $institutionAlias?>";
         ageAtAssessment = "<?php echo $ageInMonths?>";
         groupStatus = "<?php echo $groupStatus?>";
-        feedbackLink = "https://belieflab.yale.edu/omnibus/eCRFs/feedback/tasks/motion.php?candidateId=<?php echo $candidateId?>&studyId=<?php echo $studyId?>";
-      }
+        visit = "<?php echo $visit?>";
+        feedbackLink = "https://belieflab.yale.edu/omnibus/eCRFs/feedback/tasks/kamin.php?candidateId=<?php echo $candidateId?>&studyId=<?php echo $studyId?>";
     </script>
   </footer>
 </html>
