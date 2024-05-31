@@ -44,6 +44,9 @@
     <script type="text/javascript" src="exp/fn.js"></script>
     <script type="text/javascript" src="exp/conf.js"></script>
     <script type="text/javascript" src="exp/var.js"></script>
+    <!-- <script type="text/javascript"> -->
+    <!-- // let db_connection = false; -->
+    <!-- </script> -->
     <script type="text/javascript">
       // declare NDA required variables
       let GUID;
@@ -55,15 +58,13 @@
       let visit;
       let feedbackLink;
 
-      
-        GUID = "<?php echo $subjectKey?>";
-        subjectID = "<?php echo $consortId?>";
-        sexAtBirth = "<?php echo $sexAtBirth?>";
-        siteNumber = "<?php echo $institutionAlias?>";
-        ageAtAssessment = "<?php echo $ageInMonths?>";
-        groupStatus = "<?php echo $groupStatus?>";
-        visit = "<?php echo $visit?>";
-        feedbackLink = "https://belieflab.yale.edu/omnibus/eCRFs/feedback/tasks/kamin.php?candidateId=<?php echo $candidateId?>&studyId=<?php echo $studyId?>";
+      guid = "<?php echo $subjectKey?>";
+      subjectID = "<?php echo $consortId?>";
+      sexAtBirth = "<?php echo $sexAtBirth?>";
+      siteNumber = "<?php echo $institutionAlias?>";
+      ageAtAssessment = "<?php echo $ageInMonths?>";
+      phenotype = "<?php echo $groupStatus?>";
+      feedbackLink = "https://belieflab.yale.edu/omnibus/eCRFs/feedback/tasks/kamin.php?candidateId=<?php echo $candidateId?>&studyId=<?php echo $studyId?>";
     </script>
   </footer>
 </html>
